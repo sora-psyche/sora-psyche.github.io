@@ -48,6 +48,13 @@ a:hover { color: var(--teal); }
   font-size: 1.0625rem;
 }
 .brand span { color: var(--accent); }
+.brand img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 8px;
+  vertical-align: -0.5rem;
+  margin-right: 0.55rem;
+}
 .site-nav { display: flex; gap: 1.25rem; font-size: 0.9375rem; }
 .site-nav a { color: var(--ink-soft); text-decoration: none; }
 .site-nav a:hover { color: var(--accent); }

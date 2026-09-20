@@ -13,11 +13,49 @@
 <meta property="og:url" content="https://sorainfo.de/">
 <meta property="og:image" content="https://sorainfo.de/assets/img/f2-kopf.jpg">
 <link rel="stylesheet" href="/assets/style.css">
+<!-- Emblem Sora+ (auf allen Kanaelen dasselbe) -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://sorainfo.de/#organization",
+      "name": "Sora+ Psyche",
+      "url": "https://sorainfo.de/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sorainfo.de/icon-512.png",
+        "width": 512,
+        "height": 512,
+        "caption": "Sora+ Psyche"
+      },
+      "sameAs": [
+        "https://www.youtube.com/@SoraPlusDe",
+        "https://www.instagram.com/olhakazymiryk/",
+        "https://t.me/SoraPlusDe"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://sorainfo.de/#website",
+      "name": "Sora+ Psyche",
+      "url": "https://sorainfo.de/",
+      "inLanguage": "de",
+      "publisher": { "@id": "https://sorainfo.de/#organization" }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <header class="site-head">
   <div class="wrap">
-    <a class="brand" href="/">Sora<span>+</span> Psyche</a>
+    <a class="brand" href="/"><img src="/assets/img/emblem-64.png" alt="" width="32" height="32">Sora<span>+</span> Psyche</a>
     <nav class="site-nav">
       <a href="https://www.youtube.com/@SoraPlusDe">YouTube</a>
       <a href="https://www.instagram.com/olhakazymiryk/">Instagram</a>
