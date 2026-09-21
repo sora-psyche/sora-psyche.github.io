@@ -5,8 +5,16 @@
     <link>https://sorainfo.de/</link>
     <description>Psychologie ruhig erklärt: Texte zu innerer Unruhe, Nervensystem und Körperwahrnehmung. Kein Ersatz für Therapie.</description>
     <language>de-de</language>
-    <lastBuildDate>Mon, 21 Sep 2026 19:09:58 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 21 Sep 2026 21:15:08 +0000</lastBuildDate>
     <atom:link href="https://sorainfo.de/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Sora+ Psyche — Psychologie ruhig erklärt</title>
+      <link>https://sorainfo.de/</link>
+      <guid isPermaLink="true">https://sorainfo.de/</guid>
+      <description>Texte zu innerer Unruhe, Nervensystem und Körperwahrnehmung. Kein Ersatz für Therapie.</description>
+      <pubDate>Mon, 21 Sep 2026 00:00:00 +0000</pubDate>
+      <enclosure url="https://sorainfo.de/assets/img/f2-kopf.jpg" type="image/jpeg"/>
+    </item>
     <item>
       <title>Wandsätze: 33 Bilder, ein Satz auf der Wand</title>
       <link>https://sorainfo.de/wandsaetze.html</link>
@@ -40,12 +48,12 @@
       <enclosure url="https://sorainfo.de/assets/img/video-XDbS5aSW9ao.jpg" type="image/jpeg"/>
     </item>
     <item>
-      <title>Sora+ Psyche — Psychologie ruhig erklärt</title>
-      <link>https://sorainfo.de/</link>
-      <guid isPermaLink="true">https://sorainfo.de/</guid>
-      <description>Texte zu innerer Unruhe, Nervensystem und Körperwahrnehmung. Kein Ersatz für Therapie.</description>
-      <pubDate>Sun, 20 Sep 2026 00:00:00 +0000</pubDate>
-      <enclosure url="https://sorainfo.de/assets/img/f2-kopf.jpg" type="image/jpeg"/>
+      <title>Bindungsangst: Warum du dich zurückziehst, obwohl es gerade gut läuft</title>
+      <link>https://sorainfo.de/artikel/bindungsangst-naehe-und-rueckzug.html</link>
+      <guid isPermaLink="true">https://sorainfo.de/artikel/bindungsangst-naehe-und-rueckzug.html</guid>
+      <description>Nähe, die gut tut, und trotzdem der Drang zu gehen: was dahinter liegt, wenn ein Abend gut wird und du dich innerlich schon verabschiedest.</description>
+      <pubDate>Mon, 21 Sep 2026 00:00:00 +0000</pubDate>
+      <enclosure url="https://sorainfo.de/assets/img/bindungsangst-naehe-und-rueckzug.jpg" type="image/jpeg"/>
     </item>
     <item>
       <title>Angst vor der Zukunft: Der Körper ist schon wach</title>

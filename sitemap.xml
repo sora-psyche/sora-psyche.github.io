@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://sorainfo.de/</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-09-21</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
@@ -129,5 +129,10 @@
       <video:publication_date>2026-09-21</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
     </video:video>
+  </url>
+  <url>
+    <loc>https://sorainfo.de/artikel/bindungsangst-naehe-und-rueckzug.html</loc>
+    <lastmod>2026-09-21</lastmod>
+    <priority>0.8</priority>
   </url>
 </urlset>
