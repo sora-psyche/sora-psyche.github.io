@@ -115,5 +115,14 @@
     <loc>https://sorainfo.de/artikel/einsam-unter-menschen.html</loc>
     <lastmod>2026-09-21</lastmod>
     <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://sorainfo.de/assets/img/video-XDbS5aSW9ao.jpg</video:thumbnail_loc>
+      <video:title>Einsam unter Menschen: Warum ich mich allein fühle, obwohl ich nie allein bin | Sora+ Psyche</video:title>
+      <video:description>Der Zug ist voll, das Büro auch, und am Mittag sitzt du mit sieben Leuten am Tisch. Warum Einsamkeit nicht an der Zahl der Menschen liegt.</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/XDbS5aSW9ao</video:player_loc>
+      <video:duration>420</video:duration>
+      <video:publication_date>2026-09-21</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
   </url>
 </urlset>
