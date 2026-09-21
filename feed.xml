@@ -5,7 +5,7 @@
     <link>https://sorainfo.de/</link>
     <description>Psychologie ruhig erklärt: Texte zu innerer Unruhe, Nervensystem und Körperwahrnehmung. Kein Ersatz für Therapie.</description>
     <language>de-de</language>
-    <lastBuildDate>Mon, 21 Sep 2026 12:50:50 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 21 Sep 2026 13:10:35 +0000</lastBuildDate>
     <atom:link href="https://sorainfo.de/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>Angst um den Job: Was dein Körper zuerst macht</title>
@@ -14,6 +14,14 @@
       <description>Die Angst um den Job kommt sonntags und nachts. Warum der Körper zuerst reagiert und was den Tag wieder tragbar macht.</description>
       <pubDate>Mon, 21 Sep 2026 00:00:00 +0000</pubDate>
       <enclosure url="https://sorainfo.de/assets/img/video-2pz3LctYmps.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title>Müde trotz Schlaf: Was dein Körper vor dir weiß</title>
+      <link>https://sorainfo.de/artikel/muede-trotz-schlaf.html</link>
+      <guid isPermaLink="true">https://sorainfo.de/artikel/muede-trotz-schlaf.html</guid>
+      <description>Du schläfst, aber dein Körper reagiert schon vor dem Wachwerden. Was in dir früher anspringt als dein Gedanke – ruhig erklärt.</description>
+      <pubDate>Mon, 21 Sep 2026 00:00:00 +0000</pubDate>
+      <enclosure url="https://sorainfo.de/assets/img/f3-muede-trotz-schlaf.jpg" type="image/jpeg"/>
     </item>
     <item>
       <title>Einsam unter Menschen: Warum ich mich allein fühle</title>
@@ -46,14 +54,6 @@
       <description>Der Tag ist vorbei, der Körper bleibt wach. Eine ruhige Erklärung ohne Diagnosen.</description>
       <pubDate>Sun, 20 Sep 2026 00:00:00 +0000</pubDate>
       <enclosure url="https://sorainfo.de/assets/img/f2-kopf.jpg" type="image/jpeg"/>
-    </item>
-    <item>
-      <title>Müde trotz Schlaf: Was dein Körper vor dir weiß</title>
-      <link>https://sorainfo.de/artikel/muede-trotz-schlaf.html</link>
-      <guid isPermaLink="true">https://sorainfo.de/artikel/muede-trotz-schlaf.html</guid>
-      <description>Du schläfst, aber dein Körper reagiert schon vor dem Wachwerden. Was in dir früher anspringt als dein Gedanke – ruhig erklärt.</description>
-      <pubDate>Sun, 20 Sep 2026 00:00:00 +0000</pubDate>
-      <enclosure url="https://sorainfo.de/assets/img/f3-muede-trotz-schlaf.jpg" type="image/jpeg"/>
     </item>
     <item>
       <title>Dauerhaft müde: Warum Willenskraft nicht hilft</title>
