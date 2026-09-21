@@ -111,4 +111,9 @@
       <video:family_friendly>yes</video:family_friendly>
     </video:video>
   </url>
+  <url>
+    <loc>https://sorainfo.de/artikel/einsam-unter-menschen.html</loc>
+    <lastmod>2026-09-21</lastmod>
+    <priority>0.8</priority>
+  </url>
 </urlset>
