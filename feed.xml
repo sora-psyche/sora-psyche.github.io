@@ -5,8 +5,16 @@
     <link>https://sorainfo.de/</link>
     <description>Psychologie ruhig erklärt: Texte zu innerer Unruhe, Nervensystem und Körperwahrnehmung. Kein Ersatz für Therapie.</description>
     <language>de-de</language>
-    <lastBuildDate>Tue, 22 Sep 2026 06:38:04 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2026 13:05:14 +0000</lastBuildDate>
     <atom:link href="https://sorainfo.de/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Morgens erschöpft aufwachen: Was die Nacht nicht geschafft hat</title>
+      <link>https://sorainfo.de/artikel/morgens-erschoepft-aufwachen.html</link>
+      <guid isPermaLink="true">https://sorainfo.de/artikel/morgens-erschoepft-aufwachen.html</guid>
+      <description>Du wachst auf und bist schon müde. Warum Schlaf keine Frage von Stunden ist und was in der Nacht passiert.</description>
+      <pubDate>Tue, 22 Sep 2026 00:00:00 +0000</pubDate>
+      <enclosure url="https://sorainfo.de/assets/img/f3-morgens.jpg" type="image/jpeg"/>
+    </item>
     <item>
       <title>Warum er sich zurückzieht, wenn es ernst wird</title>
       <link>https://sorainfo.de/artikel/warum-zieht-er-sich-zurueck.html</link>
@@ -24,7 +32,7 @@
       <enclosure url="https://sorainfo.de/assets/img/f2-kopf.jpg" type="image/jpeg"/>
     </item>
     <item>
-      <title>Wandsätze: 82 Bilder, ein Satz auf der Wand</title>
+      <title>Wandsätze: 99 Bilder, ein Satz auf der Wand</title>
       <link>https://sorainfo.de/wandsaetze.html</link>
       <guid isPermaLink="true">https://sorainfo.de/wandsaetze.html</guid>
       <description>Eine Wand, ein Satz, ein goldener Punkt. Bilder der Reihe Wandsätze — Konzept und Texte von Sora+ Psyche.</description>
@@ -86,14 +94,6 @@
       <description>Nicht zu wenig Schlaf ist das Problem, sondern ein Mechanismus, der früher reagiert als du denkst. Warum mehr Disziplin nichts ändert.</description>
       <pubDate>Sun, 20 Sep 2026 00:00:00 +0000</pubDate>
       <enclosure url="https://sorainfo.de/assets/img/f3-willenskraft.jpg" type="image/jpeg"/>
-    </item>
-    <item>
-      <title>Morgens erschöpft aufwachen: Was die Nacht nicht geschafft hat</title>
-      <link>https://sorainfo.de/artikel/morgens-erschoepft-aufwachen.html</link>
-      <guid isPermaLink="true">https://sorainfo.de/artikel/morgens-erschoepft-aufwachen.html</guid>
-      <description>Du wachst auf und bist schon müde. Warum Schlaf keine Frage von Stunden ist und was in der Nacht passiert.</description>
-      <pubDate>Sun, 20 Sep 2026 00:00:00 +0000</pubDate>
-      <enclosure url="https://sorainfo.de/assets/img/f3-morgens.jpg" type="image/jpeg"/>
     </item>
     <item>
       <title>Keine Energie nach der Arbeit: Es liegt nicht an den Stunden</title>
