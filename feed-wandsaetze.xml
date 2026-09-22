@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sora+ Psyche: Wandsätze</title>
+    <link>https://sorainfo.de/wandsaetze.html</link>
+    <description>Ein Bild, ein Satz auf der Wand: deutsche Wandsätze aus der Reihe Sora+ (Psychologie ruhig erklärt, KI-generierte Bilder). Kein Ersatz für Therapie.</description>
+    <language>de-de</language>
+    <lastBuildDate>Tue, 22 Sep 2026 21:56:08 +0000</lastBuildDate>
+    <atom:link href="https://sorainfo.de/feed-wandsaetze.xml" rel="self" type="application/rss+xml"/>
+</channel>
+</rss>
