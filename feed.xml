@@ -5,7 +5,7 @@
     <link>https://sorainfo.de/</link>
     <description>Psychologie ruhig erklärt: Texte zu innerer Unruhe, Nervensystem und Körperwahrnehmung. Kein Ersatz für Therapie.</description>
     <language>de-de</language>
-    <lastBuildDate>Tue, 22 Sep 2026 13:05:14 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2026 21:20:19 +0000</lastBuildDate>
     <atom:link href="https://sorainfo.de/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>Morgens erschöpft aufwachen: Was die Nacht nicht geschafft hat</title>
@@ -20,6 +20,14 @@
       <link>https://sorainfo.de/artikel/warum-zieht-er-sich-zurueck.html</link>
       <guid isPermaLink="true">https://sorainfo.de/artikel/warum-zieht-er-sich-zurueck.html</guid>
       <description>Der Abend war gut, und danach wird es still. Was Rückzug in einer Beziehung oft bedeutet, warum «gib ihm Luft» nicht reicht und welcher kleine Schritt Nähe zulässt.</description>
+      <pubDate>Tue, 22 Sep 2026 00:00:00 +0000</pubDate>
+      <enclosure url="https://sorainfo.de/assets/img/bindungsangst-naehe-und-rueckzug.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title>Verlustangst: Wenn die Angst zu lieben lauter ist als die Liebe selbst</title>
+      <link>https://sorainfo.de/artikel/verlustangst-angst-zu-verlieren.html</link>
+      <guid isPermaLink="true">https://sorainfo.de/artikel/verlustangst-angst-zu-verlieren.html</guid>
+      <description>Verlustangst: warum du prüfst, nachfragst und innerlich schon Abschied nimmst, obwohl niemand geht — und welche kleinen Schritte im Alltag halten.</description>
       <pubDate>Tue, 22 Sep 2026 00:00:00 +0000</pubDate>
       <enclosure url="https://sorainfo.de/assets/img/bindungsangst-naehe-und-rueckzug.jpg" type="image/jpeg"/>
     </item>
