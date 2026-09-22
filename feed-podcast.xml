@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Einschlafgeschichte für Erwachsene · Psychologie zum Zuhören</title>
+    <link>https://sorainfo.de/</link>
+    <description>Psychologie zum Zuhören am Abend. Einschlafgeschichten für Erwachsene — ruhig erzählt, zum Runterkommen und Einschlafen. Kein Ersatz für Therapie. Die Stimme ist KI-generiert.</description>
+    <language>de-de</language>
+    <itunes:subtitle>Psychologie zum Zuhören</itunes:subtitle>
+    <itunes:author>Sora+ Psyche</itunes:author>
+    <itunes:summary>Einschlafgeschichte für Erwachsene: Psychologie zum Zuhören. Jede Folge erzählt ein Thema ruhig zu Ende — ohne Ratschläge, ohne Tempo, ohne die Lautstärke des Tages. Kein Ersatz für Therapie. Die Stimme ist KI-generiert.</itunes:summary>
+    <itunes:owner>
+      <itunes:name>Sora+ Psyche</itunes:name>
+      <itunes:email>podcast@sorainfo.de</itunes:email>
+    </itunes:owner>
+    <itunes:image href="https://sorainfo.de/assets/img/podcast/cover-3000.jpg"/>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:type>episodic</itunes:type>
+    <generator>sorainfo.de / tools/feed_podcast.py</generator>
+    <atom:link href="https://sorainfo.de/feed-podcast.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Tue, 22 Sep 2026 23:15:16 +0000</lastBuildDate>
+    <copyright>© 2026 Sora+ Psyche</copyright>
+    <itunes:category text="Fiction"><itunes:category text="Drama"/></itunes:category>
+    <itunes:category text="Health &amp; Fitness"><itunes:category text="Mental Health"/></itunes:category>
+  </channel>
+</rss>
