@@ -5,8 +5,16 @@
     <link>https://sorainfo.de/</link>
     <description>Psychologie ruhig erklärt: Texte zu innerer Unruhe, Nervensystem und Körperwahrnehmung. Kein Ersatz für Therapie.</description>
     <language>de-de</language>
-    <lastBuildDate>Wed, 23 Sep 2026 13:13:57 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 23 Sep 2026 13:15:40 +0000</lastBuildDate>
     <atom:link href="https://sorainfo.de/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Keine Energie nach der Arbeit: Es liegt nicht an den Stunden</title>
+      <link>https://sorainfo.de/artikel/erschoepfung-nach-der-arbeit.html</link>
+      <guid isPermaLink="true">https://sorainfo.de/artikel/erschoepfung-nach-der-arbeit.html</guid>
+      <description>Nach acht Stunden bist du leer, obwohl nichts Dramatisches passiert ist. Warum nicht die Länge des Tages entscheidet, sondern was davon hängen bleibt.</description>
+      <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
+      <enclosure url="https://sorainfo.de/assets/img/f3-nach-der-arbeit.jpg" type="image/jpeg"/>
+    </item>
     <item>
       <title>Einsam trotz Partner: Warum Nähe allein nicht reicht</title>
       <link>https://sorainfo.de/artikel/einsam-trotz-partner.html</link>
@@ -110,14 +118,6 @@
       <description>Nicht zu wenig Schlaf ist das Problem, sondern ein Mechanismus, der früher reagiert als du denkst. Warum mehr Disziplin nichts ändert.</description>
       <pubDate>Sun, 20 Sep 2026 00:00:00 +0000</pubDate>
       <enclosure url="https://sorainfo.de/assets/img/f3-willenskraft.jpg" type="image/jpeg"/>
-    </item>
-    <item>
-      <title>Keine Energie nach der Arbeit: Es liegt nicht an den Stunden</title>
-      <link>https://sorainfo.de/artikel/erschoepfung-nach-der-arbeit.html</link>
-      <guid isPermaLink="true">https://sorainfo.de/artikel/erschoepfung-nach-der-arbeit.html</guid>
-      <description>Nach acht Stunden bist du leer, obwohl nichts Dramatisches passiert ist. Warum nicht die Länge des Tages entscheidet, sondern was davon hängen bleibt.</description>
-      <pubDate>Sun, 20 Sep 2026 00:00:00 +0000</pubDate>
-      <enclosure url="https://sorainfo.de/assets/img/f3-nach-der-arbeit.jpg" type="image/jpeg"/>
     </item>
     <item>
       <title>Vergesslichkeit durch Erschöpfung: Der Faden verblasst, er reißt nicht</title>
