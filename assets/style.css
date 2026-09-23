@@ -220,5 +220,5 @@ article p { margin: 0 0 1.0625rem; }
 }
 
 .article-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin: 1.5rem 0 2rem; }
-.article-gallery img { width: 100%; height: auto; border-radius: var(--radius); display: block; }
+.article-gallery img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; background: var(--accent-soft); border-radius: var(--radius); display: block; }
 @media (max-width: 640px) { .article-gallery { grid-template-columns: 1fr 1fr; } .article-gallery img:first-child { grid-column: 1 / -1; } }
