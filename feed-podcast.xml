@@ -3,11 +3,11 @@
   <channel>
     <title>Einschlafgeschichte für Erwachsene · Psychologie zum Zuhören</title>
     <link>https://sorainfo.de/</link>
-    <description>Psychologie zum Zuhören am Abend. Einschlafgeschichten für Erwachsene — ruhig erzählt, zum Runterkommen und Einschlafen. Kein Ersatz für Therapie. Die Stimme ist KI-generiert.</description>
+    <description>Einschlafgeschichte für Erwachsene · Psychologie zum Zuhören. Jede Folge nimmt ein Thema aus dem Alltag, das nachts größer wirkt als am Tag, und erzählt es ruhig zu Ende — ohne Ratschläge, ohne Tempo, mit einer Stimme, die begleitet, bis der Tag kleiner wird. Neue Folge jede Woche. Kein Ersatz für Therapie. Die Stimme ist KI-generiert.</description>
     <language>de-de</language>
     <itunes:subtitle>Psychologie zum Zuhören</itunes:subtitle>
     <itunes:author>Sora+ Psyche</itunes:author>
-    <itunes:summary>Einschlafgeschichte für Erwachsene: Psychologie zum Zuhören. Jede Folge erzählt ein Thema ruhig zu Ende — ohne Ratschläge, ohne Tempo, ohne die Lautstärke des Tages. Kein Ersatz für Therapie. Die Stimme ist KI-generiert.</itunes:summary>
+    <itunes:summary>Einschlafgeschichte für Erwachsene · Psychologie zum Zuhören. Jede Folge erzählt ein Thema ruhig zu Ende — ohne Ratschläge, ohne Tempo, ohne die Lautstärke des Tages. Kein Ersatz für Therapie. Die Stimme ist KI-generiert.</itunes:summary>
     <itunes:owner>
       <itunes:name>Sora+ Psyche</itunes:name>
       <itunes:email>podcast@sorainfo.de</itunes:email>
@@ -17,7 +17,7 @@
     <itunes:type>episodic</itunes:type>
     <generator>sorainfo.de / tools/feed_podcast.py</generator>
     <atom:link href="https://sorainfo.de/feed-podcast.xml" rel="self" type="application/rss+xml"/>
-    <lastBuildDate>Tue, 22 Sep 2026 23:41:14 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 23 Sep 2026 04:45:09 +0000</lastBuildDate>
     <copyright>© 2026 Sora+ Psyche</copyright>
     <itunes:category text="Fiction"><itunes:category text="Drama"/></itunes:category>
     <itunes:category text="Health &amp; Fitness"><itunes:category text="Mental Health"/></itunes:category>
