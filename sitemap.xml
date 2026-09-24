@@ -143,6 +143,15 @@
       <video:publication_date>2026-09-23</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
     </video:video>
+    <video:video>
+      <video:thumbnail_loc>https://sorainfo.de/assets/img/video--vtqp9m4284.jpg</video:thumbnail_loc>
+      <video:title>Einschlafgeschichte für Erwachsene · Bindungsangst: Ich ziehe mich zurück | Folge 1</video:title>
+      <video:description>Eine ruhige Einschlafgeschichte für Erwachsene über Bindungsangst: Niklas merkt, dass er genau dann geht, wenn es gut wird. 13 Minuten Psychologie zum Zuhören – Folge 1 der Reihe „Einschlafgeschichte für Erwachsene“.</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/-vtqp9m4284</video:player_loc>
+      <video:duration>780</video:duration>
+      <video:publication_date>2026-09-24</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
   </url>
   <url>
     <loc>https://sorainfo.de/artikel/einschlafgeschichte-bindungsangst.html</loc>
