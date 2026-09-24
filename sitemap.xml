@@ -139,8 +139,22 @@
       <video:title>Bindungsangst: Ich ziehe mich zurück, obwohl es gerade gut läuft | Sora+ Psyche</video:title>
       <video:description>Bindungsangst: Ich ziehe mich zurück, obwohl es gerade gut läuft. Nähe, die gut tut, und der Drang, sofort wegzugehen: Bindungsangst heißt selten, dass jemand nicht will.</video:description>
       <video:player_loc>https://www.youtube-nocookie.com/embed/LAuvf1fKKIw</video:player_loc>
-      <video:duration>487</video:duration>
+      <video:duration>480</video:duration>
       <video:publication_date>2026-09-23</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://sorainfo.de/artikel/einschlafgeschichte-bindungsangst.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://sorainfo.de/assets/img/video--vtqp9m4284.jpg</video:thumbnail_loc>
+      <video:title>Einschlafgeschichte für Erwachsene · Bindungsangst: Ich ziehe mich zurück | Folge 1</video:title>
+      <video:description>Heute Nacht: „Warum gehe ich weg — genau dann, wenn es gut wird?“ Eine ruhige Geschichte über Bindungsangst — Nähe, Angst und den Mut, die Hand zu öffnen.</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/-vtqp9m4284</video:player_loc>
+      <video:duration>780</video:duration>
+      <video:publication_date>2026-09-24</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
     </video:video>
   </url>
