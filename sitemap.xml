@@ -39,6 +39,20 @@
     </video:video>
   </url>
   <url>
+    <loc>https://sorainfo.de/artikel/angst-vor-veraenderung.html</loc>
+    <lastmod>2026-09-25</lastmod>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://sorainfo.de/assets/img/video-2pz3LctYmps.jpg</video:thumbnail_loc>
+      <video:title>Angst vor dem, was kommt: Ein Morgen mit Mira | Sora+ Psyche</video:title>
+      <video:description>Sechs Uhr zwölf. Das Telefon leuchtet, und der Tag fühlt sich verloren an, obwohl er noch nicht begonnen hat. Eine Folge über den Unterschied zwischen dem, was wir Zukunft nennen, und dem, was tatsächlich kommt.</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/2pz3LctYmps</video:player_loc>
+      <video:duration>420</video:duration>
+      <video:publication_date>2026-09-21</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
     <loc>https://sorainfo.de/artikel/warum-dein-koerper-frueher-reagiert-als-dein-kopf.html</loc>
     <lastmod>2026-09-20</lastmod>
     <priority>0.8</priority>
