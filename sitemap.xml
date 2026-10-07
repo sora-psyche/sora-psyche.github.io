@@ -287,4 +287,18 @@
       <video:family_friendly>yes</video:family_friendly>
     </video:video>
   </url>
+  <url>
+    <loc>https://sorainfo.de/artikel/wer-sieht-deinen-traum-hoerspiel.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://sorainfo.de/assets/img/video-3wjfZEed5qE.jpg</video:thumbnail_loc>
+      <video:title>Wer sieht deinen Traum? Hörspiel für Erwachsene über Schlaf, Seele und die Angst vor dem Tod | Sora+ Psyche</video:title>
+      <video:description>Die Sterne sprechen mit dir über Schlaf, den Körper als Raumanzug und die Angst vor dem Tod. 35 Minuten Hörspiel für Erwachsene, Nachtgeschichten zum Aufwachen, Folge 1.</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/3wjfZEed5qE</video:player_loc>
+      <video:duration>2100</video:duration>
+      <video:publication_date>2026-10-07</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
 </urlset>
