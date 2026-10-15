@@ -6,6 +6,20 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://sorainfo.de/artikel/nur-die-angst-song-ueber-angst-nachts.html</loc>
+    <lastmod>2026-10-16</lastmod>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://sorainfo.de/assets/img/video-dsNhpb2ivUk.jpg</video:thumbnail_loc>
+      <video:title>„Keiner liebt mich“ – das ist nur die Angst | Nur die Angst (Musikvideo)</video:title>
+      <video:description>„Keiner liebt mich“ – kennst du diesen Satz um drei Uhr nachts? Das ist nur die Angst, die redet. Ein Song über Angst, Schuld und den Moment, in dem du das Fenster wieder aufmachst.</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/dsNhpb2ivUk</video:player_loc>
+      <video:duration>127</video:duration>
+      <video:publication_date>2026-10-16</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
     <loc>https://sorainfo.de/wandsaetze.html</loc>
     <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
