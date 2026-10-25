@@ -1,0 +1,48 @@
+{
+  "brows_intro_de": "In der Physiognomik gelten die Augenbrauen als „Laufschrift“ eines Menschen: Sie zeigen, wie du kommunizierst und Dinge anpackst – und oft auch, was bei deinen Geschwistern geschieht.",
+  "photo_errors_de": {
+    "no_face": "Ich konnte kein Gesicht erkennen. Bitte schick ein Selfie von vorne (frontal), mit gutem Licht und Haaren aus der Stirn.",
+    "multiple_faces": "Auf dem Foto sind mehrere Gesichter. Bitte schick ein Selfie, auf dem nur du zu sehen bist.",
+    "too_small": "Dein Gesicht ist auf dem Foto zu klein. Geh bitte näher an die Kamera – das Gesicht sollte das Bild gut ausfüllen.",
+    "turned": "Dein Kopf ist zu stark gedreht. Bitte schau gerade in die Kamera (frontal).",
+    "dark": "Das Foto ist zu dunkel oder zu unscharf. Bitte such dir gutes Tageslicht und schick ein neues Selfie.",
+    "brows_hidden": "Deine Augenbrauen sind nicht gut sichtbar. Bitte nimm Haare aus der Stirn und schick ein neues Selfie."
+  },
+  "disclaimer_de": "Hinweis: Diese Deutung dient der Unterhaltung und Selbstreflexion. Sie ist keine medizinische, psychologische oder rechtliche Beratung und keine Vorhersage deines Schicksals. Wenn sich ein Muttermal verändert (Größe, Farbe, Form, Juckreiz, Blutung), geh bitte zur Hautärztin oder zum Hautarzt.",
+  "brows": {
+    "dicht": {
+      "name_de": "Dichte, volle Augenbrauen",
+      "short_de": "Je dichter die Augenbrauen, desto stärker suchst du Austausch und Verbindung mit anderen. Was du beginnst, führst du meist stabil weiter."
+    },
+    "dichte_wechselt": {
+      "name_de": "Augenbrauen mit wechselnder Dichte",
+      "short_de": "Am Nasenansatz dicht, ab der Mitte lichter: Du startest Projekte sehr klar und kraftvoll – brauchst aber später neue Motivation, um dranzubleiben."
+    },
+    "duenn": {
+      "name_de": "Dünne, feine Augenbrauen",
+      "short_de": "Je feiner die Augenbrauen, desto wählerischer bist du. Du schenkst nicht sofort Vertrauen – nicht aus Härte, sondern aus Vorsicht.",
+      "subtypes": {
+        "duenn_unruhig": {
+          "name_de": "Dünne, unregelmäßige Augenbrauen",
+          "short_de": "Feine, unregelmäßige Brauen zeigen eine sensible, wechselhafte Stimmung. Du bist wählerisch und reagierst manchmal sprunghaft."
+        }
+      }
+    },
+    "breiter_zum_ende": {
+      "name_de": "Zum Ende hin breiter werdende Augenbrauen",
+      "short_de": "Du brauchst etwas Zeit, um dich in Neues einzufinden – doch mit der Zeit wirst du immer stabiler und verlässlicher."
+    },
+    "tief": {
+      "name_de": "Tief über dem Auge liegende Augenbrauen",
+      "short_de": "Tiefe Brauen zeigen eine Realistin, einen Realisten: Du schaust genau hin und bereitest dich lieber auf das Schwierige vor."
+    },
+    "hoch_winkel": {
+      "name_de": "Hoch liegende Augenbrauen mit Winkel",
+      "short_de": "Hohe Brauen zeigen Offenheit für die Welt. Ein deutlicher Winkel steht für Selbstbewusstsein und Temperament."
+    }
+  },
+  "mark30": {
+    "free_found_de": "In der Mitte deiner Augenbraue sehe ich eine Unterbrechung oder eine Stelle mit weniger Härchen. In der Physiognomik gilt: Rund um das 30. Lebensjahr (manchmal etwas früher, etwa mit 27) gab es oder wird es ein Ereignis geben, das deinem Leben eine neue Richtung gibt.",
+    "free_not_found_de": "In der Mitte deiner Augenbraue – dem Bereich für etwa das 30. Lebensjahr – ist der Haarverlauf gleichmäßig und ohne auffällige Unterbrechung."
+  }
+}

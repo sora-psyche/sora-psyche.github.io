@@ -1,0 +1,99 @@
+{
+  "version": "1.0",
+  "comment": "Shared thresholds for Python (brow_classifier.py) and JS (website, MediaPipe FaceLandmarker JS). All distances normalized by interpupillary distance (IPD). Brow profiles sampled inner (nose) -> outer (tail).",
+  "landmarks": {
+    "brow_r_upper": [
+      107,
+      66,
+      105,
+      63,
+      70
+    ],
+    "brow_r_lower": [
+      55,
+      65,
+      52,
+      53,
+      46
+    ],
+    "brow_l_upper": [
+      336,
+      296,
+      334,
+      293,
+      300
+    ],
+    "brow_l_lower": [
+      285,
+      295,
+      282,
+      283,
+      276
+    ],
+    "eye_r": {
+      "outer": 33,
+      "inner": 133,
+      "upper": 159,
+      "lower": 145
+    },
+    "eye_l": {
+      "outer": 263,
+      "inner": 362,
+      "upper": 386,
+      "lower": 374
+    },
+    "iris_r": 468,
+    "iris_l": 473,
+    "nose_tip": 1
+  },
+  "sampling": {
+    "n_along": 40,
+    "n_across": 32,
+    "band_margin_ipd": 0.04,
+    "skin_ref_offset_ipd": [
+      0.1,
+      0.22
+    ],
+    "dark_ratio": 0.8
+  },
+  "quality": {
+    "min_ipd_px": 55,
+    "max_yaw_ratio": 0.35,
+    "min_mean_gray": 45,
+    "min_laplacian_var": 15,
+    "max_faces": 1,
+    "min_skin_ref_gray": 55,
+    "forehead_cheek_ratio": 0.85,
+    "cheek_skin_factor": 0.95,
+    "hidden_cheek_ratio": 0.62
+  },
+  "rules": {
+    "height_low": 0.195,
+    "height_high": 0.25,
+    "arch_sharp_deg": 38,
+    "thin_thickness": 0.075,
+    "thin_density": 0.5,
+    "uneven_cv": 0.38,
+    "wechselt_outer_inner_ratio": 0.72,
+    "wechselt_min_inner_density": 0.55,
+    "breiter_outer_inner_ratio": 1.12,
+    "wechselt_thick_ratio": 0.62
+  },
+  "mark30": {
+    "window": [
+      0.33,
+      0.6
+    ],
+    "gap_ratio": 0.55,
+    "min_ref_density": 0.35
+  },
+  "priority": [
+    "tief",
+    "hoch_winkel",
+    "duenn",
+    "dichte_wechselt",
+    "breiter_zum_ende",
+    "dicht"
+  ],
+  "priority_comment": "Highest positive score wins; priority list only breaks ties. dicht = fallback when no rule fires."
+}
