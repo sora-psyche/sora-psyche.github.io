@@ -74,7 +74,7 @@
     "thin_thickness": 0.068,
     "thin_density": 0.5,
     "uneven_cv": 0.28,
-    "wechselt_outer_inner_ratio": 0.72,
+    "wechselt_outer_inner_ratio": 0.70,
     "wechselt_min_inner_density": 0.55,
     "breiter_outer_inner_ratio": 1.12,
     "wechselt_thick_ratio": 0.65
