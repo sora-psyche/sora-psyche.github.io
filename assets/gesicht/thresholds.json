@@ -54,7 +54,7 @@
       0.1,
       0.22
     ],
-    "dark_ratio": 0.8
+    "dark_ratio": 0.85
   },
   "quality": {
     "min_ipd_px": 55,
@@ -71,13 +71,13 @@
     "height_low": 0.195,
     "height_high": 0.25,
     "arch_sharp_deg": 38,
-    "thin_thickness": 0.075,
+    "thin_thickness": 0.068,
     "thin_density": 0.5,
-    "uneven_cv": 0.38,
+    "uneven_cv": 0.28,
     "wechselt_outer_inner_ratio": 0.72,
     "wechselt_min_inner_density": 0.55,
     "breiter_outer_inner_ratio": 1.12,
-    "wechselt_thick_ratio": 0.62
+    "wechselt_thick_ratio": 0.65
   },
   "mark30": {
     "window": [
