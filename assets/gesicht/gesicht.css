@@ -7,8 +7,12 @@
 .gesicht-page .skip-link { position: fixed; top: .5rem; left: 1rem; z-index: 20; background: var(--surface); padding: .6rem 1rem; transform: translateY(-150%); }
 .gesicht-page .skip-link:focus { transform: translateY(0); }
 .gesicht-page article { padding-top: 1.25rem; }
-.gesicht-breadcrumb { display: flex; flex-wrap: wrap; gap: .6rem; color: var(--ink-soft); font-size: .8125rem; margin-bottom: 2rem; }
+.gesicht-breadcrumb { display: flex; flex-wrap: wrap; gap: .6rem; color: var(--ink-soft); font-size: .8125rem; margin-bottom: 1.25rem; }
 .gesicht-breadcrumb a { color: var(--ink-soft); }
+.gesicht-lang-bar { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .55rem; font-size: .8125rem; color: var(--ink-soft); margin: 0 0 1.5rem; padding: .45rem .75rem; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+.gesicht-lang-bar a { color: var(--ink-soft); text-decoration: none; font-weight: 500; }
+.gesicht-lang-bar a:hover { color: var(--accent); }
+.gesicht-lang-bar a[aria-current="page"] { color: var(--accent); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 .gesicht-hero { margin-bottom: 2rem; }
 .gesicht-hero h1 { font-size: clamp(2rem, 5vw, 2.75rem); line-height: 1.15; max-width: 35rem; }
 .gesicht-hero .lede { max-width: 35rem; margin-bottom: .5rem; }

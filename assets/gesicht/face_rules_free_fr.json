@@ -1,0 +1,48 @@
+{
+  "brows_intro_de": "En physiognomonie, les sourcils sont considérés comme le « bandeau déroulant » d’une personne : ils montrent ta trajectoire de communication et ta façon d’agir — et racontent souvent aussi ce qui se passe chez tes frères et sœurs.",
+  "photo_errors_de": {
+    "no_face": "Je n’ai pas pu détecter de visage. Merci d’envoyer un selfie de face, bien éclairé et avec le front dégagé.",
+    "multiple_faces": "Plusieurs visages apparaissent sur la photo. Merci d’envoyer un selfie où tu es seul(e).",
+    "too_small": "Ton visage est trop petit sur la photo. Rapproche-toi de l’objectif pour que ton visage remplisse bien le cadre.",
+    "turned": "Ta tête est trop tournée. Regarde droit vers l’objectif (de face).",
+    "dark": "La photo est trop sombre ou floue. Trouve une bonne lumière du jour et envoie un nouveau selfie.",
+    "brows_hidden": "Tes sourcils ne sont pas bien visibles. Dégage les cheveux de ton front et envoie un nouveau selfie."
+  },
+  "disclaimer_de": "Remarque : Cette interprétation est destinée au divertissement et à la réflexion personnelle. Elle ne constitue pas un avis médical, psychologique ou juridique et ne prédit pas ton destin. Si un grain de beauté évolue (taille, couleur, forme, démangeaisons, saignement), consulte un dermatologue.",
+  "brows": {
+    "dicht": {
+      "name_de": "Sourcils denses et fournis",
+      "short_de": "Plus tes sourcils sont fournis, plus tu recherches l’échange et le lien avec les autres. Ce que tu commences, tu le poursuis généralement avec constance."
+    },
+    "dichte_wechselt": {
+      "name_de": "Sourcils à densité variable",
+      "short_de": "Denses près de la racine du nez, plus clairsemés à partir du milieu : tu lances tes projets avec beaucoup de clarté et de force, mais tu as ensuite besoin d’un nouvel élan pour persévérer."
+    },
+    "duenn": {
+      "name_de": "Sourcils fins et délicats",
+      "short_de": "Plus tes sourcils sont fins, plus tu es sélectif(ve). Tu n’accordes pas ta confiance tout de suite — non par dureté, mais par prudence.",
+      "subtypes": {
+        "duenn_unruhig": {
+          "name_de": "Sourcils fins et irréguliers",
+          "short_de": "Des sourcils fins et irréguliers révèlent une humeur sensible et changeante. Tu es sélectif(ve) et réagis parfois de façon impulsive."
+        }
+      }
+    },
+    "breiter_zum_ende": {
+      "name_de": "Sourcils s’élargissant vers l’extrémité",
+      "short_de": "Tu as besoin d’un peu de temps pour entrer dans la nouveauté — mais avec le temps, tu deviens de plus en plus stable et fiable."
+    },
+    "tief": {
+      "name_de": "Sourcils bas au-dessus de l’œil",
+      "short_de": "Des sourcils bas révèlent un esprit réaliste : tu observes l’essentiel et préfères te préparer aux scénarios difficiles."
+    },
+    "hoch_winkel": {
+      "name_de": "Sourcils hauts avec angle marqué",
+      "short_de": "Des sourcils hauts montrent une ouverture au monde. Un angle net traduit l’assurance et le tempérament."
+    }
+  },
+  "mark30": {
+    "free_found_de": "Au milieu de ton sourcil, je vois une interruption ou une zone moins fournie. En physiognomonie, cela indique qu’autour de 30 ans (parfois un peu plus tôt, vers 27 ans) un événement a donné ou donnera une nouvelle direction à ta vie.",
+    "free_not_found_de": "Au milieu de ton sourcil — la zone correspondant environ à la trentaine — le tracé des poils est régulier et sans interruption marquée."
+  }
+}

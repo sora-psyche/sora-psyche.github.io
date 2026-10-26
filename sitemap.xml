@@ -415,4 +415,29 @@
     <lastmod>2026-10-25</lastmod>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://sorainfo.de/en/face-reading/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://sorainfo.de/es/lectura-facial/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://sorainfo.de/ru/chtenie-lica/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://sorainfo.de/pt/leitura-facial/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://sorainfo.de/fr/lecture-du-visage/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <priority>0.9</priority>
+  </url>
 </urlset>

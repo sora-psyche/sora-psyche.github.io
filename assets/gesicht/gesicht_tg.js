@@ -170,23 +170,285 @@
     return out;
   }
 
-  const MOLE_ZONE_NAMES = {
-    "augen": "Um die Augen",
-    "nasolabial": "Nasolabialfalte (zwischen Nase und Mundwinkel)",
-    "lippen": "Lippen",
-    "nase": "Nase",
-    "links_gesicht": "Linke Gesichtshälfte",
-    "rechts_gesicht": "Rechte Gesichtshälfte",
-    "hals": "Hals / Nacken",
-    "brust": "Brust",
-    "schultern": "Schultern / oberer Rücken",
-    "bauch": "Bauch",
-    "knie": "Knie",
-    "haende": "Handrücken / kleiner Finger",
-    "handflaeche": "Handfläche"
+  const SUPPORTED_LANGS = new Set(['de', 'en', 'es', 'ru', 'pt', 'fr']);
+  const BOTS_BY_LANG = {
+    de: 'gesichtslesen_bot',
+    en: 'udalyonnayarabota_bot',
+    es: 'tarjetascripto_bot',
+    ru: 'chtenielica_bot',
+    pt: 'quemargrasa_bot',
+    fr: 'kriptokartybot'
+  };
+  function detectLang() {
+    const raw = ((typeof document !== 'undefined' && ((typeof document.querySelector === 'function' && (document.querySelector('[data-gesicht-app]')?.dataset?.lang || document.querySelector('[data-gesicht-tg-app]')?.dataset?.lang)) || document.documentElement?.lang)) || 'de').slice(0, 2).toLowerCase();
+    return SUPPORTED_LANGS.has(raw) ? raw : 'de';
+  }
+  const MOLE_ZONE_NAMES_BY_LANG = {
+    de: {
+      "augen": "Um die Augen",
+      "nasolabial": "Nasolabialfalte (zwischen Nase und Mundwinkel)",
+      "lippen": "Lippen",
+      "nase": "Nase",
+      "links_gesicht": "Linke Gesichtshälfte",
+      "rechts_gesicht": "Rechte Gesichtshälfte",
+      "hals": "Hals / Nacken",
+      "brust": "Brust",
+      "schultern": "Schultern / oberer Rücken",
+      "bauch": "Bauch",
+      "knie": "Knie",
+      "haende": "Handrücken / kleiner Finger",
+      "handflaeche": "Handfläche"
+    },
+    en: {
+      "augen": "Around the eyes",
+      "nasolabial": "Nasolabial fold (nose to mouth corner)",
+      "lippen": "Lips",
+      "nase": "Nose",
+      "links_gesicht": "Left side of the face",
+      "rechts_gesicht": "Right side of the face",
+      "hals": "Neck / nape",
+      "brust": "Chest",
+      "schultern": "Shoulders / upper back",
+      "bauch": "Belly / abdomen",
+      "knie": "Knees",
+      "haende": "Back of hand / little finger",
+      "handflaeche": "Palm"
+    },
+    es: {
+      "augen": "Alrededor de los ojos",
+      "nasolabial": "Surco nasolabial (entre nariz y comisura)",
+      "lippen": "Labios",
+      "nase": "Nariz",
+      "links_gesicht": "Lado izquierdo del rostro",
+      "rechts_gesicht": "Lado derecho del rostro",
+      "hals": "Cuello / nuca",
+      "brust": "Pecho",
+      "schultern": "Hombros / espalda alta",
+      "bauch": "Vientre / abdomen",
+      "knie": "Rodillas",
+      "haende": "Dorso de la mano / meñique",
+      "handflaeche": "Palma de la mano"
+    },
+    ru: {
+      "augen": "Вокруг глаз",
+      "nasolabial": "Носогубная складка",
+      "lippen": "Губы",
+      "nase": "Нос",
+      "links_gesicht": "Левая сторона лица",
+      "rechts_gesicht": "Правая сторона лица",
+      "hals": "Шея / затылок",
+      "brust": "Грудь",
+      "schultern": "Плечи / верх спины",
+      "bauch": "Живот",
+      "knie": "Колени",
+      "haende": "Тыльная сторона кисти / мизинец",
+      "handflaeche": "Ладонь"
+    },
+    pt: {
+      "augen": "Ao redor dos olhos",
+      "nasolabial": "Sulco nasolabial (entre nariz e canto da boca)",
+      "lippen": "Lábios",
+      "nase": "Nariz",
+      "links_gesicht": "Lado esquerdo do rosto",
+      "rechts_gesicht": "Lado direito do rosto",
+      "hals": "Pescoço / nuca",
+      "brust": "Peito",
+      "schultern": "Ombros / parte superior das costas",
+      "bauch": "Barriga / abdômen",
+      "knie": "Joelhos",
+      "haende": "Dorso da mão / dedo mínimo",
+      "handflaeche": "Palma da mão"
+    },
+    fr: {
+      "augen": "Autour des yeux",
+      "nasolabial": "Sillon nasogénien (entre le nez et la bouche)",
+      "lippen": "Lèvres",
+      "nase": "Nez",
+      "links_gesicht": "Côté gauche du visage",
+      "rechts_gesicht": "Côté droit du visage",
+      "hals": "Cou / nuque",
+      "brust": "Poitrine",
+      "schultern": "Épaules / haut du dos",
+      "bauch": "Ventre / abdomen",
+      "knie": "Genoux",
+      "haende": "Dos de la main / auriculaire",
+      "handflaeche": "Paume de la main"
+    }
+  };
+  const UI_BY_LANG = {
+    de: {
+      sides: {links: 'links', rechts: 'rechts'},
+      removeSuffix: ': entfernen',
+      moleNone: 'Keine Muttermale ausgewählt.',
+      moleCount: n => n + ' von 13 Angaben ausgewählt. Zum Entfernen anklicken.',
+      moleMax: 'Du kannst höchstens 13 Angaben auswählen. Entferne zuerst eine Angabe.',
+      submitIdle: 'Vollständige Analyse freischalten – 250 ⭐',
+      submitPending: 'Bitte warten …',
+      submitDone: 'Vollständige Analyse freigeschaltet',
+      nameTooLong: 'Dein Vorname darf höchstens 30 Zeichen haben.',
+      invalidEmail: 'Bitte gib eine gültige E-Mail-Adresse ein oder lasse das Feld frei.',
+      openingInvoice: 'Rechnung über 250 ⭐ wird geöffnet …',
+      invoiceErrorRetry: 'Die Zahlung konnte gerade nicht vorbereitet werden. Bitte versuche es erneut.',
+      invoiceError: 'Die Zahlung konnte gerade nicht vorbereitet werden.',
+      paymentFailed: 'Die Zahlung wurde nicht abgeschlossen.',
+      paymentSuccessCreating: 'Zahlung erfolgreich! Deine Analyse und dein PDF werden erstellt …',
+      sentToChat: 'Deine Analyse wurde in den Telegram-Chat gesendet.',
+      tgReadyEmail: 'Deine vollständige Analyse ist bereit (und zusätzlich als PDF im Chat sowie per E-Mail).',
+      tgReadyChat: 'Deine vollständige Analyse ist bereit (und zusätzlich als PDF im Chat).',
+      networkError: 'Keine Verbindung. Bitte prüfe deine Internetverbindung.',
+      bootError: 'Das Werkzeug konnte nicht geladen werden. Bitte lade die Seite erneut.',
+      openingPhoto: 'Foto wird geöffnet …',
+      photoReady: 'Dein Foto ist bereit.',
+      loadingModel: 'Analyse wird auf deinem Gerät geladen …',
+      analyzingBrows: 'Deine Augenbrauen werden analysiert …',
+      analysisDone: 'Deine Analyse ist fertig.',
+      analysisFailed: 'Die lokale Analyse konnte nicht gestartet werden. Bitte lade die Seite erneut.'
+    },
+    en: {
+      sides: {links: 'left', rechts: 'right'},
+      removeSuffix: ': remove',
+      moleNone: 'No moles selected.',
+      moleCount: n => n + ' of 13 selected. Click to remove.',
+      moleMax: 'You can select up to 13 items. Remove one first.',
+      submitIdle: 'Unlock full reading – 250 ⭐',
+      submitPending: 'Please wait …',
+      submitDone: 'Full reading unlocked',
+      nameTooLong: 'Your first name may be at most 30 characters.',
+      invalidEmail: 'Please enter a valid email address or leave the field blank.',
+      openingInvoice: 'Opening 250 ⭐ invoice …',
+      invoiceErrorRetry: 'Payment could not be prepared right now. Please try again.',
+      invoiceError: 'Payment could not be prepared right now.',
+      paymentFailed: 'Payment was not completed.',
+      paymentSuccessCreating: 'Payment successful! Creating your reading and PDF …',
+      sentToChat: 'Your reading has been sent to the Telegram chat.',
+      tgReadyEmail: 'Your full reading is ready (and also sent as a PDF in chat and by email).',
+      tgReadyChat: 'Your full reading is ready (and also sent as a PDF in chat).',
+      networkError: 'No connection. Please check your internet connection.',
+      bootError: 'The tool could not be loaded. Please reload the page.',
+      openingPhoto: 'Opening photo …',
+      photoReady: 'Your photo is ready.',
+      loadingModel: 'Loading analysis on your device …',
+      analyzingBrows: 'Analyzing your eyebrows …',
+      analysisDone: 'Your reading is ready.',
+      analysisFailed: 'Local analysis could not start. Please reload the page.'
+    },
+    es: {
+      sides: {links: 'izquierda', rechts: 'derecha'},
+      removeSuffix: ': quitar',
+      moleNone: 'Ningún lunar seleccionado.',
+      moleCount: n => n + ' de 13 seleccionados. Haz clic para quitar.',
+      moleMax: 'Puedes seleccionar hasta 13 opciones. Quita una primero.',
+      submitIdle: 'Desbloquear análisis completo – 250 ⭐',
+      submitPending: 'Espera un momento …',
+      submitDone: 'Análisis completo desbloqueado',
+      nameTooLong: 'Tu nombre puede tener como máximo 30 caracteres.',
+      invalidEmail: 'Por favor, introduce un correo electrónico válido o deja el campo vacío.',
+      openingInvoice: 'Abriendo factura de 250 ⭐ …',
+      invoiceErrorRetry: 'No se pudo preparar el pago en este momento. Inténtalo de nuevo.',
+      invoiceError: 'No se pudo preparar el pago en este momento.',
+      paymentFailed: 'El pago no se completó.',
+      paymentSuccessCreating: '¡Pago completado! Creando tu análisis y tu PDF …',
+      sentToChat: 'Tu análisis fue enviado al chat de Telegram.',
+      tgReadyEmail: 'Tu análisis completo está listo (y también enviado en PDF al chat y por correo).',
+      tgReadyChat: 'Tu análisis completo está listo (y también enviado en PDF al chat).',
+      networkError: 'Sin conexión. Por favor, revisa tu conexión a internet.',
+      bootError: 'No se pudo cargar la herramienta. Por favor, recarga la página.',
+      openingPhoto: 'Abriendo foto …',
+      photoReady: 'Tu foto está lista.',
+      loadingModel: 'Cargando el análisis en tu dispositivo …',
+      analyzingBrows: 'Analizando tus cejas …',
+      analysisDone: 'Tu análisis está listo.',
+      analysisFailed: 'No se pudo iniciar el análisis local. Por favor, recarga la página.'
+    },
+    ru: {
+      sides: {links: 'слева', rechts: 'справа'},
+      removeSuffix: ': удалить',
+      moleNone: 'Родинки не выбраны.',
+      moleCount: n => 'Выбрано ' + n + ' из 13. Нажми, чтобы удалить.',
+      moleMax: 'Можно выбрать не более 13 зон. Сначала удали одну.',
+      submitIdle: 'Открыть полный разбор – 250 ⭐',
+      submitPending: 'Пожалуйста, подождите …',
+      submitDone: 'Полный разбор открыт',
+      nameTooLong: 'Имя не должно превышать 30 символов.',
+      invalidEmail: 'Пожалуйста, введи корректный e-mail или оставь поле пустым.',
+      openingInvoice: 'Открываем счёт на 250 ⭐ …',
+      invoiceErrorRetry: 'Не удалось подготовить оплату. Пожалуйста, попробуй ещё раз.',
+      invoiceError: 'Не удалось подготовить оплату.',
+      paymentFailed: 'Оплата не была завершена.',
+      paymentSuccessCreating: 'Оплата прошла! Создаём твой разбор и PDF …',
+      sentToChat: 'Твой разбор отправлен в чат Telegram.',
+      tgReadyEmail: 'Твой полный разбор готов (и также отправлен в PDF в чат и на e-mail).',
+      tgReadyChat: 'Твой полный разбор готов (и также отправлен в PDF в чат).',
+      networkError: 'Нет соединения. Пожалуйста, проверь подключение к интернету.',
+      bootError: 'Не удалось загрузить инструмент. Пожалуйста, обнови страницу.',
+      openingPhoto: 'Открываем фото …',
+      photoReady: 'Фото готово к анализу.',
+      loadingModel: 'Загружаем анализ на твоём устройстве …',
+      analyzingBrows: 'Анализируем твои брови …',
+      analysisDone: 'Твой разбор готов.',
+      analysisFailed: 'Не удалось запустить локальный анализ. Пожалуйста, обнови страницу.'
+    },
+    pt: {
+      sides: {links: 'esquerda', rechts: 'direita'},
+      removeSuffix: ': remover',
+      moleNone: 'Nenhum sinal selecionado.',
+      moleCount: n => n + ' de 13 selecionados. Clique para remover.',
+      moleMax: 'Você pode selecionar no máximo 13 opções. Remova uma primeiro.',
+      submitIdle: 'Desbloquear análise completa – 250 ⭐',
+      submitPending: 'Aguarde …',
+      submitDone: 'Análise completa desbloqueada',
+      nameTooLong: 'Seu primeiro nome pode ter no máximo 30 caracteres.',
+      invalidEmail: 'Por favor, insira um e-mail válido ou deixe o campo em branco.',
+      openingInvoice: 'Abrindo fatura de 250 ⭐ …',
+      invoiceErrorRetry: 'Não foi possível preparar o pagamento agora. Tente novamente.',
+      invoiceError: 'Não foi possível preparar o pagamento agora.',
+      paymentFailed: 'O pagamento não foi concluído.',
+      paymentSuccessCreating: 'Pagamento confirmado! Criando sua análise e seu PDF …',
+      sentToChat: 'Sua análise foi enviada para o chat do Telegram.',
+      tgReadyEmail: 'Sua análise completa está pronta (e também enviada em PDF no chat e por e-mail).',
+      tgReadyChat: 'Sua análise completa está pronta (e também enviada em PDF no chat).',
+      networkError: 'Sem conexão. Verifique sua conexão com a internet.',
+      bootError: 'Não foi possível carregar a ferramenta. Por favor, recarregue a página.',
+      openingPhoto: 'Abrindo foto …',
+      photoReady: 'Sua foto está pronta.',
+      loadingModel: 'Carregando análise no seu dispositivo …',
+      analyzingBrows: 'Analisando suas sobrancelhas …',
+      analysisDone: 'Sua análise está pronta.',
+      analysisFailed: 'Não foi possível iniciar a análise local. Por favor, recarregue a página.'
+    },
+    fr: {
+      sides: {links: 'gauche', rechts: 'droite'},
+      removeSuffix: ': retirer',
+      moleNone: 'Aucun grain de beauté sélectionné.',
+      moleCount: n => n + ' sur 13 sélectionnés. Cliquez pour retirer.',
+      moleMax: 'Vous pouvez sélectionner jusqu’à 13 zones. Retirez-en une d’abord.',
+      submitIdle: 'Débloquer l’analyse complète – 250 ⭐',
+      submitPending: 'Veuillez patienter …',
+      submitDone: 'Analyse complète débloquée',
+      nameTooLong: 'Votre prénom ne peut pas dépasser 30 caractères.',
+      invalidEmail: 'Veuillez saisir une adresse e-mail valide ou laisser ce champ vide.',
+      openingInvoice: 'Ouverture de la facture de 250 ⭐ …',
+      invoiceErrorRetry: 'Le paiement n’a pas pu être préparé. Veuillez réessayer.',
+      invoiceError: 'Le paiement n’a pas pu être préparé.',
+      paymentFailed: 'Le paiement n’a pas été finalisé.',
+      paymentSuccessCreating: 'Paiement réussi ! Création de votre analyse et de votre PDF …',
+      sentToChat: 'Votre analyse a été envoyée dans le chat Telegram.',
+      tgReadyEmail: 'Votre analyse complète est prête (et également envoyée en PDF dans le chat et par e-mail).',
+      tgReadyChat: 'Votre analyse complète est prête (et également envoyée en PDF dans le chat).',
+      networkError: 'Aucune connexion. Veuillez vérifier votre connexion internet.',
+      bootError: 'L’outil n’a pas pu être chargé. Veuillez recharger la page.',
+      openingPhoto: 'Ouverture de la photo …',
+      photoReady: 'Votre photo est prête.',
+      loadingModel: 'Chargement de l’analyse sur votre appareil …',
+      analyzingBrows: 'Analyse de vos sourcils …',
+      analysisDone: 'Votre analyse est prête.',
+      analysisFailed: 'L’analyse locale n’a pas pu démarrer. Veuillez recharger la page.'
+    }
   };
 
   function setupTelegramPaidForm(onBusyChange = () => {}) {
+    const lang = detectLang(), ui = UI_BY_LANG[lang] || UI_BY_LANG.de;
+    const MOLE_ZONE_NAMES = MOLE_ZONE_NAMES_BY_LANG[lang] || MOLE_ZONE_NAMES_BY_LANG.de;
     const $ = id => document.getElementById(id), form = $('tg-form');
     const fields = $('report-fields'), submit = $('report-submit'), message = $('report-status'), error = $('report-error');
     const download = $('report-download'), paidPanel = $('paid-result'), paidContainer = $('paid-sections');
@@ -197,7 +459,7 @@
       const tgFirstName = tg.initDataUnsafe?.user?.first_name;
       if (tgFirstName && !$('report-first-name').value) $('report-first-name').value = tgFirstName.slice(0, 30);
     }
-    const botParam = new URLSearchParams(location.search).get('bot') || 'gesichtslesen_bot';
+    const botParam = new URLSearchParams(location.search).get('bot') || (lang === 'de' ? 'gesichtslesen_bot' : (BOTS_BY_LANG[lang] || 'gesichtslesen_bot'));
     const workerBase = (form.dataset.workerUrl || '').trim().replace(/\/+$/, '');
     let result = null, activeZone = null, revision = 0, pending = false, complete = false, pdfURL = null;
 
@@ -207,7 +469,7 @@
     const updateBusy = () => {
       fields.disabled = pending || complete;
       submit.disabled = pending || complete || !result;
-      submit.textContent = pending ? 'Bitte warten …' : complete ? 'Vollständige Analyse freigeschaltet' : 'Vollständige Analyse freischalten – 250 ⭐';
+      submit.textContent = pending ? ui.submitPending : complete ? ui.submitDone : ui.submitIdle;
       form.setAttribute('aria-busy', String(pending));
       onBusyChange(pending);
     };
@@ -215,18 +477,20 @@
       for (const [zone, button] of zoneButtons) button.setAttribute('aria-pressed', String(zone === activeZone));
       for (const side of ['links', 'rechts']) {
         const button = $('mole-' + side);
+        if (lang !== 'de') button.textContent = ui.sides[side];
         const fixedSide = activeZone === 'links_gesicht' ? 'links' : activeZone === 'rechts_gesicht' ? 'rechts' : null;
         button.disabled = !activeZone || (fixedSide !== null && fixedSide !== side);
         button.setAttribute('aria-pressed', String(!!activeZone && selected.has(activeZone + ':' + side)));
       }
       $('mole-none').setAttribute('aria-pressed', String(selected.size === 0));
-      $('mole-count').textContent = selected.size ? selected.size + ' von 13 Angaben ausgewählt. Zum Entfernen anklicken.' : 'Keine Muttermale ausgewählt.';
+      $('mole-count').textContent = selected.size ? ui.moleCount(selected.size) : ui.moleNone;
       const list = $('mole-selection'); list.replaceChildren();
       for (const [key, mole] of selected) {
         const item = document.createElement('li'), button = document.createElement('button');
+        const sideLabel = lang === 'de' ? mole.side : (ui.sides[mole.side] || mole.side);
         button.type = 'button'; button.className = 'mole-choice mole-selected';
-        button.textContent = MOLE_ZONE_NAMES[mole.zone] + ' · ' + mole.side + ' ×';
-        button.setAttribute('aria-label', MOLE_ZONE_NAMES[mole.zone] + ', ' + mole.side + ': entfernen');
+        button.textContent = MOLE_ZONE_NAMES[mole.zone] + ' · ' + sideLabel + ' ×';
+        button.setAttribute('aria-label', MOLE_ZONE_NAMES[mole.zone] + ', ' + sideLabel + ui.removeSuffix);
         button.addEventListener('click', () => { if (pending || complete) return; selected.delete(key); clearError(); renderMoles(); });
         item.append(button); list.append(item);
       }
@@ -242,7 +506,7 @@
       const key = activeZone + ':' + side;
       if (selected.has(key)) selected.delete(key);
       else if (selected.size < 13) selected.set(key, {zone: activeZone, side});
-      else { showError('Du kannst höchstens 13 Angaben auswählen. Entferne zuerst eine Angabe.'); return; }
+      else { showError(ui.moleMax); return; }
       clearError(); renderMoles();
     });
     $('mole-none').addEventListener('click', () => { if (pending || complete) return; selected.clear(); activeZone = null; clearError(); renderMoles(); });
@@ -285,9 +549,9 @@
       clearError();
       const firstName = $('report-first-name').value.trim();
       const email = emailInput ? emailInput.value.trim() : '';
-      if (Array.from(firstName).length > 30) { showError('Dein Vorname darf höchstens 30 Zeichen haben.'); $('report-first-name').focus(); return; }
+      if (Array.from(firstName).length > 30) { showError(ui.nameTooLong); $('report-first-name').focus(); return; }
       if (email && (email.length > 254 || !/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]{2,}$/.test(email))) {
-        showError('Bitte gib eine gültige E-Mail-Adresse ein oder lasse das Feld frei.');
+        showError(ui.invalidEmail);
         if (emailInput) emailInput.focus();
         return;
       }
@@ -301,10 +565,11 @@
       if (firstName) payload.first_name = firstName;
       if (email) payload.email = email;
       if (tg?.initData) payload.init_data = tg.initData;
+      if (lang !== 'de') payload.lang = lang;
 
       const ticket = revision;
       pending = true; releasePDF(); updateBusy();
-      message.textContent = 'Rechnung über 250 ⭐ wird geöffnet …';
+      message.textContent = ui.openingInvoice;
 
       try {
         const invRes = await fetch(workerBase + '/api/tg/invoice', {
@@ -312,26 +577,26 @@
           cache: 'no-store', body: JSON.stringify(payload),
         });
         if (ticket !== revision) return;
-        if (!invRes.ok) { message.textContent = ''; showError('Die Zahlung konnte gerade nicht vorbereitet werden. Bitte versuche es erneut.'); return; }
+        if (!invRes.ok) { message.textContent = ''; showError(ui.invoiceErrorRetry); return; }
         const invData = await invRes.json();
-        if (!invData?.ok || !invData.invoice_url) { message.textContent = ''; showError('Die Zahlung konnte gerade nicht vorbereitet werden.'); return; }
+        if (!invData?.ok || !invData.invoice_url) { message.textContent = ''; showError(ui.invoiceError); return; }
 
         if (tg && typeof tg.openInvoice === 'function') {
           const status = await new Promise(resolve => tg.openInvoice(invData.invoice_url, resolve));
           if (ticket !== revision) return;
           if (status !== 'paid') {
             message.textContent = '';
-            if (status === 'failed') showError('Die Zahlung wurde nicht abgeschlossen.');
+            if (status === 'failed') showError(ui.paymentFailed);
             return;
           }
-          message.textContent = 'Zahlung erfolgreich! Deine Analyse und dein PDF werden erstellt …';
+          message.textContent = ui.paymentSuccessCreating;
           const repRes = await fetch(workerBase + '/api/tg/report', {
             method: 'POST', headers: {'Content-Type': 'application/json'}, credentials: 'omit',
             cache: 'no-store', body: JSON.stringify(payload),
           });
           if (ticket !== revision) return;
           if (!repRes.ok) {
-            message.textContent = 'Deine Analyse wurde in den Telegram-Chat gesendet.';
+            message.textContent = ui.sentToChat;
             complete = true;
             return;
           }
@@ -339,13 +604,13 @@
           complete = true;
           renderPaidReport(repData);
           message.textContent = repData.email_sent
-            ? 'Deine vollständige Analyse ist bereit (und zusätzlich als PDF im Chat sowie per E-Mail).'
-            : 'Deine vollständige Analyse ist bereit (und zusätzlich als PDF im Chat).';
+            ? ui.tgReadyEmail
+            : ui.tgReadyChat;
         } else {
           location.href = invData.invoice_url;
         }
       } catch (_) {
-        if (ticket === revision) { message.textContent = ''; showError('Keine Verbindung. Bitte prüfe deine Internetverbindung.'); }
+        if (ticket === revision) { message.textContent = ''; showError(ui.networkError); }
       } finally {
         pending = false;
         updateBusy();
@@ -369,10 +634,12 @@
   }
 
   async function boot() {
-    if (!document.querySelector('[data-gesicht-tg-app]')) return;
+    if (!document.querySelector('[data-gesicht-tg-app]') && !document.querySelector('[data-gesicht-app]')) return;
+    const lang = detectLang(), ui = UI_BY_LANG[lang] || UI_BY_LANG.de;
     const $ = id => document.getElementById(id), base = '/assets/gesicht/';
     const json = async name => { const res = await fetch(base + name, {credentials: 'omit'}); if (!res.ok) throw new Error('Local asset unavailable'); return res.json(); };
-    const [TH, rules] = await Promise.all([json('thresholds.json'), json('face_rules_free_de.json')]);
+    const rulesFile = lang === 'de' ? 'face_rules_free_de.json' : `face_rules_free_${lang}.json`;
+    const [TH, rules] = await Promise.all([json('thresholds.json'), json(rulesFile)]);
     const input = $('photo-input'), preview = $('photo-preview'), analyze = $('analyze-button'), status = $('analysis-status');
     let objectURL = null, detector = null, pendingDetector = null, generation = 0, busy = false;
     const updatePhotoControls = reportPending => {
@@ -393,7 +660,7 @@
       $('mark30-description').textContent = '';
     };
     const releasePhoto = () => { if (objectURL) URL.revokeObjectURL(objectURL); objectURL = null; preview.removeAttribute('src'); preview.hidden = true; $('preview-area').hidden = true; input.value = ''; analyze.disabled = true; $('reset-photo').hidden = true; };
-    const showError = key => { $('photo-error').textContent = rules.photo_errors_de[key]; $('photo-error').hidden = false; status.textContent = ''; };
+    const showError = key => { const errMap = rules.photo_errors_de || rules['photo_errors_' + lang] || {}; $('photo-error').textContent = errMap[key] || ''; $('photo-error').hidden = false; status.textContent = ''; };
     const loadDetector = async () => {
       if (detector) return detector;
       if (!pendingDetector) pendingDetector = (async () => {
@@ -410,19 +677,19 @@
       const file = input.files && input.files[0]; if (!file) return;
       const ticket = ++generation; clearResult(); releasePhoto();
       if (file.type && !file.type.startsWith('image/')) { showError('no_face'); return; }
-      status.textContent = 'Foto wird geöffnet …';
+      status.textContent = ui.openingPhoto;
       objectURL = URL.createObjectURL(file); preview.src = objectURL;
-      try { await preview.decode(); if (ticket !== generation) return; preview.hidden = false; $('preview-area').hidden = false; $('reset-photo').hidden = false; analyze.disabled = false; status.textContent = 'Dein Foto ist bereit.'; }
+      try { await preview.decode(); if (ticket !== generation) return; preview.hidden = false; $('preview-area').hidden = false; $('reset-photo').hidden = false; analyze.disabled = false; status.textContent = ui.photoReady; }
       catch (_) { if (ticket === generation) { releasePhoto(); showError('no_face'); } }
     });
     $('reset-photo').addEventListener('click', () => { if (report.isPending()) return; generation++; clearResult(); releasePhoto(); status.textContent = ''; });
     analyze.addEventListener('click', async () => {
       if (busy || report.isPending() || !objectURL) return; busy = true; const ticket = generation;
-      analyze.disabled = true; $('choose-photo').disabled = true; clearResult(); status.textContent = 'Analyse wird auf deinem Gerät geladen …';
+      analyze.disabled = true; $('choose-photo').disabled = true; clearResult(); status.textContent = ui.loadingModel;
       const canvas = document.createElement('canvas'); let pixels, gray;
       try {
         const model = await loadDetector(); if (ticket !== generation) return;
-        status.textContent = 'Deine Augenbrauen werden analysiert …'; await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        status.textContent = ui.analyzingBrows; await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
         const scale = Math.min(1, 1600 / Math.max(preview.naturalWidth, preview.naturalHeight));
         canvas.width = preview.naturalWidth; canvas.height = preview.naturalHeight;
         const ctx = canvas.getContext('2d', {willReadFrequently: true}); ctx.drawImage(preview, 0, 0);
@@ -439,14 +706,15 @@
         if (ticket !== generation) return;
         if (!result.ok) { showError(result.error); return; }
         const form = rules.brows[result.form], text = result.subtype && form.subtypes ? form.subtypes[result.subtype] : form;
-        $('brow-name').textContent = text.name_de;
-        $('brow-intro').textContent = rules.brows_intro_de;
-        $('brow-description').textContent = text.short_de;
-        $('mark30-description').textContent = rules.mark30[result.mark30_found ? 'free_found_de' : 'free_not_found_de'];
+        $('brow-name').textContent = text.name_de || text['name_' + lang] || '';
+        $('brow-intro').textContent = rules.brows_intro_de || rules['brows_intro_' + lang] || '';
+        $('brow-description').textContent = text.short_de || text['short_' + lang] || '';
+        const mKey = result.mark30_found ? 'free_found' : 'free_not_found';
+        $('mark30-description').textContent = rules.mark30[mKey + '_de'] || rules.mark30[mKey + '_' + lang] || '';
         report.setResult(result);
-        $('analysis-result').hidden = false; $('full-analysis').hidden = false; status.textContent = 'Deine Analyse ist fertig.';
+        $('analysis-result').hidden = false; $('full-analysis').hidden = false; status.textContent = ui.analysisDone;
         $('analysis-result').scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'});
-      } catch (error) { if (ticket === generation) { status.textContent = 'Die lokale Analyse konnte nicht gestartet werden. Bitte lade die Seite erneut.'; console.error('Gesichtlesen TG: local analysis failed', error.name); } }
+      } catch (error) { if (ticket === generation) { status.textContent = ui.analysisFailed; console.error('Gesichtlesen TG: local analysis failed', error.name); } }
       finally { if (pixels) pixels.data.fill(0); if (gray) gray.fill(0); canvas.width = canvas.height = 0; busy = false; updatePhotoControls(report.isPending()); }
     });
     addEventListener('pagehide', () => { generation++; report.clear(); releasePhoto(); if (detector) { detector.close(); detector = null; pendingDetector = null; } });
@@ -454,8 +722,9 @@
   }
 
   if (typeof document !== 'undefined') boot().catch(error => {
+    const ui = UI_BY_LANG[detectLang()] || UI_BY_LANG.de;
     const el = document.getElementById('analysis-status');
-    if (el) el.textContent = 'Das Werkzeug konnte nicht geladen werden. Bitte lade die Seite erneut.';
+    if (el) el.textContent = ui.bootError;
     console.error('Gesichtlesen TG: initialization failed', error.name);
   });
 })(typeof globalThis !== 'undefined' ? globalThis : this);

@@ -1,0 +1,48 @@
+{
+  "brows_intro_de": "En la fisiognomía, las cejas se consideran el «letrero luminoso» de una persona: muestran tu trayectoria de comunicación y cómo afrontas los proyectos, y a menudo también revelan lo que ocurre con tus hermanos.",
+  "photo_errors_de": {
+    "no_face": "No pude detectar ningún rostro. Por favor, envía un selfie de frente, con buena iluminación y la frente despejada.",
+    "multiple_faces": "Hay varias personas en la foto. Por favor, envía un selfie en el que solo aparezcas tú.",
+    "too_small": "Tu rostro se ve demasiado pequeño en la foto. Acércate más a la cámara para que tu cara llene bien el encuadre.",
+    "turned": "Tu cabeza está demasiado girada. Por favor, mira directamente a la cámara (de frente).",
+    "dark": "La foto está demasiado oscura o borrosa. Busca buena luz natural y envía un nuevo selfie.",
+    "brows_hidden": "Tus cejas no se ven con claridad. Por favor, aparta el cabello de la frente y envía un nuevo selfie."
+  },
+  "disclaimer_de": "Nota: Esta interpretación tiene fines de entretenimiento y autoconocimiento. No sustituye el consejo médico, psicológico ni legal, ni predice tu destino. Si un lunar cambia (tamaño, color, forma, picor o sangrado), consulta a un dermatólogo.",
+  "brows": {
+    "dicht": {
+      "name_de": "Cejas pobladas y densas",
+      "short_de": "Cuanto más pobladas son tus cejas, más buscas el intercambio y la conexión con los demás. Lo que empiezas, sueles mantenerlo con estabilidad."
+    },
+    "dichte_wechselt": {
+      "name_de": "Cejas con densidad variable",
+      "short_de": "Pobladas junto al puente nasal y más finas desde la mitad: inicias proyectos con mucha claridad y fuerza, pero luego necesitas nueva motivación para mantener el ritmo."
+    },
+    "duenn": {
+      "name_de": "Cejas finas y delicadas",
+      "short_de": "Cuanto más finas son tus cejas, más selectivo(a) eres. No entregas tu confianza de inmediato: no por dureza, sino por prudencia.",
+      "subtypes": {
+        "duenn_unruhig": {
+          "name_de": "Cejas finas e irregulares",
+          "short_de": "Las cejas finas y desiguales muestran un ánimo sensible y cambiante. Eres selectivo(a) y a veces reaccionas con impaciencia."
+        }
+      }
+    },
+    "breiter_zum_ende": {
+      "name_de": "Cejas que se ensanchan hacia el extremo",
+      "short_de": "Necesitas algo de tiempo para adaptarte a lo nuevo, pero a medida que avanzas te vuelves cada vez más estable y fiable."
+    },
+    "tief": {
+      "name_de": "Cejas bajas sobre el ojo",
+      "short_de": "Las cejas bajas revelan a una persona realista: observas el fondo de las cosas y prefieres prepararte ante los escenarios difíciles."
+    },
+    "hoch_winkel": {
+      "name_de": "Cejas altas con ángulo",
+      "short_de": "Las cejas altas muestran apertura al mundo. Un ángulo marcado refleja autoconfianza y temperamento."
+    }
+  },
+  "mark30": {
+    "free_found_de": "En la mitad de tu ceja observo una interrupción o una zona con menos vello. En fisiognomía esto indica que alrededor de los 30 años (a veces algo antes, hacia los 27) hubo o habrá un acontecimiento que da un nuevo rumbo a tu vida.",
+    "free_not_found_de": "En la mitad de tu ceja —la zona correspondiente aproximadamente a los 30 años— el recorrido del vello es uniforme y sin interrupciones llamativas."
+  }
+}

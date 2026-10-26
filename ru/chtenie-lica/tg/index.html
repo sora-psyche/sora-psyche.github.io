@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Чтение лица · Telegram App</title>
+<meta name="description" content="Чтение лица: узнай форму своих бровей и отметку 30 лет по селфи прямо в Telegram. Твоё фото остаётся на устройстве. Для самопознания.">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; img-src 'self' blob: data:; connect-src 'self' https://gesicht.gesicht-worker.workers.dev; font-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/assets/gesicht/gesicht.css">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<script src="/assets/gesicht/vendor/telegram/telegram-web-app.js"></script>
+<script defer src="/assets/gesicht/gesicht_tg.js"></script>
+</head>
+<body class="gesicht-page">
+<main class="wrap" data-gesicht-app data-lang="ru">
+<article>
+  <nav class="gesicht-lang-bar" aria-label="Выбор языка">
+    <a href="/gesichtlesen/tg/" lang="de">🇩🇪 DE</a><span aria-hidden="true">·</span>
+    <a href="/en/face-reading/tg/" lang="en">🇬🇧 EN</a><span aria-hidden="true">·</span>
+    <a href="/es/lectura-facial/tg/" lang="es">🇪🇸 ES</a><span aria-hidden="true">·</span>
+    <a href="/ru/chtenie-lica/tg/" lang="ru" aria-current="page">🇷🇺 RU</a><span aria-hidden="true">·</span>
+    <a href="/pt/leitura-facial/tg/" lang="pt">🇧🇷 PT</a><span aria-hidden="true">·</span>
+    <a href="/fr/lecture-du-visage/tg/" lang="fr">🇫🇷 FR</a>
+  </nav>
+  <header class="gesicht-hero">
+    <p class="kicker">Физиогномика · Брови и родинки</p>
+    <h1>Чтение лица</h1>
+    <p class="lede">Форма твоих бровей и отметка 30 лет — по селфи, прямо на твоём устройстве.</p>
+    <a class="text-link" href="#gesicht-disclaimer">Для самопознания и развлечения</a>
+  </header>
+
+  <section class="gesicht-panel" id="gesicht-tool" data-gesicht-tg-app data-lang="ru" aria-labelledby="tool-title">
+    <div class="panel-heading">
+      <p class="kicker">Бесплатно · на твоём устройстве</p>
+      <h2 id="tool-title">О чём говорят твои брови?</h2>
+    </div>
+    <ol class="gesicht-steps" aria-label="Как это работает">
+      <li><span aria-hidden="true">1</span>Выбери селфи</li>
+      <li><span aria-hidden="true">2</span>Запусти анализ</li>
+      <li><span aria-hidden="true">3</span>Прочитай разбор</li>
+    </ol>
+    <div class="photo-controls">
+      <input type="file" id="photo-input" accept="image/*" capture="user" aria-label="Сделать селфи или выбрать фото" hidden>
+      <button class="btn" id="choose-photo" type="button">Сделать селфи / Выбрать фото</button>
+    </div>
+    <p class="photo-privacy"><svg width="17" height="19" viewBox="0 0 17 19" fill="none" aria-hidden="true"><path d="M3.5 8V6a5 5 0 0 1 10 0v2M2 8.5h13v9H2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>Твоё фото остаётся на устройстве и никуда не загружается.</p>
+    <div id="preview-area" class="photo-preview" hidden>
+      <img id="photo-preview" alt="Предпросмотр выбранного селфи" hidden>
+    </div>
+    <div class="analysis-controls">
+      <button class="btn analyze-button" id="analyze-button" type="button" disabled>Анализировать брови</button>
+      <button class="button-quiet" id="reset-photo" type="button" hidden>Удалить фото</button>
+    </div>
+    <p id="analysis-status" class="analysis-status" role="status" aria-live="polite" aria-atomic="true">Выбери селфи, чтобы начать.</p>
+    <p id="photo-error" class="photo-error" role="alert" hidden></p>
+  </section>
+
+  <section id="analysis-result" class="gesicht-panel result-panel" aria-labelledby="result-title" aria-live="polite" hidden>
+    <p class="kicker">Твой результат</p>
+    <h2 id="result-title">Твои брови</h2>
+    <h3 id="brow-name"></h3>
+    <p id="brow-intro"></p>
+    <p id="brow-description"></p>
+    <div class="mark30-result">
+      <h3>Отметка около 30 лет</h3>
+      <p id="mark30-description"></p>
+    </div>
+    <a class="text-link" href="#gesicht-disclaimer">Примечание к разбору</a>
+  </section>
+
+  <section id="full-analysis" class="gesicht-panel full-analysis" aria-labelledby="full-title" hidden>
+    <p class="kicker">Открыть · 250 ⭐</p>
+    <h2 id="full-title">Полный разбор лица и родинок</h2>
+    <ul class="analysis-includes">
+      <li>Родинки на лице и теле</li>
+      <li>Значение левой и правой стороны</li>
+      <li>Братья и сёстры</li>
+      <li>Взгляд в будущее</li>
+      <li>Персональный PDF</li>
+    </ul>
+    <form id="tg-form" class="key-form" data-worker-url="https://gesicht.gesicht-worker.workers.dev">
+      <fieldset id="report-fields">
+        <legend>Твои данные для полного разбора</legend>
+        <div class="mole-picker" role="group" aria-labelledby="mole-title" aria-describedby="mole-hint">
+          <h3 id="mole-title">Где у тебя есть родинки?</h3>
+          <p id="mole-hint" class="form-hint">Выбери зону и сторону (по отношению к себе). До 13 отметок.</p>
+          <div id="mole-zones" class="mole-zones" role="group" aria-label="Зона тела"></div>
+          <div class="mole-sides" role="group" aria-label="Сторона">
+            <button class="mole-choice" id="mole-links" type="button" aria-pressed="false" disabled>слева</button>
+            <button class="mole-choice" id="mole-rechts" type="button" aria-pressed="false" disabled>справа</button>
+          </div>
+          <button class="mole-choice mole-none" id="mole-none" type="button" aria-pressed="true">Нет родинок</button>
+          <p id="mole-count" class="form-hint" role="status" aria-live="polite">Родинки не выбраны.</p>
+          <ul id="mole-selection" class="mole-selection" aria-label="Твой выбор"></ul>
+        </div>
+        <label for="report-first-name">Имя (необязательно)</label>
+        <input id="report-first-name" name="first_name" type="text" maxlength="30" autocomplete="given-name" placeholder="Твоё имя">
+        <label for="report-email">E-mail для копии (необязательно)</label>
+        <input id="report-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="you@mail.com – также получить на почту">
+        <p class="form-hint">После открытия (250 ⭐) полный разбор сразу появится прямо здесь, а твой персональный PDF дополнительно придёт в чат Telegram (и по желанию на твой e-mail).</p>
+        <button class="btn-teal" id="report-submit" type="submit">Открыть полный разбор – 250 ⭐</button>
+      </fieldset>
+      <p id="report-status" class="analysis-status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <p id="report-error" class="photo-error" role="alert" hidden></p>
+      <a id="report-download" class="text-link" download="Chtenie-Lica.pdf" hidden>📄 Скачать персональный PDF</a>
+    </form>
+  </section>
+
+  <section id="paid-result" class="gesicht-panel result-panel" aria-labelledby="paid-result-title" aria-live="polite" hidden>
+    <p class="kicker">Открыто</p>
+    <h2 id="paid-result-title">Твой полный разбор лица</h2>
+    <div id="paid-sections"></div>
+  </section>
+
+  <aside class="handlesen-bridge" aria-labelledby="handlesen-title">
+    <div><p class="kicker">Также в Telegram</p><h2 id="handlesen-title">Каналы</h2></div>
+    <div class="gesicht-actions">
+      <a class="btn-teal" href="https://t.me/chtenielica">📢 Канал @chtenielica</a>
+      <a class="btn-outline" href="https://t.me/znachenierodinok">📢 Канал @znachenierodinok</a>
+    </div>
+  </aside>
+
+  <section id="faq" class="gesicht-faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">Частые вопросы</h2>
+    <details><summary>Что означают брови в физиогномике?</summary><p>В физиогномике брови считаются «бегущей строкой» человека: они показывают, как ты выстраиваешь общение и берёшься за дела — а нередко и то, что происходит у твоих братьев и сестёр.</p></details>
+    <details><summary>Что означают густые, плотные брови?</summary><p>Чем гуще брови, тем сильнее потребность в обмене, контактах и связях с людьми. Начатое дело ты обычно ведёшь устойчиво и последовательно.</p></details>
+    <details><summary>Что означает ровный ход волосков в середине брови?</summary><p>В середине брови — зоне, которая соотносится примерно с рубежом 30 лет — ровный ход волосков без заметного разрыва говорит о плавном течении этого периода.</p></details>
+    <details><summary>Является ли такой разбор предсказанием судьбы?</summary><p>Важно: этот разбор создан для самопознания и развлечения. Он не является медицинской, психологической или юридической консультацией и не предсказывает судьбу. Если родинка меняется (размер, цвет, форма, зуд, кровоточивость), обязательно обратись к врачу-дерматологу.</p></details>
+  </section>
+
+  <section id="augenbrauen-wissen" class="brow-reading" aria-labelledby="wissen-title">
+    <p class="kicker">Справочник</p>
+    <h2 id="wissen-title">Чтение бровей: формы и отметка 30 лет</h2>
+    <p>В физиогномике брови называют «бегущей строкой» человека: по ним видно, как ты общаешься и включаешься в дела, а также что происходит у братьев и сестёр.</p>
+    <div class="brow-forms">
+      <div class="brow-entry"><h3>Густые, плотные брови</h3><p>Чем гуще брови, тем сильнее стремление к обмену и связям с окружающими. То, что ты начинаешь, обычно ведёшь стабильно и основательно.</p></div>
+      <div class="brow-entry"><h3>Брови с переменной густотой</h3><p>Густые у переносицы и более редкие от середины: ты начинаешь проекты очень ярко и мощно, но позже тебе нужен новый импульс, чтобы не потерять темп.</p></div>
+      <div class="brow-entry"><h3>Тонкие, деликатные брови</h3><p>Чем тоньше брови, тем ты избирательнее. Ты не доверяешь первому встречному — не из жёсткости, а из разумной осторожности.</p></div>
+      <div class="brow-entry"><h3>Тонкие, неровные брови</h3><p>Тонкие брови с неровным ходом волосков говорят о высокой чувствительности и переменчивости настроения. Тебе важна спокойная, надёжная среда.</p></div>
+      <div class="brow-entry"><h3>Брови, расширяющиеся к внешнему краю</h3><p>Тебе нужно немного времени, чтобы присмотреться к новому — зато со временем ты становишься всё устойчивее и надёжнее.</p></div>
+      <div class="brow-entry"><h3>Низко посаженные брови</h3><p>Низкие брови выдают реалиста: ты смотришь в суть вещей и предпочитаешь заранее подготовиться к сложным сценариям.</p></div>
+      <div class="brow-entry"><h3>Высокие брови с изломом</h3><p>Высокие брови говорят об открытости миру, а выраженный угол — о темпераменте, уверенности и стремлении вести за собой.</p></div>
+    </div>
+    <h3>Отметка около 30 лет</h3>
+    <p class="reading-label">Если в середине брови виден разрыв или поредение:</p>
+    <p>В средней части брови заметно поредение или перепад. В физиогномике считается, что около 30 лет (иногда чуть раньше, в районе 27) было или будет событие, которое поворачивает жизнь в новое русло.</p>
+    <p class="reading-label">Если разрыва нет:</p>
+    <p>В середине брови — на участке, отвечающем примерно за 30 лет — волоски лежат ровно и без заметного перерыва.</p>
+    <p class="note gesicht-disclaimer" id="gesicht-disclaimer">Важно: этот разбор предназначен для самопознания и развлечения. Он не является медицинской, психологической или юридической консультацией и не предсказывает судьбу. Если родинка меняется (размер, цвет, форма, зуд, кровоточивость), обратись к дерматологу.</p>
+  </section>
+</article>
+</main>
+</body>
+</html>

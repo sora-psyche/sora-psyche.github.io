@@ -177,32 +177,306 @@
   }
   // Zone names are copied verbatim from face_rules_de.json, moles.zones.
   // No photo, pixels, landmarks or classifier diagnostics enter the report request.
-  const MOLE_ZONE_NAMES = {
-    "augen": "Um die Augen",
-    "nasolabial": "Nasolabialfalte (zwischen Nase und Mundwinkel)",
-    "lippen": "Lippen",
-    "nase": "Nase",
-    "links_gesicht": "Linke Gesichtshälfte",
-    "rechts_gesicht": "Rechte Gesichtshälfte",
-    "hals": "Hals / Nacken",
-    "brust": "Brust",
-    "schultern": "Schultern / oberer Rücken",
-    "bauch": "Bauch",
-    "knie": "Knie",
-    "haende": "Handrücken / kleiner Finger",
-    "handflaeche": "Handfläche"
+  const SUPPORTED_LANGS = new Set(['de', 'en', 'es', 'ru', 'pt', 'fr']);
+  const BOTS_BY_LANG = {
+    de: 'gesicht_lesen_bot',
+    en: 'udalyonnayarabota_bot',
+    es: 'tarjetascripto_bot',
+    ru: 'chtenielica_bot',
+    pt: 'quemargrasa_bot',
+    fr: 'kriptokartybot'
+  };
+  function detectLang() {
+    const raw = ((typeof document !== 'undefined' && ((typeof document.querySelector === 'function' && document.querySelector('[data-gesicht-app]')?.dataset?.lang) || document.documentElement?.lang)) || 'de').slice(0, 2).toLowerCase();
+    return SUPPORTED_LANGS.has(raw) ? raw : 'de';
+  }
+  const MOLE_ZONE_NAMES_BY_LANG = {
+    de: {
+      "augen": "Um die Augen",
+      "nasolabial": "Nasolabialfalte (zwischen Nase und Mundwinkel)",
+      "lippen": "Lippen",
+      "nase": "Nase",
+      "links_gesicht": "Linke Gesichtshälfte",
+      "rechts_gesicht": "Rechte Gesichtshälfte",
+      "hals": "Hals / Nacken",
+      "brust": "Brust",
+      "schultern": "Schultern / oberer Rücken",
+      "bauch": "Bauch",
+      "knie": "Knie",
+      "haende": "Handrücken / kleiner Finger",
+      "handflaeche": "Handfläche"
+    },
+    en: {
+      "augen": "Around the eyes",
+      "nasolabial": "Nasolabial fold (nose to mouth corner)",
+      "lippen": "Lips",
+      "nase": "Nose",
+      "links_gesicht": "Left side of the face",
+      "rechts_gesicht": "Right side of the face",
+      "hals": "Neck / nape",
+      "brust": "Chest",
+      "schultern": "Shoulders / upper back",
+      "bauch": "Belly / abdomen",
+      "knie": "Knees",
+      "haende": "Back of hand / little finger",
+      "handflaeche": "Palm"
+    },
+    es: {
+      "augen": "Alrededor de los ojos",
+      "nasolabial": "Surco nasolabial (entre nariz y comisura)",
+      "lippen": "Labios",
+      "nase": "Nariz",
+      "links_gesicht": "Lado izquierdo del rostro",
+      "rechts_gesicht": "Lado derecho del rostro",
+      "hals": "Cuello / nuca",
+      "brust": "Pecho",
+      "schultern": "Hombros / espalda alta",
+      "bauch": "Vientre / abdomen",
+      "knie": "Rodillas",
+      "haende": "Dorso de la mano / meñique",
+      "handflaeche": "Palma de la mano"
+    },
+    ru: {
+      "augen": "Вокруг глаз",
+      "nasolabial": "Носогубная складка",
+      "lippen": "Губы",
+      "nase": "Нос",
+      "links_gesicht": "Левая сторона лица",
+      "rechts_gesicht": "Правая сторона лица",
+      "hals": "Шея / затылок",
+      "brust": "Грудь",
+      "schultern": "Плечи / верх спины",
+      "bauch": "Живот",
+      "knie": "Колени",
+      "haende": "Тыльная сторона кисти / мизинец",
+      "handflaeche": "Ладонь"
+    },
+    pt: {
+      "augen": "Ao redor dos olhos",
+      "nasolabial": "Sulco nasolabial (entre nariz e canto da boca)",
+      "lippen": "Lábios",
+      "nase": "Nariz",
+      "links_gesicht": "Lado esquerdo do rosto",
+      "rechts_gesicht": "Lado direito do rosto",
+      "hals": "Pescoço / nuca",
+      "brust": "Peito",
+      "schultern": "Ombros / parte superior das costas",
+      "bauch": "Barriga / abdômen",
+      "knie": "Joelhos",
+      "haende": "Dorso da mão / dedo mínimo",
+      "handflaeche": "Palma da mão"
+    },
+    fr: {
+      "augen": "Autour des yeux",
+      "nasolabial": "Sillon nasogénien (entre le nez et la bouche)",
+      "lippen": "Lèvres",
+      "nase": "Nez",
+      "links_gesicht": "Côté gauche du visage",
+      "rechts_gesicht": "Côté droit du visage",
+      "hals": "Cou / nuque",
+      "brust": "Poitrine",
+      "schultern": "Épaules / haut du dos",
+      "bauch": "Ventre / abdomen",
+      "knie": "Genoux",
+      "haende": "Dos de la main / auriculaire",
+      "handflaeche": "Paume de la main"
+    }
+  };
+  const UI_BY_LANG = {
+    de: {
+      sides: {links: 'links', rechts: 'rechts'},
+      removeSuffix: ': entfernen',
+      moleNone: 'Keine Muttermale ausgewählt.',
+      moleCount: n => n + ' von 13 Angaben ausgewählt. Zum Entfernen anklicken.',
+      moleMax: 'Du kannst höchstens 13 Angaben auswählen. Entferne zuerst eine Angabe.',
+      submitIdle: 'PDF erstellen',
+      submitPending: 'PDF wird erstellt …',
+      submitDone: 'PDF erstellt',
+      missingKey: 'Bitte gib deinen Schlüssel aus dem Payhip-Kauf ein.',
+      nameTooLong: 'Dein Vorname darf höchstens 30 Zeichen haben.',
+      invalidEmail: 'Bitte gib eine gültige E-Mail-Adresse ein oder lasse das Feld frei.',
+      creatingReport: 'Deine Analyse und dein PDF werden erstellt. Bitte warte einen Moment.',
+      reportReadyEmail: 'Deine vollständige Analyse und dein PDF sind bereit (und zusätzlich an deine E-Mail gesendet).',
+      reportReadyDownload: 'Deine vollständige Analyse und dein PDF sind bereit. Falls der Download nicht startet, nutze den Link.',
+      pdfReadyDownload: 'Dein PDF ist bereit. Falls der Download nicht startet, nutze den Link.',
+      errors: {
+        invalid_key: 'Dieser Schlüssel ist ungültig. Prüfe den Schlüssel aus deinem Payhip-Kauf.',
+        key_used: 'Dieser Schlüssel wurde bereits verwendet.',
+        invalid_request: 'Bitte prüfe deine Angaben und analysiere dein Foto bei Bedarf erneut.',
+        server_error: 'Dein PDF konnte gerade nicht erstellt werden. Bitte prüfe deinen Kaufstatus oder kontaktiere den Support.',
+        network: 'Keine Verbindung. Prüfe deine Internetverbindung und deinen Kaufstatus, bevor du es erneut versuchst.'
+      },
+      bootError: 'Das Werkzeug konnte nicht geladen werden. Bitte lade die Seite erneut.',
+      openingPhoto: 'Foto wird geöffnet …',
+      photoReady: 'Dein Foto ist bereit.',
+      loadingModel: 'Analyse wird auf deinem Gerät geladen …',
+      analyzingBrows: 'Deine Augenbrauen werden analysiert …',
+      analysisDone: 'Deine Analyse ist fertig.',
+      analysisFailed: 'Die lokale Analyse konnte nicht gestartet werden. Bitte lade die Seite erneut oder nutze einen aktuellen Browser.'
+    },
+    en: {
+      sides: {links: 'left', rechts: 'right'},
+      removeSuffix: ': remove',
+      moleNone: 'No moles selected.',
+      moleCount: n => n + ' of 13 selected. Click to remove.',
+      moleMax: 'You can select up to 13 items. Remove one first.',
+      submitIdle: 'Create analysis & PDF',
+      submitPending: 'Creating PDF …',
+      submitDone: 'PDF created',
+      missingKey: 'Please enter the license key from your Payhip purchase.',
+      nameTooLong: 'Your first name may be at most 30 characters.',
+      invalidEmail: 'Please enter a valid email address or leave the field blank.',
+      creatingReport: 'Your full reading and PDF are being created. Please wait a moment.',
+      reportReadyEmail: 'Your full reading and PDF are ready (and also sent to your email).',
+      reportReadyDownload: 'Your full reading and PDF are ready. If the download does not start, use the link below.',
+      pdfReadyDownload: 'Your PDF is ready. If the download does not start, use the link below.',
+      errors: {
+        invalid_key: 'This key is invalid. Please check the license key from your Payhip purchase.',
+        key_used: 'This license key has already been used.',
+        invalid_request: 'Please check your input and re-analyze your photo if needed.',
+        server_error: 'Your PDF could not be created right now. Please check your purchase status or contact support.',
+        network: 'No connection. Please check your internet connection and try again.'
+      },
+      bootError: 'The tool could not be loaded. Please reload the page.',
+      openingPhoto: 'Opening photo …',
+      photoReady: 'Your photo is ready.',
+      loadingModel: 'Loading analysis on your device …',
+      analyzingBrows: 'Analyzing your eyebrows …',
+      analysisDone: 'Your reading is ready.',
+      analysisFailed: 'Local analysis could not start. Please reload the page or use a modern browser.'
+    },
+    es: {
+      sides: {links: 'izquierda', rechts: 'derecha'},
+      removeSuffix: ': quitar',
+      moleNone: 'Ningún lunar seleccionado.',
+      moleCount: n => n + ' de 13 seleccionados. Haz clic para quitar.',
+      moleMax: 'Puedes seleccionar hasta 13 opciones. Quita una primero.',
+      submitIdle: 'Crear análisis y PDF',
+      submitPending: 'Creando PDF …',
+      submitDone: 'PDF creado',
+      missingKey: 'Por favor, introduce la clave de tu compra en Payhip.',
+      nameTooLong: 'Tu nombre puede tener como máximo 30 caracteres.',
+      invalidEmail: 'Por favor, introduce un correo electrónico válido o deja el campo vacío.',
+      creatingReport: 'Se están creando tu análisis y tu PDF. Espera un momento.',
+      reportReadyEmail: 'Tu análisis completo y tu PDF están listos (y también enviados a tu correo).',
+      reportReadyDownload: 'Tu análisis completo y tu PDF están listos. Si la descarga no comienza, usa el enlace.',
+      pdfReadyDownload: 'Tu PDF está listo. Si la descarga no comienza, usa el enlace.',
+      errors: {
+        invalid_key: 'Esta clave no es válida. Revisa la clave de tu compra en Payhip.',
+        key_used: 'Esta clave ya ha sido utilizada.',
+        invalid_request: 'Por favor, revisa tus datos y vuelve a analizar tu foto si es necesario.',
+        server_error: 'No se pudo crear tu PDF en este momento. Revisa tu compra o contacta con soporte.',
+        network: 'Sin conexión. Revisa tu conexión a internet antes de intentarlo de nuevo.'
+      },
+      bootError: 'No se pudo cargar la herramienta. Por favor, recarga la página.',
+      openingPhoto: 'Abriendo foto …',
+      photoReady: 'Tu foto está lista.',
+      loadingModel: 'Cargando el análisis en tu dispositivo …',
+      analyzingBrows: 'Analizando tus cejas …',
+      analysisDone: 'Tu análisis está listo.',
+      analysisFailed: 'No se pudo iniciar el análisis local. Recarga la página o usa un navegador actualizado.'
+    },
+    ru: {
+      sides: {links: 'слева', rechts: 'справа'},
+      removeSuffix: ': удалить',
+      moleNone: 'Родинки не выбраны.',
+      moleCount: n => 'Выбрано ' + n + ' из 13. Нажми, чтобы удалить.',
+      moleMax: 'Можно выбрать не более 13 зон. Сначала удали одну.',
+      submitIdle: 'Создать разбор и PDF',
+      submitPending: 'Создаём PDF …',
+      submitDone: 'PDF готов',
+      missingKey: 'Пожалуйста, введи лицензионный ключ из покупки Payhip.',
+      nameTooLong: 'Имя не должно превышать 30 символов.',
+      invalidEmail: 'Пожалуйста, введи корректный e-mail или оставь поле пустым.',
+      creatingReport: 'Твой полный разбор и PDF создаются. Подожди секунду.',
+      reportReadyEmail: 'Твой полный разбор и PDF готовы (и дополнительно отправлены на твой e-mail).',
+      reportReadyDownload: 'Твой полный разбор и PDF готовы. Если скачивание не началось, нажми на ссылку.',
+      pdfReadyDownload: 'Твой PDF готов. Если скачивание не началось, нажми на ссылку.',
+      errors: {
+        invalid_key: 'Этот ключ недействителен. Проверь ключ из покупки Payhip.',
+        key_used: 'Этот ключ уже был использован.',
+        invalid_request: 'Пожалуйста, проверь введённые данные и при необходимости заново проанализируй фото.',
+        server_error: 'Не удалось создать PDF прямо сейчас. Проверь статус покупки или напиши в поддержку.',
+        network: 'Нет соединения. Проверь подключение к интернету и попробуй снова.'
+      },
+      bootError: 'Не удалось загрузить инструмент. Пожалуйста, обнови страницу.',
+      openingPhoto: 'Открываем фото …',
+      photoReady: 'Фото готово к анализу.',
+      loadingModel: 'Загружаем анализ на твоём устройстве …',
+      analyzingBrows: 'Анализируем твои брови …',
+      analysisDone: 'Твой разбор готов.',
+      analysisFailed: 'Не удалось запустить локальный анализ. Обнови страницу или используй современный браузер.'
+    },
+    pt: {
+      sides: {links: 'esquerda', rechts: 'direita'},
+      removeSuffix: ': remover',
+      moleNone: 'Nenhum sinal selecionado.',
+      moleCount: n => n + ' de 13 selecionados. Clique para remover.',
+      moleMax: 'Você pode selecionar no máximo 13 opções. Remova uma primeiro.',
+      submitIdle: 'Criar análise e PDF',
+      submitPending: 'Criando PDF …',
+      submitDone: 'PDF criado',
+      missingKey: 'Por favor, insira a chave da sua compra no Payhip.',
+      nameTooLong: 'Seu primeiro nome pode ter no máximo 30 caracteres.',
+      invalidEmail: 'Por favor, insira um e-mail válido ou deixe o campo em branco.',
+      creatingReport: 'Sua análise completa e seu PDF estão sendo criados. Aguarde um momento.',
+      reportReadyEmail: 'Sua análise completa e seu PDF estão prontos (e também foram enviados para o seu e-mail).',
+      reportReadyDownload: 'Sua análise completa e seu PDF estão prontos. Se o download não iniciar, use o link.',
+      pdfReadyDownload: 'Seu PDF está pronto. Se o download não iniciar, use o link.',
+      errors: {
+        invalid_key: 'Esta chave é inválida. Verifique a chave da sua compra no Payhip.',
+        key_used: 'Esta chave já foi utilizada.',
+        invalid_request: 'Verifique seus dados e analise sua foto novamente se necessário.',
+        server_error: 'Não foi possível criar seu PDF agora. Verifique sua compra ou entre em contato com o suporte.',
+        network: 'Sem conexão. Verifique sua conexão com a internet antes de tentar novamente.'
+      },
+      bootError: 'Não foi possível carregar a ferramenta. Por favor, recarregue a página.',
+      openingPhoto: 'Abrindo foto …',
+      photoReady: 'Sua foto está pronta.',
+      loadingModel: 'Carregando análise no seu dispositivo …',
+      analyzingBrows: 'Analisando suas sobrancelhas …',
+      analysisDone: 'Sua análise está pronta.',
+      analysisFailed: 'Não foi possível iniciar a análise local. Recarregue a página ou use um navegador atualizado.'
+    },
+    fr: {
+      sides: {links: 'gauche', rechts: 'droite'},
+      removeSuffix: ': retirer',
+      moleNone: 'Aucun grain de beauté sélectionné.',
+      moleCount: n => n + ' sur 13 sélectionnés. Cliquez pour retirer.',
+      moleMax: 'Vous pouvez sélectionner jusqu’à 13 zones. Retirez-en une d’abord.',
+      submitIdle: 'Créer l’analyse et le PDF',
+      submitPending: 'Création du PDF …',
+      submitDone: 'PDF créé',
+      missingKey: 'Veuillez saisir la clé reçue lors de votre achat Payhip.',
+      nameTooLong: 'Votre prénom ne peut pas dépasser 30 caractères.',
+      invalidEmail: 'Veuillez saisir une adresse e-mail valide ou laisser ce champ vide.',
+      creatingReport: 'Votre analyse complète et votre PDF sont en cours de création. Veuillez patienter.',
+      reportReadyEmail: 'Votre analyse complète et votre PDF sont prêts (et également envoyés par e-mail).',
+      reportReadyDownload: 'Votre analyse complète et votre PDF sont prêts. Si le téléchargement ne démarre pas, utilisez le lien.',
+      pdfReadyDownload: 'Votre PDF est prêt. Si le téléchargement ne démarre pas, utilisez le lien.',
+      errors: {
+        invalid_key: 'Cette clé est invalide. Vérifiez la clé de votre achat Payhip.',
+        key_used: 'Cette clé a déjà été utilisée.',
+        invalid_request: 'Veuillez vérifier vos informations et réanalyser votre photo si nécessaire.',
+        server_error: 'Votre PDF n’a pas pu être créé pour le moment. Vérifiez votre achat ou contactez le support.',
+        network: 'Aucune connexion. Vérifiez votre connexion internet avant de réessayer.'
+      },
+      bootError: 'L’outil n’a pas pu être chargé. Veuillez recharger la page.',
+      openingPhoto: 'Ouverture de la photo …',
+      photoReady: 'Votre photo est prête.',
+      loadingModel: 'Chargement de l’analyse sur votre appareil …',
+      analyzingBrows: 'Analyse de vos sourcils …',
+      analysisDone: 'Votre analyse est prête.',
+      analysisFailed: 'L’analyse locale n’a pas pu démarrer. Rechargez la page ou utilisez un navigateur récent.'
+    }
   };
   function setupReportForm(onBusyChange = () => {}) {
+    const lang = detectLang(), ui = UI_BY_LANG[lang] || UI_BY_LANG.de;
+    const MOLE_ZONE_NAMES = MOLE_ZONE_NAMES_BY_LANG[lang] || MOLE_ZONE_NAMES_BY_LANG.de;
     const $ = id => document.getElementById(id), form = $('key-form');
     const fields = $('report-fields'), submit = $('report-submit'), message = $('report-status'), error = $('report-error');
     const download = $('report-download'), zoneButtons = new Map(), selected = new Map();
-    const errors = {
-      invalid_key: 'Dieser Schlüssel ist ungültig. Prüfe den Schlüssel aus deinem Payhip-Kauf.',
-      key_used: 'Dieser Schlüssel wurde bereits verwendet.',
-      invalid_request: 'Bitte prüfe deine Angaben und analysiere dein Foto bei Bedarf erneut.',
-      server_error: 'Dein PDF konnte gerade nicht erstellt werden. Bitte prüfe deinen Kaufstatus oder kontaktiere den Support.',
-      network: 'Keine Verbindung. Prüfe deine Internetverbindung und deinen Kaufstatus, bevor du es erneut versuchst.'
-    };
+    const errors = ui.errors;
     let endpoint = null, result = null, activeZone = null, revision = 0, pending = false, complete = false, pdfURL = null;
     const configured = form.dataset.workerUrl.trim();
     if (configured) {
@@ -220,7 +494,7 @@
     const updateBusy = () => {
       fields.disabled = pending || complete;
       submit.disabled = pending || complete || !result;
-      submit.textContent = pending ? 'PDF wird erstellt …' : complete ? 'PDF erstellt' : 'PDF erstellen';
+      submit.textContent = pending ? ui.submitPending : complete ? ui.submitDone : ui.submitIdle;
       form.setAttribute('aria-busy', String(pending));
       onBusyChange(pending);
     };
@@ -228,18 +502,20 @@
       for (const [zone, button] of zoneButtons) button.setAttribute('aria-pressed', String(zone === activeZone));
       for (const side of ['links', 'rechts']) {
         const button = $('mole-' + side);
+        if (lang !== 'de') button.textContent = ui.sides[side];
         const fixedSide = activeZone === 'links_gesicht' ? 'links' : activeZone === 'rechts_gesicht' ? 'rechts' : null;
         button.disabled = !activeZone || (fixedSide !== null && fixedSide !== side);
         button.setAttribute('aria-pressed', String(!!activeZone && selected.has(activeZone + ':' + side)));
       }
       $('mole-none').setAttribute('aria-pressed', String(selected.size === 0));
-      $('mole-count').textContent = selected.size ? selected.size + ' von 13 Angaben ausgewählt. Zum Entfernen anklicken.' : 'Keine Muttermale ausgewählt.';
+      $('mole-count').textContent = selected.size ? ui.moleCount(selected.size) : ui.moleNone;
       const list = $('mole-selection'); list.replaceChildren();
       for (const [key, mole] of selected) {
         const item = document.createElement('li'), button = document.createElement('button');
+        const sideLabel = lang === 'de' ? mole.side : (ui.sides[mole.side] || mole.side);
         button.type = 'button'; button.className = 'mole-choice mole-selected';
-        button.textContent = MOLE_ZONE_NAMES[mole.zone] + ' · ' + mole.side + ' ×';
-        button.setAttribute('aria-label', MOLE_ZONE_NAMES[mole.zone] + ', ' + mole.side + ': entfernen');
+        button.textContent = MOLE_ZONE_NAMES[mole.zone] + ' · ' + sideLabel + ' ×';
+        button.setAttribute('aria-label', MOLE_ZONE_NAMES[mole.zone] + ', ' + sideLabel + ui.removeSuffix);
         button.addEventListener('click', () => { if (pending || complete) return; selected.delete(key); clearError(); renderMoles(); });
         item.append(button); list.append(item);
       }
@@ -255,7 +531,7 @@
       const key = activeZone + ':' + side;
       if (selected.has(key)) selected.delete(key);
       else if (selected.size < 13) selected.set(key, {zone: activeZone, side});
-      else { showError('Du kannst höchstens 13 Angaben auswählen. Entferne zuerst eine Angabe.'); return; }
+      else { showError(ui.moleMax); return; }
       clearError(); renderMoles();
     });
     $('mole-none').addEventListener('click', () => { if (pending || complete) return; selected.clear(); activeZone = null; clearError(); renderMoles(); });
@@ -288,10 +564,10 @@
       clearError();
       const licenseKey = $('license-key').value.trim(), firstName = $('report-first-name').value.trim();
       const email = emailInput ? emailInput.value.trim() : '';
-      if (!licenseKey) { showError('Bitte gib deinen Schlüssel aus dem Payhip-Kauf ein.'); $('license-key').focus(); return; }
-      if (Array.from(firstName).length > 30) { showError('Dein Vorname darf höchstens 30 Zeichen haben.'); $('report-first-name').focus(); return; }
+      if (!licenseKey) { showError(ui.missingKey); $('license-key').focus(); return; }
+      if (Array.from(firstName).length > 30) { showError(ui.nameTooLong); $('report-first-name').focus(); return; }
       if (email && (email.length > 254 || !/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]{2,}$/.test(email))) {
-        showError('Bitte gib eine gültige E-Mail-Adresse ein oder lasse das Feld frei.');
+        showError(ui.invalidEmail);
         if (emailInput) emailInput.focus();
         return;
       }
@@ -301,8 +577,9 @@
       };
       if (firstName) payload.first_name = firstName;
       if (email) payload.email = email;
+      if (lang !== 'de') payload.lang = lang;
       const ticket = revision;
-      pending = true; releasePDF(); updateBusy(); message.textContent = 'Deine Analyse und dein PDF werden erstellt. Bitte warte einen Moment.';
+      pending = true; releasePDF(); updateBusy(); message.textContent = ui.creatingReport;
       try {
         // One explicit submit makes one request. Never retry a license-consuming request automatically.
         const response = await fetch(endpoint, {
@@ -329,8 +606,8 @@
           complete = true; $('license-key').value = '';
           renderPaidSections(data);
           message.textContent = data.email_sent
-            ? 'Deine vollständige Analyse und dein PDF sind bereit (und zusätzlich an deine E-Mail gesendet).'
-            : 'Deine vollständige Analyse und dein PDF sind bereit. Falls der Download nicht startet, nutze den Link.';
+            ? ui.reportReadyEmail
+            : ui.reportReadyDownload;
           download.click();
           return;
         }
@@ -339,7 +616,7 @@
         if (ticket !== revision) return;
         if (!blob.size) { message.textContent = ''; showError(errors.server_error); return; }
         pdfURL = URL.createObjectURL(blob); download.href = pdfURL; download.hidden = false;
-        complete = true; $('license-key').value = ''; message.textContent = 'Dein PDF ist bereit. Falls der Download nicht startet, nutze den Link.';
+        complete = true; $('license-key').value = ''; message.textContent = ui.pdfReadyDownload;
         download.click();
       } catch (_) {
         if (ticket === revision) { message.textContent = ''; showError(errors.network); }
@@ -362,13 +639,15 @@
   }
   const api = {analyzeLandmarks, browFeatures, classify, rgbaToGray, resizeAreaRGBA, pyRound, sample, setupReportForm};
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
-  else { root.GesichtClassifier = api; if (typeof document !== 'undefined') boot().catch(error => { const el = document.getElementById('analysis-status'); if (el) el.textContent = 'Das Werkzeug konnte nicht geladen werden. Bitte lade die Seite erneut.'; console.error('Gesichtlesen: initialization failed', error.name); }); }
+  else { root.GesichtClassifier = api; if (typeof document !== 'undefined') boot().catch(error => { const ui = UI_BY_LANG[detectLang()] || UI_BY_LANG.de; const el = document.getElementById('analysis-status'); if (el) el.textContent = ui.bootError; console.error('Gesichtlesen: initialization failed', error.name); }); }
 
   async function boot() {
     if (!document.querySelector('[data-gesicht-app]')) return;
+    const lang = detectLang(), ui = UI_BY_LANG[lang] || UI_BY_LANG.de;
     const $ = id => document.getElementById(id), base = '/assets/gesicht/';
     const json = async name => { const res = await fetch(base + name, {credentials: 'omit'}); if (!res.ok) throw new Error('Local asset unavailable'); return res.json(); };
-    const [TH, rules] = await Promise.all([json('thresholds.json'), json('face_rules_free_de.json')]);
+    const rulesFile = lang === 'de' ? 'face_rules_free_de.json' : `face_rules_free_${lang}.json`;
+    const [TH, rules] = await Promise.all([json('thresholds.json'), json(rulesFile)]);
     const input = $('photo-input'), preview = $('photo-preview'), analyze = $('analyze-button'), status = $('analysis-status');
     let objectURL = null, detector = null, pendingDetector = null, generation = 0, busy = false;
     const updatePhotoControls = reportPending => {
@@ -382,7 +661,7 @@
     if (payhipURL) { try { const u = new URL(payhipURL); if (u.protocol === 'https:') { payhip.href = u.href; payhip.hidden = false; } } catch (_) { /* Keep invalid URLs hidden. */ } }
     const clearResult = () => { report.clear(); $('analysis-result').hidden = true; $('full-analysis').hidden = true; $('photo-error').hidden = true; $('brow-name').textContent = ''; $('brow-description').textContent = ''; $('mark30-description').textContent = ''; };
     const releasePhoto = () => { if (objectURL) URL.revokeObjectURL(objectURL); objectURL = null; preview.removeAttribute('src'); preview.hidden = true; $('preview-area').hidden = true; input.value = ''; analyze.disabled = true; $('reset-photo').hidden = true; };
-    const showError = key => { $('photo-error').textContent = rules.photo_errors_de[key]; $('photo-error').hidden = false; status.textContent = ''; };
+    const showError = key => { const errMap = rules.photo_errors_de || rules['photo_errors_' + lang] || {}; $('photo-error').textContent = errMap[key] || ''; $('photo-error').hidden = false; status.textContent = ''; };
     const loadDetector = async () => {
       if (detector) return detector;
       if (!pendingDetector) pendingDetector = (async () => {
@@ -399,19 +678,19 @@
       const file = input.files && input.files[0]; if (!file) return;
       const ticket = ++generation; clearResult(); releasePhoto();
       if (file.type && !file.type.startsWith('image/')) { showError('no_face'); return; }
-      status.textContent = 'Foto wird geöffnet …';
+      status.textContent = ui.openingPhoto;
       objectURL = URL.createObjectURL(file); preview.src = objectURL;
-      try { await preview.decode(); if (ticket !== generation) return; preview.hidden = false; $('preview-area').hidden = false; $('reset-photo').hidden = false; analyze.disabled = false; status.textContent = 'Dein Foto ist bereit.'; }
+      try { await preview.decode(); if (ticket !== generation) return; preview.hidden = false; $('preview-area').hidden = false; $('reset-photo').hidden = false; analyze.disabled = false; status.textContent = ui.photoReady; }
       catch (_) { if (ticket === generation) { releasePhoto(); showError('no_face'); } }
     });
     $('reset-photo').addEventListener('click', () => { if (report.isPending()) return; generation++; clearResult(); releasePhoto(); status.textContent = ''; });
     analyze.addEventListener('click', async () => {
       if (busy || report.isPending() || !objectURL) return; busy = true; const ticket = generation;
-      analyze.disabled = true; $('choose-photo').disabled = true; clearResult(); status.textContent = 'Analyse wird auf deinem Gerät geladen …';
+      analyze.disabled = true; $('choose-photo').disabled = true; clearResult(); status.textContent = ui.loadingModel;
       const canvas = document.createElement('canvas'); let pixels, gray;
       try {
         const model = await loadDetector(); if (ticket !== generation) return;
-        status.textContent = 'Deine Augenbrauen werden analysiert …'; await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        status.textContent = ui.analyzingBrows; await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
         const scale = Math.min(1, 1600 / Math.max(preview.naturalWidth, preview.naturalHeight));
         canvas.width = preview.naturalWidth; canvas.height = preview.naturalHeight;
         const ctx = canvas.getContext('2d', {willReadFrequently: true}); ctx.drawImage(preview, 0, 0);
@@ -428,13 +707,15 @@
         if (ticket !== generation) return;
         if (!result.ok) { showError(result.error); return; }
         const form = rules.brows[result.form], text = result.subtype && form.subtypes ? form.subtypes[result.subtype] : form;
-        $('brow-name').textContent = text.name_de; $('brow-description').textContent = text.short_de;
-        $('mark30-description').textContent = rules.mark30[result.mark30_found ? 'free_found_de' : 'free_not_found_de'];
-        $('telegram-unlock').href = 'https://t.me/gesicht_lesen_bot?start=web_' + encodeURIComponent(result.form);
+        $('brow-name').textContent = text.name_de || text['name_' + lang] || ''; $('brow-description').textContent = text.short_de || text['short_' + lang] || '';
+        const mKey = result.mark30_found ? 'free_found' : 'free_not_found';
+        $('mark30-description').textContent = rules.mark30[mKey + '_de'] || rules.mark30[mKey + '_' + lang] || '';
+        const botName = BOTS_BY_LANG[lang] || BOTS_BY_LANG.de;
+        $('telegram-unlock').href = 'https://t.me/' + botName + '?start=web_' + encodeURIComponent(result.form);
         report.setResult(result);
-        $('analysis-result').hidden = false; $('full-analysis').hidden = false; status.textContent = 'Deine Analyse ist fertig.';
+        $('analysis-result').hidden = false; $('full-analysis').hidden = false; status.textContent = ui.analysisDone;
         $('analysis-result').scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'});
-      } catch (error) { if (ticket === generation) { status.textContent = 'Die lokale Analyse konnte nicht gestartet werden. Bitte lade die Seite erneut oder nutze einen aktuellen Browser.'; console.error('Gesichtlesen: local analysis failed', error.name); } }
+      } catch (error) { if (ticket === generation) { status.textContent = ui.analysisFailed; console.error('Gesichtlesen: local analysis failed', error.name); } }
       finally { if (pixels) pixels.data.fill(0); if (gray) gray.fill(0); canvas.width = canvas.height = 0; busy = false; updatePhotoControls(report.isPending()); }
     });
     addEventListener('pagehide', () => { generation++; report.clear(); releasePhoto(); if (detector) { detector.close(); detector = null; pendingDetector = null; } });

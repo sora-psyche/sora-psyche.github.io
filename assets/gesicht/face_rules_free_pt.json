@@ -1,0 +1,48 @@
+{
+  "brows_intro_de": "Na fisiognomia, as sobrancelhas são vistas como o «letreiro vivo» de uma pessoa: mostram sua trajetória de comunicação e como você conduz seus projetos — e muitas vezes também revelam o que acontece com seus irmãos.",
+  "photo_errors_de": {
+    "no_face": "Não consegui identificar um rosto. Por favor, envie uma selfie de frente, com boa luz e sem cabelo cobrindo a testa.",
+    "multiple_faces": "Há vários rostos na foto. Por favor, envie uma selfie em que apareça apenas você.",
+    "too_small": "Seu rosto está muito pequeno na foto. Aproxime-se mais da câmera para que o rosto preencha bem a imagem.",
+    "turned": "Sua cabeça está muito virada. Por favor, olhe diretamente para a câmera (de frente).",
+    "dark": "A foto está muito escura ou desfocada. Procure uma boa luz natural e envie uma nova selfie.",
+    "brows_hidden": "Suas sobrancelhas não estão bem visíveis. Por favor, afaste o cabelo da testa e envie uma nova selfie."
+  },
+  "disclaimer_de": "Aviso: Esta leitura destina-se ao entretenimento e ao autoconhecimento. Não substitui orientação médica, psicológica ou jurídica, nem é uma previsão do destino. Se um sinal mudar (tamanho, cor, forma, coceira ou sangramento), procure um dermatologista.",
+  "brows": {
+    "dicht": {
+      "name_de": "Sobrancelhas densas e cheias",
+      "short_de": "Quanto mais densas as sobrancelhas, mais fortemente você busca troca e conexão com os outros. O que começa, costuma levar adiante com estabilidade."
+    },
+    "dichte_wechselt": {
+      "name_de": "Sobrancelhas com densidade variável",
+      "short_de": "Densas perto da raiz do nariz e mais ralas do meio para o fim: você inicia projetos com muita clareza e força, mas depois precisa de nova motivação para continuar."
+    },
+    "duenn": {
+      "name_de": "Sobrancelhas finas e delicadas",
+      "short_de": "Quanto mais finas as sobrancelhas, mais seletivo(a) você é. Você não entrega sua confiança de imediato — não por dureza, mas por cautela.",
+      "subtypes": {
+        "duenn_unruhig": {
+          "name_de": "Sobrancelhas finas e irregulares",
+          "short_de": "Sobrancelhas finas e irregulares indicam um humor sensível e mutável. Você é seletivo(a) e às vezes reage de forma impulsiva."
+        }
+      }
+    },
+    "breiter_zum_ende": {
+      "name_de": "Sobrancelhas que se alargam em direção à ponta",
+      "short_de": "Você precisa de um pouco de tempo para se ambientar ao novo — mas, com o tempo, torna-se cada vez mais estável e confiável."
+    },
+    "tief": {
+      "name_de": "Sobrancelhas baixas sobre os olhos",
+      "short_de": "Sobrancelhas baixas revelam uma pessoa realista: você observa a essência das coisas e prefere se preparar para os cenários difíceis."
+    },
+    "hoch_winkel": {
+      "name_de": "Sobrancelhas altas com ângulo",
+      "short_de": "Sobrancelhas altas mostram abertura para o mundo. Um ângulo marcante indica autoconfiança e temperamento forte."
+    }
+  },
+  "mark30": {
+    "free_found_de": "No meio da sua sobrancelha vejo uma interrupção ou um ponto com menos fios. Na fisiognomia, isso indica que por volta dos 30 anos (às vezes um pouco antes, perto dos 27) houve ou haverá um acontecimento que dá uma nova direção à sua vida.",
+    "free_not_found_de": "No meio da sua sobrancelha — a região correspondente aproximadamente aos 30 anos — o alinhamento dos fios é uniforme e sem interrupções marcantes."
+  }
+}

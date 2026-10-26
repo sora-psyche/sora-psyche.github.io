@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Face Reading · Telegram App</title>
+<meta name="description" content="Face reading: Discover your eyebrow shape and the age-30 mark from a selfie directly in Telegram. Your photo stays on your device. For self-reflection.">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; img-src 'self' blob: data:; connect-src 'self' https://gesicht.gesicht-worker.workers.dev; font-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/assets/gesicht/gesicht.css">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<script src="/assets/gesicht/vendor/telegram/telegram-web-app.js"></script>
+<script defer src="/assets/gesicht/gesicht_tg.js"></script>
+</head>
+<body class="gesicht-page">
+<main class="wrap" data-gesicht-app data-lang="en">
+<article>
+  <nav class="gesicht-lang-bar" aria-label="Select language">
+    <a href="/gesichtlesen/tg/" lang="de">🇩🇪 DE</a><span aria-hidden="true">·</span>
+    <a href="/en/face-reading/tg/" lang="en" aria-current="page">🇬🇧 EN</a><span aria-hidden="true">·</span>
+    <a href="/es/lectura-facial/tg/" lang="es">🇪🇸 ES</a><span aria-hidden="true">·</span>
+    <a href="/ru/chtenie-lica/tg/" lang="ru">🇷🇺 RU</a><span aria-hidden="true">·</span>
+    <a href="/pt/leitura-facial/tg/" lang="pt">🇧🇷 PT</a><span aria-hidden="true">·</span>
+    <a href="/fr/lecture-du-visage/tg/" lang="fr">🇫🇷 FR</a>
+  </nav>
+  <header class="gesicht-hero">
+    <p class="kicker">Face Reading · Eyebrows &amp; Moles</p>
+    <h1>Face Reading</h1>
+    <p class="lede">Your eyebrow shape and the age-30 mark — from a selfie, directly on your device.</p>
+    <a class="text-link" href="#gesicht-disclaimer">For entertainment and self-reflection</a>
+  </header>
+
+  <section class="gesicht-panel" id="gesicht-tool" data-gesicht-tg-app data-lang="en" aria-labelledby="tool-title">
+    <div class="panel-heading">
+      <p class="kicker">Free · on your device</p>
+      <h2 id="tool-title">What do your eyebrows reveal?</h2>
+    </div>
+    <ol class="gesicht-steps" aria-label="How it works">
+      <li><span aria-hidden="true">1</span>Choose selfie</li>
+      <li><span aria-hidden="true">2</span>Analyze</li>
+      <li><span aria-hidden="true">3</span>Read interpretation</li>
+    </ol>
+    <div class="photo-controls">
+      <input type="file" id="photo-input" accept="image/*" capture="user" aria-label="Take a selfie or choose a photo" hidden>
+      <button class="btn" id="choose-photo" type="button">Take selfie / Choose photo</button>
+    </div>
+    <p class="photo-privacy"><svg width="17" height="19" viewBox="0 0 17 19" fill="none" aria-hidden="true"><path d="M3.5 8V6a5 5 0 0 1 10 0v2M2 8.5h13v9H2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>Your photo stays on your device and is never uploaded.</p>
+    <div id="preview-area" class="photo-preview" hidden>
+      <img id="photo-preview" alt="Preview of your selected selfie" hidden>
+    </div>
+    <div class="analysis-controls">
+      <button class="btn analyze-button" id="analyze-button" type="button" disabled>Analyze eyebrows</button>
+      <button class="button-quiet" id="reset-photo" type="button" hidden>Remove photo</button>
+    </div>
+    <p id="analysis-status" class="analysis-status" role="status" aria-live="polite" aria-atomic="true">Choose a selfie to begin.</p>
+    <p id="photo-error" class="photo-error" role="alert" hidden></p>
+  </section>
+
+  <section id="analysis-result" class="gesicht-panel result-panel" aria-labelledby="result-title" aria-live="polite" hidden>
+    <p class="kicker">Your Result</p>
+    <h2 id="result-title">Your Eyebrows</h2>
+    <h3 id="brow-name"></h3>
+    <p id="brow-intro"></p>
+    <p id="brow-description"></p>
+    <div class="mark30-result">
+      <h3>The Age-30 Mark</h3>
+      <p id="mark30-description"></p>
+    </div>
+    <a class="text-link" href="#gesicht-disclaimer">Note on interpretation</a>
+  </section>
+
+  <section id="full-analysis" class="gesicht-panel full-analysis" aria-labelledby="full-title" hidden>
+    <p class="kicker">Unlock · 250 ⭐</p>
+    <h2 id="full-title">Full Face Reading</h2>
+    <ul class="analysis-includes">
+      <li>Moles on face &amp; body</li>
+      <li>Left / right side meaning</li>
+      <li>Siblings &amp; close bonds</li>
+      <li>Future outlook</li>
+      <li>Personal PDF report</li>
+    </ul>
+    <form id="tg-form" class="key-form" data-worker-url="https://gesicht.gesicht-worker.workers.dev">
+      <fieldset id="report-fields">
+        <legend>Your details for the full reading</legend>
+        <div class="mole-picker" role="group" aria-labelledby="mole-title" aria-describedby="mole-hint">
+          <h3 id="mole-title">Where do you have moles?</h3>
+          <p id="mole-hint" class="form-hint">Choose a zone and the side from your own perspective. Up to 13 selections.</p>
+          <div id="mole-zones" class="mole-zones" role="group" aria-label="Body zone"></div>
+          <div class="mole-sides" role="group" aria-label="Side">
+            <button class="mole-choice" id="mole-links" type="button" aria-pressed="false" disabled>left</button>
+            <button class="mole-choice" id="mole-rechts" type="button" aria-pressed="false" disabled>right</button>
+          </div>
+          <button class="mole-choice mole-none" id="mole-none" type="button" aria-pressed="true">No moles</button>
+          <p id="mole-count" class="form-hint" role="status" aria-live="polite">No moles selected.</p>
+          <ul id="mole-selection" class="mole-selection" aria-label="Your selection"></ul>
+        </div>
+        <label for="report-first-name">First name (optional)</label>
+        <input id="report-first-name" name="first_name" type="text" maxlength="30" autocomplete="given-name" placeholder="Your first name">
+        <label for="report-email">Email for copy (optional)</label>
+        <input id="report-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="you@example.com – also receive by email">
+        <p class="form-hint">After unlocking (250 ⭐), your full reading appears right here, and your personal PDF is also sent to the Telegram chat (and optionally to your email).</p>
+        <button class="btn-teal" id="report-submit" type="submit">Unlock full reading – 250 ⭐</button>
+      </fieldset>
+      <p id="report-status" class="analysis-status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <p id="report-error" class="photo-error" role="alert" hidden></p>
+      <a id="report-download" class="text-link" download="Face-Reading.pdf" hidden>📄 Download personal PDF</a>
+    </form>
+  </section>
+
+  <section id="paid-result" class="gesicht-panel result-panel" aria-labelledby="paid-result-title" aria-live="polite" hidden>
+    <p class="kicker">Unlocked</p>
+    <h2 id="paid-result-title">Your Full Face Reading</h2>
+    <div id="paid-sections"></div>
+  </section>
+
+  <aside class="handlesen-bridge" aria-labelledby="handlesen-title">
+    <div><p class="kicker">Also in Telegram</p><h2 id="handlesen-title">Channels &amp; Bot</h2></div>
+    <div class="gesicht-actions">
+      <a class="btn-teal" href="https://t.me/eyebrowreading">📢 Channel @eyebrowreading</a>
+      <a class="btn-outline" href="https://t.me/molemeaning">📢 Channel @molemeaning</a>
+    </div>
+  </aside>
+
+  <section id="faq" class="gesicht-faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">Frequently Asked Questions</h2>
+    <details><summary>What do eyebrows mean in face reading (physiognomy)?</summary><p>In physiognomy, the eyebrows are seen as a person’s “running headline”: they reveal how you communicate and approach tasks — and often reflect what happens with your siblings as well.</p></details>
+    <details><summary>What do full, dense eyebrows mean?</summary><p>The fuller and denser your eyebrows, the more strongly you seek exchange and connection with others. What you start, you usually carry through steadily.</p></details>
+    <details><summary>What does an even hair flow in the center of the brow mean?</summary><p>In the middle of your eyebrow — the zone associated with roughly age 30 — an even, uninterrupted flow of hair points to a steady course without a sharp break.</p></details>
+    <details><summary>Is this reading a prediction of the future?</summary><p>Note: This reading is intended for entertainment and self-reflection. It is not medical, psychological, or legal advice and not a prediction of your fate. If a mole changes in size, color, or shape, or if it itches or bleeds, please see a dermatologist.</p></details>
+  </section>
+
+  <section id="augenbrauen-wissen" class="brow-reading" aria-labelledby="wissen-title">
+    <p class="kicker">Background Guide</p>
+    <h2 id="wissen-title">Eyebrow Reading: Shapes and the Age-30 Mark</h2>
+    <p>In physiognomy, the eyebrows are considered a person’s “running headline”: they show how you communicate and take action — and often what unfolds around your siblings.</p>
+    <div class="brow-forms">
+      <div class="brow-entry"><h3>Full, dense eyebrows</h3><p>The denser the eyebrows, the more strongly you seek exchange and connection with others. What you begin, you usually carry forward steadily.</p></div>
+      <div class="brow-entry"><h3>Eyebrows with changing density</h3><p>Dense near the bridge of the nose and lighter from the middle outward: you launch projects with clarity and drive, but need fresh motivation later to stay the course.</p></div>
+      <div class="brow-entry"><h3>Thin, fine eyebrows</h3><p>The finer the eyebrows, the more selective you are. You do not grant trust immediately — not out of harshness, but out of caution.</p></div>
+      <div class="brow-entry"><h3>Thin, irregular eyebrows</h3><p>Fine, uneven brows point to a sensitive, shifting mood. You are selective and sometimes react on impulse.</p></div>
+      <div class="brow-entry"><h3>Eyebrows widening toward the tail</h3><p>You take a little time to warm up to new situations — yet over time you become increasingly steady and reliable.</p></div>
+      <div class="brow-entry"><h3>Low-set eyebrows over the eye</h3><p>Low-set brows show a realist: you look closely and prefer to prepare for challenges in advance.</p></div>
+      <div class="brow-entry"><h3>High-set angled eyebrows</h3><p>High brows show openness to the world. A distinct angle stands for self-confidence and temperament.</p></div>
+    </div>
+    <h3>The Age-30 Mark</h3>
+    <p class="reading-label">When a gap or break is visible:</p>
+    <p>In the center of your eyebrow there is a small break or a sparser spot. In physiognomy, this indicates that around age 30 (sometimes a little earlier, around 27) there was or will be a turning point that gives your life a new direction.</p>
+    <p class="reading-label">When no break is visible:</p>
+    <p>In the center of your eyebrow — the area associated with roughly age 30 — the hair flow is even and without a noticeable interruption.</p>
+    <p class="note gesicht-disclaimer" id="gesicht-disclaimer">Note: This reading is intended for entertainment and self-reflection. It is not medical, psychological, or legal advice and not a prediction of your fate. If a mole changes (size, color, shape, itching, bleeding), please consult a dermatologist.</p>
+  </section>
+</article>
+</main>
+</body>
+</html>

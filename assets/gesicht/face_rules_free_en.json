@@ -1,0 +1,48 @@
+{
+  "brows_intro_de": "In physiognomy, eyebrows are seen as a person's “running ticker”: they reveal your trajectory of communication and how you tackle tasks—and often reflect what is happening with your siblings as well.",
+  "photo_errors_de": {
+    "no_face": "I couldn't detect a face. Please send a frontal selfie in good lighting with hair away from your forehead.",
+    "multiple_faces": "There are multiple faces in the photo. Please send a selfie showing only you.",
+    "too_small": "Your face is too small in the frame. Please move closer to the camera so your face fills the image well.",
+    "turned": "Your head is turned too much. Please look straight into the camera (frontal).",
+    "dark": "The photo is too dark or blurry. Please find good daylight and send a new selfie.",
+    "brows_hidden": "Your eyebrows aren't clearly visible. Please move hair away from your forehead and send a new selfie."
+  },
+  "disclaimer_de": "Note: This reading is intended for entertainment and self-reflection. It is not medical, psychological, or legal advice, nor is it a prediction of fate. If a mole changes (in size, color, shape, itching, or bleeding), please consult a dermatologist.",
+  "brows": {
+    "dicht": {
+      "name_de": "Dense, full eyebrows",
+      "short_de": "The denser your eyebrows, the more strongly you seek interaction and connection with others. What you start, you usually carry forward steadily."
+    },
+    "dichte_wechselt": {
+      "name_de": "Eyebrows with changing density",
+      "short_de": "Dense near the bridge of the nose, sparser from the middle onward: you launch projects with great clarity and power, but later need fresh motivation to stay the course."
+    },
+    "duenn": {
+      "name_de": "Thin, fine eyebrows",
+      "short_de": "The finer your eyebrows, the more selective you are. You don't grant trust immediately—not out of harshness, but out of caution.",
+      "subtypes": {
+        "duenn_unruhig": {
+          "name_de": "Thin, irregular eyebrows",
+          "short_de": "Fine, uneven brows point to a sensitive, shifting mood. You are selective and sometimes react impulsively."
+        }
+      }
+    },
+    "breiter_zum_ende": {
+      "name_de": "Eyebrows widening toward the outer end",
+      "short_de": "You take a little time to warm up to new situations—yet the further you go, the more stable and dependable you become."
+    },
+    "tief": {
+      "name_de": "Low-set eyebrows close to the eye",
+      "short_de": "Low-set brows reveal a realist: you look closely at the core of things and prefer to prepare for difficult scenarios in advance."
+    },
+    "hoch_winkel": {
+      "name_de": "High-set arched or angled eyebrows",
+      "short_de": "High brows show openness to the world. A sharp angle stands for strong self-confidence and temperament."
+    }
+  },
+  "mark30": {
+    "free_found_de": "Near the center of your eyebrow, I can see a break or a sparser spot in the hair flow. In physiognomy, this indicates that around age 30 (sometimes slightly earlier, around 27) there was or will be an event that gives your life a new direction.",
+    "free_not_found_de": "In the center of your eyebrow—the zone corresponding to around age 30—the hair flow is even and without a noticeable break."
+  }
+}

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Lecture du Visage · Telegram App</title>
+<meta name="description" content="Lecture du visage : Découvrez la forme de vos sourcils et le repère des 30 ans avec un selfie directement dans Telegram. Votre photo reste sur votre appareil. Pour l’introspection.">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; img-src 'self' blob: data:; connect-src 'self' https://gesicht.gesicht-worker.workers.dev; font-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/assets/gesicht/gesicht.css">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<script src="/assets/gesicht/vendor/telegram/telegram-web-app.js"></script>
+<script defer src="/assets/gesicht/gesicht_tg.js"></script>
+</head>
+<body class="gesicht-page">
+<main class="wrap" data-gesicht-app data-lang="fr">
+<article>
+  <nav class="gesicht-lang-bar" aria-label="Choisir la langue">
+    <a href="/gesichtlesen/tg/" lang="de">🇩🇪 DE</a><span aria-hidden="true">·</span>
+    <a href="/en/face-reading/tg/" lang="en">🇬🇧 EN</a><span aria-hidden="true">·</span>
+    <a href="/es/lectura-facial/tg/" lang="es">🇪🇸 ES</a><span aria-hidden="true">·</span>
+    <a href="/ru/chtenie-lica/tg/" lang="ru">🇷🇺 RU</a><span aria-hidden="true">·</span>
+    <a href="/pt/leitura-facial/tg/" lang="pt">🇧🇷 PT</a><span aria-hidden="true">·</span>
+    <a href="/fr/lecture-du-visage/tg/" lang="fr" aria-current="page">🇫🇷 FR</a>
+  </nav>
+  <header class="gesicht-hero">
+    <p class="kicker">Lecture du Visage · Sourcils &amp; Grains de Beauté</p>
+    <h1>Lecture du Visage</h1>
+    <p class="lede">La forme de vos sourcils et le repère des 30 ans — par selfie, directement sur votre appareil.</p>
+    <a class="text-link" href="#gesicht-disclaimer">Pour le divertissement et l’introspection</a>
+  </header>
+
+  <section class="gesicht-panel" id="gesicht-tool" data-gesicht-tg-app data-lang="fr" aria-labelledby="tool-title">
+    <div class="panel-heading">
+      <p class="kicker">Gratuit · sur votre appareil</p>
+      <h2 id="tool-title">Que révèlent vos sourcils ?</h2>
+    </div>
+    <ol class="gesicht-steps" aria-label="Comment ça marche">
+      <li><span aria-hidden="true">1</span>Choisir un selfie</li>
+      <li><span aria-hidden="true">2</span>Analyser</li>
+      <li><span aria-hidden="true">3</span>Lire l’interprétation</li>
+    </ol>
+    <div class="photo-controls">
+      <input type="file" id="photo-input" accept="image/*" capture="user" aria-label="Prendre un selfie ou choisir une photo" hidden>
+      <button class="btn" id="choose-photo" type="button">Prendre un selfie / Choisir une photo</button>
+    </div>
+    <p class="photo-privacy"><svg width="17" height="19" viewBox="0 0 17 19" fill="none" aria-hidden="true"><path d="M3.5 8V6a5 5 0 0 1 10 0v2M2 8.5h13v9H2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>Votre photo reste sur votre appareil et n’est jamais envoyée sur un serveur.</p>
+    <div id="preview-area" class="photo-preview" hidden>
+      <img id="photo-preview" alt="Aperçu de votre selfie sélectionné" hidden>
+    </div>
+    <div class="analysis-controls">
+      <button class="btn analyze-button" id="analyze-button" type="button" disabled>Analyser les sourcils</button>
+      <button class="button-quiet" id="reset-photo" type="button" hidden>Supprimer la photo</button>
+    </div>
+    <p id="analysis-status" class="analysis-status" role="status" aria-live="polite" aria-atomic="true">Choisissez un selfie pour commencer.</p>
+    <p id="photo-error" class="photo-error" role="alert" hidden></p>
+  </section>
+
+  <section id="analysis-result" class="gesicht-panel result-panel" aria-labelledby="result-title" aria-live="polite" hidden>
+    <p class="kicker">Votre Résultat</p>
+    <h2 id="result-title">Vos Sourcils</h2>
+    <h3 id="brow-name"></h3>
+    <p id="brow-intro"></p>
+    <p id="brow-description"></p>
+    <div class="mark30-result">
+      <h3>Le Repère des 30 Ans</h3>
+      <p id="mark30-description"></p>
+    </div>
+    <a class="text-link" href="#gesicht-disclaimer">Note sur l’interprétation</a>
+  </section>
+
+  <section id="full-analysis" class="gesicht-panel full-analysis" aria-labelledby="full-title" hidden>
+    <p class="kicker">Débloquer · 250 ⭐</p>
+    <h2 id="full-title">Analyse Complète</h2>
+    <ul class="analysis-includes">
+      <li>Grains de beauté sur le visage et le corps</li>
+      <li>Côté gauche / côté droit</li>
+      <li>Frères et sœurs</li>
+      <li>Perspectives d’avenir</li>
+      <li>PDF personnel</li>
+    </ul>
+    <form id="tg-form" class="key-form" data-worker-url="https://gesicht.gesicht-worker.workers.dev">
+      <fieldset id="report-fields">
+        <legend>Vos informations pour l’analyse complète</legend>
+        <div class="mole-picker" role="group" aria-labelledby="mole-title" aria-describedby="mole-hint">
+          <h3 id="mole-title">Où avez-vous des grains de beauté ?</h3>
+          <p id="mole-hint" class="form-hint">Choisissez une zone et le côté selon votre propre point de vue. Jusqu’à 13 sélections.</p>
+          <div id="mole-zones" class="mole-zones" role="group" aria-label="Zone du corps"></div>
+          <div class="mole-sides" role="group" aria-label="Côté">
+            <button class="mole-choice" id="mole-links" type="button" aria-pressed="false" disabled>gauche</button>
+            <button class="mole-choice" id="mole-rechts" type="button" aria-pressed="false" disabled>droite</button>
+          </div>
+          <button class="mole-choice mole-none" id="mole-none" type="button" aria-pressed="true">Aucun grain de beauté</button>
+          <p id="mole-count" class="form-hint" role="status" aria-live="polite">Aucun grain de beauté sélectionné.</p>
+          <ul id="mole-selection" class="mole-selection" aria-label="Votre sélection"></ul>
+        </div>
+        <label for="report-first-name">Prénom (facultatif)</label>
+        <input id="report-first-name" name="first_name" type="text" maxlength="30" autocomplete="given-name" placeholder="Votre prénom">
+        <label for="report-email">E-mail pour copie (facultatif)</label>
+        <input id="report-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="vous@email.fr – recevoir aussi par e-mail">
+        <p class="form-hint">Après déblocage (250 ⭐), votre analyse complète s’affiche directement ici et votre PDF personnel est également envoyé dans le chat Telegram (et en option par e-mail).</p>
+        <button class="btn-teal" id="report-submit" type="submit">Débloquer l’analyse complète – 250 ⭐</button>
+      </fieldset>
+      <p id="report-status" class="analysis-status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <p id="report-error" class="photo-error" role="alert" hidden></p>
+      <a id="report-download" class="text-link" download="Lecture-du-Visage.pdf" hidden>📄 Télécharger votre PDF personnel</a>
+    </form>
+  </section>
+
+  <section id="paid-result" class="gesicht-panel result-panel" aria-labelledby="paid-result-title" aria-live="polite" hidden>
+    <p class="kicker">Débloqué</p>
+    <h2 id="paid-result-title">Votre Lecture du Visage Complète</h2>
+    <div id="paid-sections"></div>
+  </section>
+
+  <aside class="handlesen-bridge" aria-labelledby="handlesen-title">
+    <div><p class="kicker">Aussi sur Telegram</p><h2 id="handlesen-title">Canal</h2></div>
+    <div class="gesicht-actions">
+      <a class="btn-teal" href="https://t.me/lectureduvisage">📢 Canal @lectureduvisage</a>
+    </div>
+  </aside>
+
+  <section id="faq" class="gesicht-faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">Questions Fréquentes</h2>
+    <details><summary>Que signifient les sourcils en physiognomonie ?</summary><p>En physiognomonie, les sourcils sont considérés comme le « bandeau déroulant » d’une personne : ils montrent comment vous communiquez et abordez les projets — et reflètent souvent aussi ce qui se passe chez vos frères et sœurs.</p></details>
+    <details><summary>Que signifient des sourcils denses et fournis ?</summary><p>Plus les sourcils sont denses, plus vous recherchez l’échange et le lien avec les autres. Ce que vous commencez, vous le poursuivez généralement avec constance.</p></details>
+    <details><summary>Que signifie un tracé régulier au milieu du sourcil ?</summary><p>Au milieu de votre sourcil — la zone associée à environ 30 ans — le tracé des poils est régulier et sans interruption marquée.</p></details>
+    <details><summary>Cette lecture est-elle une prédiction de l’avenir ?</summary><p>Remarque : Cette interprétation est destinée au divertissement et à l’introspection. Elle ne constitue pas un avis médical, psychologique ou juridique et n’est pas une prédiction de votre destin. Si un grain de beauté évolue (taille, couleur, forme, démangeaison, saignement), veuillez consulter un dermatologue.</p></details>
+  </section>
+
+  <section id="augenbrauen-wissen" class="brow-reading" aria-labelledby="wissen-title">
+    <p class="kicker">Pour approfondir</p>
+    <h2 id="wissen-title">Lire les sourcils : formes et repère des 30 ans</h2>
+    <p>En physiognomonie, les sourcils sont considérés comme le « bandeau déroulant » d’une personne : ils montrent comment vous communiquez et passez à l’action — et souvent aussi ce qui se joue chez vos frères et sœurs.</p>
+    <div class="brow-forms">
+      <div class="brow-entry"><h3>Sourcils denses et fournis</h3><p>Plus les sourcils sont denses, plus vous recherchez l’échange et la connexion avec les autres. Ce que vous entreprenez, vous le menez généralement avec stabilité.</p></div>
+      <div class="brow-entry"><h3>Sourcils à densité variable</h3><p>Denses près de la racine du nez et plus clairsemés à partir du milieu : vous lancez vos projets avec clarté et vigueur, mais avez besoin d’une nouvelle motivation ensuite pour garder le cap.</p></div>
+      <div class="brow-entry"><h3>Sourcils fins et délicats</h3><p>Plus les sourcils sont fins, plus vous êtes sélectif. Vous n’accordez pas immédiatement votre confiance — non par dureté, mais par prudence.</p></div>
+      <div class="brow-entry"><h3>Sourcils fins et irréguliers</h3><p>Des sourcils fins et irréguliers révèlent une sensibilité élevée et une humeur changeante. Vous êtes sélectif et réagissez parfois sur le vif.</p></div>
+      <div class="brow-entry"><h3>Sourcils s’élargissant vers la pointe</h3><p>Il vous faut un peu de temps pour apprivoiser la nouveauté — mais avec le temps, vous devenez de plus en plus stable et fiable.</p></div>
+      <div class="brow-entry"><h3>Sourcils bas sur l’œil</h3><p>Des sourcils bas révèlent un esprit réaliste : vous observez attentivement et préférez vous préparer aux difficultés.</p></div>
+      <div class="brow-entry"><h3>Sourcils hauts avec angle</h3><p>Des sourcils hauts montrent une grande ouverture au monde. Un angle marqué traduit assurance et tempérament.</p></div>
+    </div>
+    <h3>Le Repère des 30 Ans</h3>
+    <p class="reading-label">Lorsqu’une interruption est visible :</p>
+    <p>Au milieu de votre sourcil apparaît une petite interruption ou une zone moins fournie. En physiognomonie, cela indique qu’autour de 30 ans (parfois un peu plus tôt, vers 27 ans) un événement a donné ou donnera une nouvelle orientation à votre vie.</p>
+    <p class="reading-label">Lorsqu’aucune interruption n’est visible :</p>
+    <p>Au milieu de votre sourcil — la zone correspondant à environ 30 ans — le tracé des poils est régulier et sans interruption marquée.</p>
+    <p class="note gesicht-disclaimer" id="gesicht-disclaimer">Remarque : Cette interprétation est destinée au divertissement et à l’introspection. Elle ne constitue pas un avis médical, psychologique ou juridique et n’est pas une prédiction de votre destin. Si un grain de beauté évolue (taille, couleur, forme, démangeaison, saignement), veuillez consulter un dermatologue.</p>
+  </section>
+</article>
+</main>
+</body>
+</html>
