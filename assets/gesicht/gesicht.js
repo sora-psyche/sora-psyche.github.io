@@ -259,24 +259,54 @@
       clearError(); renderMoles();
     });
     $('mole-none').addEventListener('click', () => { if (pending || complete) return; selected.clear(); activeZone = null; clearError(); renderMoles(); });
+    const paidPanel = $('paid-result'), paidContainer = $('paid-sections'), emailInput = $('report-email');
+    const renderPaidSections = data => {
+      if (!paidPanel || !paidContainer || !Array.isArray(data?.sections)) return;
+      paidContainer.replaceChildren();
+      for (const [title, body] of data.sections) {
+        const h3 = document.createElement('h3');
+        h3.textContent = title;
+        paidContainer.append(h3);
+        for (const para of String(body).split('\n\n')) {
+          const p = document.createElement('p');
+          p.textContent = para;
+          paidContainer.append(p);
+        }
+      }
+      if (data.disclaimer_de) {
+        const disc = document.createElement('p');
+        disc.className = 'note gesicht-disclaimer';
+        disc.textContent = data.disclaimer_de;
+        paidContainer.append(disc);
+      }
+      paidPanel.hidden = false;
+      paidPanel.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'});
+    };
     form.addEventListener('submit', async event => {
       event.preventDefault();
       if (!endpoint || !result || pending || complete) return;
       clearError();
       const licenseKey = $('license-key').value.trim(), firstName = $('report-first-name').value.trim();
+      const email = emailInput ? emailInput.value.trim() : '';
       if (!licenseKey) { showError('Bitte gib deinen Schlüssel aus dem Payhip-Kauf ein.'); $('license-key').focus(); return; }
       if (Array.from(firstName).length > 30) { showError('Dein Vorname darf höchstens 30 Zeichen haben.'); $('report-first-name').focus(); return; }
+      if (email && (email.length > 254 || !/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]{2,}$/.test(email))) {
+        showError('Bitte gib eine gültige E-Mail-Adresse ein oder lasse das Feld frei.');
+        if (emailInput) emailInput.focus();
+        return;
+      }
       const payload = {
         license_key: licenseKey, brow_form: result.brow_form, brow_subtype: result.brow_subtype,
         mark30_found: result.mark30_found, moles: Array.from(selected.values())
       };
       if (firstName) payload.first_name = firstName;
+      if (email) payload.email = email;
       const ticket = revision;
-      pending = true; releasePDF(); updateBusy(); message.textContent = 'Dein PDF wird erstellt. Bitte warte einen Moment.';
+      pending = true; releasePDF(); updateBusy(); message.textContent = 'Deine Analyse und dein PDF werden erstellt. Bitte warte einen Moment.';
       try {
         // One explicit submit makes one request. Never retry a license-consuming request automatically.
         const response = await fetch(endpoint, {
-          method: 'POST', headers: {'Content-Type': 'application/json'}, credentials: 'omit',
+          method: 'POST', headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}, credentials: 'omit',
           cache: 'no-store', redirect: 'error', referrerPolicy: 'no-referrer', body: JSON.stringify(payload)
         });
         if (ticket !== revision) return;
@@ -286,7 +316,25 @@
           if (ticket === revision) { message.textContent = ''; showError(errors[code]); }
           return;
         }
-        if (!response.headers.get('content-type')?.toLowerCase().startsWith('application/pdf')) { message.textContent = ''; showError(errors.server_error); return; }
+        const ct = (response.headers.get('content-type') || '').toLowerCase();
+        if (ct.startsWith('application/json')) {
+          const data = await response.json();
+          if (ticket !== revision) return;
+          if (!data?.ok || !data.pdf_base64) { message.textContent = ''; showError(errors.server_error); return; }
+          const bin = atob(data.pdf_base64);
+          const bytes = new Uint8Array(bin.length);
+          for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+          const blob = new Blob([bytes], {type: 'application/pdf'});
+          pdfURL = URL.createObjectURL(blob); download.href = pdfURL; download.hidden = false;
+          complete = true; $('license-key').value = '';
+          renderPaidSections(data);
+          message.textContent = data.email_sent
+            ? 'Deine vollständige Analyse und dein PDF sind bereit (und zusätzlich an deine E-Mail gesendet).'
+            : 'Deine vollständige Analyse und dein PDF sind bereit. Falls der Download nicht startet, nutze den Link.';
+          download.click();
+          return;
+        }
+        if (!ct.startsWith('application/pdf')) { message.textContent = ''; showError(errors.server_error); return; }
         const blob = await response.blob();
         if (ticket !== revision) return;
         if (!blob.size) { message.textContent = ''; showError(errors.server_error); return; }
@@ -306,8 +354,9 @@
       },
       clear() {
         revision++; result = null; complete = false; selected.clear(); activeZone = null;
-        $('license-key').value = ''; $('report-first-name').value = ''; message.textContent = '';
-        clearError(); releasePDF(); renderMoles(); form.hidden = true; updateBusy();
+        $('license-key').value = ''; $('report-first-name').value = ''; if (emailInput) emailInput.value = '';
+        if (paidContainer) paidContainer.replaceChildren(); if (paidPanel) paidPanel.hidden = true;
+        message.textContent = ''; clearError(); releasePDF(); renderMoles(); form.hidden = true; updateBusy();
       }
     };
   }

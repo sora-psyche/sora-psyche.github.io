@@ -278,12 +278,19 @@
       paidPanel.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'});
     };
 
+    const emailInput = $('report-email');
     form.addEventListener('submit', async event => {
       event.preventDefault();
       if (!workerBase || !result || pending || complete) return;
       clearError();
       const firstName = $('report-first-name').value.trim();
+      const email = emailInput ? emailInput.value.trim() : '';
       if (Array.from(firstName).length > 30) { showError('Dein Vorname darf höchstens 30 Zeichen haben.'); $('report-first-name').focus(); return; }
+      if (email && (email.length > 254 || !/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]{2,}$/.test(email))) {
+        showError('Bitte gib eine gültige E-Mail-Adresse ein oder lasse das Feld frei.');
+        if (emailInput) emailInput.focus();
+        return;
+      }
       const payload = {
         bot_username: botParam,
         brow_form: result.brow_form,
@@ -292,6 +299,7 @@
         moles: Array.from(selected.values()),
       };
       if (firstName) payload.first_name = firstName;
+      if (email) payload.email = email;
       if (tg?.initData) payload.init_data = tg.initData;
 
       const ticket = revision;
@@ -330,7 +338,9 @@
           const repData = await repRes.json();
           complete = true;
           renderPaidReport(repData);
-          message.textContent = 'Deine vollständige Analyse ist bereit (und zusätzlich als PDF im Chat).';
+          message.textContent = repData.email_sent
+            ? 'Deine vollständige Analyse ist bereit (und zusätzlich als PDF im Chat sowie per E-Mail).'
+            : 'Deine vollständige Analyse ist bereit (und zusätzlich als PDF im Chat).';
         } else {
           location.href = invData.invoice_url;
         }
@@ -351,6 +361,7 @@
       },
       clear() {
         revision++; result = null; complete = false; selected.clear(); activeZone = null;
+        if (emailInput) emailInput.value = '';
         message.textContent = ''; clearError(); releasePDF(); renderMoles();
         paidContainer.replaceChildren(); paidPanel.hidden = true; updateBusy();
       }

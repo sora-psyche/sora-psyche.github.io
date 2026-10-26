@@ -90,7 +90,9 @@
         </div>
         <label for="report-first-name">Vorname (optional)</label>
         <input id="report-first-name" name="first_name" type="text" maxlength="30" autocomplete="given-name" placeholder="Dein Vorname">
-        <p class="form-hint">Nach dem Freischalten (250 ⭐) erscheint deine vollständige Analyse direkt hier, und dein persönliches PDF wird zusätzlich in den Telegram-Chat gesendet.</p>
+        <label for="report-email">E-Mail für Kopie (optional)</label>
+        <input id="report-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="deine@email.de – zusätzlich per E-Mail erhalten">
+        <p class="form-hint">Nach dem Freischalten (250 ⭐) erscheint deine vollständige Analyse direkt hier, und dein persönliches PDF wird zusätzlich in den Telegram-Chat (und optional an deine E-Mail) gesendet.</p>
         <button class="btn-teal" id="report-submit" type="submit">Vollständige Analyse freischalten – 250 ⭐</button>
       </fieldset>
       <p id="report-status" class="analysis-status" role="status" aria-live="polite" aria-atomic="true"></p>
