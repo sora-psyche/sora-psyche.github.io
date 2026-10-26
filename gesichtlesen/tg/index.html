@@ -38,10 +38,19 @@
       <h2 id="tool-title">Was zeigen deine Augenbrauen?</h2>
     </div>
     <ol class="gesicht-steps" aria-label="So funktioniert es">
-      <li><span aria-hidden="true">1</span>Selfie wählen</li>
-      <li><span aria-hidden="true">2</span>Analysieren</li>
-      <li><span aria-hidden="true">3</span>Deutung lesen</li>
+      <li><span aria-hidden="true">1</span>Geburtsdatum</li>
+      <li><span aria-hidden="true">2</span>Selfie wählen</li>
+      <li><span aria-hidden="true">3</span>Analysieren &amp; Deutung</li>
     </ol>
+    <div class="birth-field" id="birth-field">
+      <label for="birth-day">1. Dein Geburtsdatum (Pflichtfeld für die Jahresberechnung)<span class="birth-req">*</span></label>
+      <div class="birth-selects">
+        <select id="birth-day" aria-label="Tag"><option value="">Tag</option></select>
+        <select id="birth-month" aria-label="Monat"><option value="">Monat</option></select>
+        <select id="birth-year" aria-label="Jahr"><option value="">Jahr</option></select>
+      </div>
+      <p class="birth-hint">Wird für deine exakten Kalenderjahre (20–25 &amp; Wende 27–30 Jahre) sowie für die Zuordnung deiner Muttermale zum Sternzeichen-Grad benötigt.</p>
+    </div>
     <div class="photo-controls">
       <input type="file" id="photo-input" accept="image/*" capture="user" aria-label="Selfie aufnehmen oder Foto wählen" hidden>
       <button class="btn" id="choose-photo" type="button">Selfie aufnehmen / Foto wählen</button>

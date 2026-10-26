@@ -154,10 +154,19 @@
       <h2 id="tool-title">Que révèlent vos sourcils ?</h2>
     </div>
     <ol class="gesicht-steps" aria-label="Comment ça marche">
-      <li><span aria-hidden="true">1</span>Choisir un selfie</li>
-      <li><span aria-hidden="true">2</span>Analyser</li>
-      <li><span aria-hidden="true">3</span>Lire l’interprétation</li>
+      <li><span aria-hidden="true">1</span>Date de naissance</li>
+      <li><span aria-hidden="true">2</span>Choisir un selfie</li>
+      <li><span aria-hidden="true">3</span>Analyser et lire</li>
     </ol>
+    <div class="birth-field" id="birth-field">
+      <label for="birth-day">1. Votre Date de Naissance (Obligatoire pour le calcul des années)<span class="birth-req">*</span></label>
+      <div class="birth-selects">
+        <select id="birth-day" aria-label="Jour"><option value="">Jour</option></select>
+        <select id="birth-month" aria-label="Mois"><option value="">Mois</option></select>
+        <select id="birth-year" aria-label="Année"><option value="">Année</option></select>
+      </div>
+      <p class="birth-hint">Nécessaire pour calculer vos années exactes (période 20–25 ans et tournant 27–30 ans) et relier vos grains de beauté à votre degré natal.</p>
+    </div>
     <div class="photo-controls">
       <input type="file" id="photo-input" accept="image/*" capture="user" aria-label="Prendre un selfie ou choisir une photo" hidden>
       <button class="btn" id="choose-photo" type="button">Prendre un selfie / Choisir une photo</button>

@@ -38,10 +38,19 @@
       <h2 id="tool-title">What do your eyebrows reveal?</h2>
     </div>
     <ol class="gesicht-steps" aria-label="How it works">
-      <li><span aria-hidden="true">1</span>Choose selfie</li>
-      <li><span aria-hidden="true">2</span>Analyze</li>
-      <li><span aria-hidden="true">3</span>Read interpretation</li>
+      <li><span aria-hidden="true">1</span>Birth date</li>
+      <li><span aria-hidden="true">2</span>Choose selfie</li>
+      <li><span aria-hidden="true">3</span>Analyze &amp; read</li>
     </ol>
+    <div class="birth-field" id="birth-field">
+      <label for="birth-day">1. Your Date of Birth (Required for timeline calculation)<span class="birth-req">*</span></label>
+      <div class="birth-selects">
+        <select id="birth-day" aria-label="Day"><option value="">Day</option></select>
+        <select id="birth-month" aria-label="Month"><option value="">Month</option></select>
+        <select id="birth-year" aria-label="Year"><option value="">Year</option></select>
+      </div>
+      <p class="birth-hint">Required to calculate your exact calendar years (ages 20–25 &amp; 27–30 turning point) and match your moles to your birth degree.</p>
+    </div>
     <div class="photo-controls">
       <input type="file" id="photo-input" accept="image/*" capture="user" aria-label="Take a selfie or choose a photo" hidden>
       <button class="btn" id="choose-photo" type="button">Take selfie / Choose photo</button>

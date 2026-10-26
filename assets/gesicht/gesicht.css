@@ -27,6 +27,15 @@
 .gesicht-steps li { display: flex; align-items: center; gap: .45rem; }
 .gesicht-steps span { display: inline-grid; place-items: center; width: 1.6rem; height: 1.6rem; background: var(--accent-soft); color: var(--accent); border-radius: 50%; font-size: .8125rem; font-weight: 650; }
 .photo-controls .btn { min-height: 48px; }
+.birth-field { background: var(--bg, #faf9fb); border: 1px solid var(--line); border-radius: 8px; padding: .9rem 1rem; margin: 0 0 1.25rem; }
+.birth-field label { display: block; font-size: .9375rem; font-weight: 650; margin: 0 0 .45rem; color: var(--ink); }
+.birth-field .birth-req { color: var(--accent); font-weight: 700; margin-left: .2rem; }
+.birth-selects { display: grid; grid-template-columns: 1fr 1.6fr 1.2fr; gap: .5rem; max-width: 28rem; }
+.birth-selects select { box-sizing: border-box; width: 100%; min-height: 44px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); font: inherit; font-size: .9375rem; padding: .5rem .6rem; cursor: pointer; }
+.birth-selects select:focus { border-color: var(--teal); outline: 2px solid var(--teal); outline-offset: 1px; }
+.birth-hint { font-size: .8125rem; line-height: 1.45; color: var(--ink-soft); margin: .45rem 0 0; }
+.birth-personal-box { background: #f2f8f6; border-left: 3px solid var(--teal); padding: .75rem .95rem; border-radius: 4px; margin-top: .75rem; font-size: .9375rem; color: var(--ink); }
+.region-badge { display: inline-flex; align-items: center; gap: .35rem; font-size: .78rem; color: var(--teal); background: #e6f1ee; padding: .2rem .55rem; border-radius: 999px; font-weight: 600; margin-bottom: .5rem; }
 .photo-privacy { display: flex; align-items: flex-start; gap: .45rem; font-size: .8125rem; color: var(--ink-soft); margin: .8rem 0 1.5rem; }
 .photo-privacy svg { flex: 0 0 17px; margin-top: .12rem; color: var(--teal); }
 .photo-preview { background: #f1f0f3; border: 1px solid var(--line); border-radius: 8px; margin: 1.25rem 0; padding: .75rem; }

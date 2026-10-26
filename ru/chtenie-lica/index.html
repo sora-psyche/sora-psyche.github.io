@@ -154,10 +154,19 @@
       <h2 id="tool-title">О чём говорят твои брови?</h2>
     </div>
     <ol class="gesicht-steps" aria-label="Как это работает">
-      <li><span aria-hidden="true">1</span>Выбери селфи</li>
-      <li><span aria-hidden="true">2</span>Запусти анализ</li>
-      <li><span aria-hidden="true">3</span>Прочитай разбор</li>
+      <li><span aria-hidden="true">1</span>Дата рождения</li>
+      <li><span aria-hidden="true">2</span>Выбери селфи</li>
+      <li><span aria-hidden="true">3</span>Анализ и разбор</li>
     </ol>
+    <div class="birth-field" id="birth-field">
+      <label for="birth-day">1. Твоя дата рождения (обязательно для точного расчёта)<span class="birth-req">*</span></label>
+      <div class="birth-selects">
+        <select id="birth-day" aria-label="День"><option value="">День</option></select>
+        <select id="birth-month" aria-label="Месяц"><option value="">Месяц</option></select>
+        <select id="birth-year" aria-label="Год"><option value="">Год</option></select>
+      </div>
+      <p class="birth-hint">Нужна для расчёта твоих календарных лет (период 20–25 лет и главный рубеж 27–30 лет) и привязки родинок к градусу рождения.</p>
+    </div>
     <div class="photo-controls">
       <input type="file" id="photo-input" accept="image/*" capture="user" aria-label="Сделать селфи или выбрать фото" hidden>
       <button class="btn" id="choose-photo" type="button">Сделать селфи / Выбрать фото</button>

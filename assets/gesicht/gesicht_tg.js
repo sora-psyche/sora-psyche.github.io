@@ -283,11 +283,20 @@
       moleCount: n => n + ' von 13 Angaben ausgewählt. Zum Entfernen anklicken.',
       moleMax: 'Du kannst höchstens 13 Angaben auswählen. Entferne zuerst eine Angabe.',
       submitIdle: 'Vollständige Analyse freischalten – 250 ⭐',
+      submitIdleDynamic: (stars, fiat) => `Vollständige Analyse freischalten – ${stars} ⭐ (${fiat})`,
+      kickerUnlockDynamic: (stars, fiat) => `Freischalten · ${stars} ⭐ (${fiat})`,
       submitPending: 'Bitte warten …',
       submitDone: 'Vollständige Analyse freigeschaltet',
+      missingBirth: 'Bitte wähle zuerst dein vollständiges Geburtsdatum (Tag, Monat, Jahr), damit deine Lebensjahre um 30 und deine Körperzonen exakt berechnet werden.',
+      birthLabel: '1. Dein Geburtsdatum (Pflichtfeld für die Jahresberechnung)',
+      birthHint: 'Wird für deine exakten Kalenderjahre (20–25 & Wende 27–30 Jahre) sowie für die Zuordnung deiner Muttermale zum Sternzeichen-Grad benötigt.',
+      dayPlaceholder: 'Tag',
+      monthPlaceholder: 'Monat',
+      yearPlaceholder: 'Jahr',
+      months: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
       nameTooLong: 'Dein Vorname darf höchstens 30 Zeichen haben.',
       invalidEmail: 'Bitte gib eine gültige E-Mail-Adresse ein oder lasse das Feld frei.',
-      openingInvoice: 'Rechnung über 250 ⭐ wird geöffnet …',
+      openingInvoice: 'Rechnung wird geöffnet …',
       invoiceErrorRetry: 'Die Zahlung konnte gerade nicht vorbereitet werden. Bitte versuche es erneut.',
       invoiceError: 'Die Zahlung konnte gerade nicht vorbereitet werden.',
       paymentFailed: 'Die Zahlung wurde nicht abgeschlossen.',
@@ -311,11 +320,20 @@
       moleCount: n => n + ' of 13 selected. Click to remove.',
       moleMax: 'You can select up to 13 items. Remove one first.',
       submitIdle: 'Unlock full reading – 250 ⭐',
+      submitIdleDynamic: (stars, fiat) => `Unlock full reading – ${stars} ⭐ (${fiat})`,
+      kickerUnlockDynamic: (stars, fiat) => `Unlock · ${stars} ⭐ (${fiat})`,
       submitPending: 'Please wait …',
       submitDone: 'Full reading unlocked',
+      missingBirth: 'Please select your full birth date (Day, Month, Year) first so we can calculate your exact age-30 turning point years and body zones.',
+      birthLabel: '1. Your Date of Birth (Required for timeline calculation)',
+      birthHint: 'Required to calculate your exact calendar years (ages 20–25 & 27–30 turning point) and match your moles to your birth degree.',
+      dayPlaceholder: 'Day',
+      monthPlaceholder: 'Month',
+      yearPlaceholder: 'Year',
+      months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
       nameTooLong: 'Your first name may be at most 30 characters.',
       invalidEmail: 'Please enter a valid email address or leave the field blank.',
-      openingInvoice: 'Opening 250 ⭐ invoice …',
+      openingInvoice: 'Opening invoice …',
       invoiceErrorRetry: 'Payment could not be prepared right now. Please try again.',
       invoiceError: 'Payment could not be prepared right now.',
       paymentFailed: 'Payment was not completed.',
@@ -338,12 +356,21 @@
       moleNone: 'Ningún lunar seleccionado.',
       moleCount: n => n + ' de 13 seleccionados. Haz clic para quitar.',
       moleMax: 'Puedes seleccionar hasta 13 opciones. Quita una primero.',
-      submitIdle: 'Desbloquear análisis completo – 250 ⭐',
+      submitIdle: 'Desbloquear análisis completo – 75 ⭐',
+      submitIdleDynamic: (stars, fiat) => `Desbloquear análisis completo – ${stars} ⭐ (${fiat})`,
+      kickerUnlockDynamic: (stars, fiat) => `Desbloquear · ${stars} ⭐ (${fiat})`,
       submitPending: 'Espera un momento …',
       submitDone: 'Análisis completo desbloqueado',
+      missingBirth: 'Por favor, selecciona primero tu fecha de nacimiento completa (Día, Mes, Año) para calcular tus años exactos del giro de los 30 años.',
+      birthLabel: '1. Tu Fecha de Nacimiento (Obligatorio para calcular tus años)',
+      birthHint: 'Necesaria para calcular tus años exactos (tramo 20–25 y giro de 27–30 años) y cruzar tus lunares con tu signo y grado natal.',
+      dayPlaceholder: 'Día',
+      monthPlaceholder: 'Mes',
+      yearPlaceholder: 'Año',
+      months: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
       nameTooLong: 'Tu nombre puede tener como máximo 30 caracteres.',
       invalidEmail: 'Por favor, introduce un correo electrónico válido o deja el campo vacío.',
-      openingInvoice: 'Abriendo factura de 250 ⭐ …',
+      openingInvoice: 'Abriendo factura …',
       invoiceErrorRetry: 'No se pudo preparar el pago en este momento. Inténtalo de nuevo.',
       invoiceError: 'No se pudo preparar el pago en este momento.',
       paymentFailed: 'El pago no se completó.',
@@ -366,12 +393,21 @@
       moleNone: 'Родинки не выбраны.',
       moleCount: n => 'Выбрано ' + n + ' из 13. Нажми, чтобы удалить.',
       moleMax: 'Можно выбрать не более 13 зон. Сначала удали одну.',
-      submitIdle: 'Открыть полный разбор – 250 ⭐',
+      submitIdle: 'Открыть полный разбор – 120 ⭐',
+      submitIdleDynamic: (stars, fiat) => `Открыть полный разбор – ${stars} ⭐ (${fiat})`,
+      kickerUnlockDynamic: (stars, fiat) => `Полный доступ · ${stars} ⭐ (${fiat})`,
       submitPending: 'Пожалуйста, подождите …',
       submitDone: 'Полный разбор открыт',
+      missingBirth: 'Пожалуйста, сначала укажи полную дату рождения (День, Месяц, Год) — без неё невозможно рассчитать твои точные годы рубежа 27–30 лет и карту родинок.',
+      birthLabel: '1. Твоя дата рождения (обязательно для точного расчёта)',
+      birthHint: 'Нужна для расчёта твоих календарных лет (период 20–25 лет и главный рубеж 27–30 лет) и привязки родинок к градусу рождения.',
+      dayPlaceholder: 'День',
+      monthPlaceholder: 'Месяц',
+      yearPlaceholder: 'Год',
+      months: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
       nameTooLong: 'Имя не должно превышать 30 символов.',
       invalidEmail: 'Пожалуйста, введи корректный e-mail или оставь поле пустым.',
-      openingInvoice: 'Открываем счёт на 250 ⭐ …',
+      openingInvoice: 'Открываем счёт …',
       invoiceErrorRetry: 'Не удалось подготовить оплату. Пожалуйста, попробуй ещё раз.',
       invoiceError: 'Не удалось подготовить оплату.',
       paymentFailed: 'Оплата не была завершена.',
@@ -394,12 +430,21 @@
       moleNone: 'Nenhum sinal selecionado.',
       moleCount: n => n + ' de 13 selecionados. Clique para remover.',
       moleMax: 'Você pode selecionar no máximo 13 opções. Remova uma primeiro.',
-      submitIdle: 'Desbloquear análise completa – 250 ⭐',
+      submitIdle: 'Desbloquear análise completa – 75 ⭐',
+      submitIdleDynamic: (stars, fiat) => `Desbloquear análise completa – ${stars} ⭐ (${fiat})`,
+      kickerUnlockDynamic: (stars, fiat) => `Desbloquear · ${stars} ⭐ (${fiat})`,
       submitPending: 'Aguarde …',
       submitDone: 'Análise completa desbloqueada',
+      missingBirth: 'Por favor, selecione primeiro sua data de nascimento completa (Dia, Mês, Ano) para calcularmos os anos exatos da sua virada dos 30 anos.',
+      birthLabel: '1. Sua Data de Nascimento (Obrigatório para o cálculo dos anos)',
+      birthHint: 'Necessária para calcular seus anos exatos (fase 20–25 e virada dos 27–30 anos) e cruzar seus sinais com o seu grau natal.',
+      dayPlaceholder: 'Dia',
+      monthPlaceholder: 'Mês',
+      yearPlaceholder: 'Ano',
+      months: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
       nameTooLong: 'Seu primeiro nome pode ter no máximo 30 caracteres.',
       invalidEmail: 'Por favor, insira um e-mail válido ou deixe o campo em branco.',
-      openingInvoice: 'Abrindo fatura de 250 ⭐ …',
+      openingInvoice: 'Abrindo fatura …',
       invoiceErrorRetry: 'Não foi possível preparar o pagamento agora. Tente novamente.',
       invoiceError: 'Não foi possível preparar o pagamento agora.',
       paymentFailed: 'O pagamento não foi concluído.',
@@ -423,11 +468,20 @@
       moleCount: n => n + ' sur 13 sélectionnés. Cliquez pour retirer.',
       moleMax: 'Vous pouvez sélectionner jusqu’à 13 zones. Retirez-en une d’abord.',
       submitIdle: 'Débloquer l’analyse complète – 250 ⭐',
+      submitIdleDynamic: (stars, fiat) => `Débloquer l’analyse complète – ${stars} ⭐ (${fiat})`,
+      kickerUnlockDynamic: (stars, fiat) => `Débloquer · ${stars} ⭐ (${fiat})`,
       submitPending: 'Veuillez patienter …',
       submitDone: 'Analyse complète débloquée',
+      missingBirth: 'Veuillez d’abord sélectionner votre date de naissance complète (Jour, Mois, Année) afin de calculer vos années exactes du cap des 30 ans.',
+      birthLabel: '1. Votre Date de Naissance (Obligatoire pour le calcul des années)',
+      birthHint: 'Nécessaire pour calculer vos années exactes (période 20–25 ans et tournant 27–30 ans) et relier vos grains de beauté à votre degré natal.',
+      dayPlaceholder: 'Jour',
+      monthPlaceholder: 'Mois',
+      yearPlaceholder: 'Année',
+      months: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
       nameTooLong: 'Votre prénom ne peut pas dépasser 30 caractères.',
       invalidEmail: 'Veuillez saisir une adresse e-mail valide ou laisser ce champ vide.',
-      openingInvoice: 'Ouverture de la facture de 250 ⭐ …',
+      openingInvoice: 'Ouverture de la facture …',
       invoiceErrorRetry: 'Le paiement n’a pas pu être préparé. Veuillez réessayer.',
       invoiceError: 'Le paiement n’a pas pu être préparé.',
       paymentFailed: 'Le paiement n’a pas été finalisé.',
@@ -445,6 +499,97 @@
       analysisFailed: 'L’analyse locale n’a pas pu démarrer. Veuillez recharger la page.'
     }
   };
+
+  const TIER1_CC = new Set(['DE','AT','CH','LI','LU','US','GB','UK','CA','AU','NZ','IE','FR','BE','NL','MC','SE','NO','DK','FI','IS','SG','JP','KR','AE','QA','KW','IL']);
+  const TIER2_EU_CC = new Set(['ES','PT','IT','GR','CY','MT','SI','EE','LV','LT','CZ','SK','PL','HU','HR','RO','BG']);
+  const TIER2_RU_CC = new Set(['RU','KZ','BY']);
+  const TIER4_POOR_CC = new Set(['SN','CI','CM','CD','CG','ML','BF','NE','GN','BJ','TG','GA','TD','CF','RW','BI','DJ','KM','MG','MR','HT','AO','MZ','GW','CV','ST','GQ','NG','KE','GH','UG','TZ','ZM','ZW','MW','ET','SD','SS','SL','LR','GM','ER','SO','IN','PK','BD','LK','NP','MM','KH','LA','AF','PH','VN','ID','EG','YE','SY','VE','BO','CU','NI','HN','SV','TJ','KG']);
+  const TIER3_EMERGING_CC = new Set(['MX','CO','AR','CL','PE','EC','UY','PY','CR','PA','DO','GT','PR','BR','MA','DZ','TN','LY','UA','UZ','AM','GE','AZ','MD','TR','RS','BA','ME','MK','AL','ZA','MY','TH']);
+
+  function inferClientCountry(lang) {
+    let tz = '';
+    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (_) {}
+    if (tz) {
+      if (/^Europe\/(Madrid|Ceuta)|^Atlantic\/Canary/i.test(tz)) return 'ES';
+      if (/^Europe\/Lisbon|^Atlantic\/(Madeira|Azores)/i.test(tz)) return 'PT';
+      if (/^Europe\/(Paris|Brussels|Luxembourg|Monaco)/i.test(tz)) return 'FR';
+      if (/^Europe\/(Berlin|Vienna|Zurich|Vaduz)/i.test(tz)) return 'DE';
+      if (/^Europe\/(London|Dublin)/i.test(tz)) return 'GB';
+      if (/^Europe\/(Moscow|Kaliningrad|Samara|Volgograd|Saratov|Kirov|Astrakhan|Ulyanovsk)|^Asia\/(Yekaterinburg|Omsk|Novosibirsk|Barnaul|Tomsk|Novokuznetsk|Krasnoyarsk|Irkutsk|Chita|Yakutsk|Vladivostok|Magadan|Sakhalin|Kamchatka)/i.test(tz)) return 'RU';
+      if (/^Asia\/(Almaty|Qyzylorda|Qostanay|Aqtobe|Aqtau|Atyrau|Oral)/i.test(tz)) return 'KZ';
+      if (/^Europe\/Minsk/i.test(tz)) return 'BY';
+      if (/^Europe\/(Kyiv|Kiev|Uzhgorod|Zaporozhye)/i.test(tz)) return 'UA';
+      if (/^Asia\/(Tashkent|Samarkand)/i.test(tz)) return 'UZ';
+      if (/^Asia\/(Dushanbe|Bishkek)/i.test(tz)) return 'TJ';
+      if (/^America\/(Sao_Paulo|Fortaleza|Recife|Salvador|Bahia|Belem|Manaus|Cuiaba|Porto_Velho|Boa_Vista|Rio_Branco|Maceio|Araguaina|Noronha)/i.test(tz)) return 'BR';
+      if (/^America\/(Caracas|La_Paz|Havana|Managua|Tegucigalpa|El_Salvador|Port-au-Prince)/i.test(tz)) return 'VE';
+      if (/^America\/(Toronto|Montreal|Vancouver|Edmonton|Winnipeg|Halifax)/i.test(tz)) return 'CA';
+      if (/^America\/(New_York|Chicago|Denver|Los_Angeles|Phoenix|Detroit|Anchorage|Honolulu)/i.test(tz)) return lang === 'es' ? 'MX' : 'US';
+      if (/^America\//i.test(tz)) return lang === 'pt' ? 'BR' : 'MX';
+      if (/^Africa\/(Casablanca|Algiers|Tunis)/i.test(tz)) return 'MA';
+      if (/^Africa\/(Luanda|Maputo|Bissau)/i.test(tz)) return 'AO';
+      if (/^Africa\/|^Indian\/(Antananarivo|Comoro|Mayotte)/i.test(tz)) return lang === 'pt' ? 'AO' : lang === 'en' ? 'NG' : 'SN';
+      if (/^Asia\/(Kolkata|Calcutta|Karachi|Dhaka|Colombo|Kathmandu|Manila|Jakarta|Ho_Chi_Minh)/i.test(tz)) return 'IN';
+    }
+    try {
+      const langs = navigator.languages || [navigator.language || ''];
+      for (const loc of langs) {
+        const m = /-([A-Za-z]{2})\b/.exec(loc);
+        if (m) return m[1].toUpperCase();
+      }
+    } catch (_) {}
+    return {de:'DE',en:'US',es:'MX',pt:'BR',fr:'FR',ru:'RU'}[lang] || 'DE';
+  }
+
+  function resolveClientPricing(lang, ccOverride) {
+    const cc = (ccOverride || inferClientCountry(lang)).toUpperCase();
+    if (lang === 'ru') {
+      if (TIER1_CC.has(cc)) return {country: cc, price_stars: 200, fiat_label: '3,99 €'};
+      if (TIER2_RU_CC.has(cc) || TIER2_EU_CC.has(cc)) return {country: cc, price_stars: 120, fiat_label: '240 ₽ (~2,39 €)'};
+      if (TIER4_POOR_CC.has(cc)) return {country: cc, price_stars: 45, fiat_label: '0,89 $'};
+      return {country: cc, price_stars: 75, fiat_label: '1,49 $'};
+    }
+    if (TIER4_POOR_CC.has(cc)) return {country: cc, price_stars: 45, fiat_label: '0,89 €'};
+    if (TIER3_EMERGING_CC.has(cc)) return {country: cc, price_stars: 75, fiat_label: '1,49 €'};
+    if (TIER2_EU_CC.has(cc) || TIER2_RU_CC.has(cc)) return {country: cc, price_stars: 150, fiat_label: '2,99 €'};
+    return {country: cc, price_stars: 250, fiat_label: '4,99 €'};
+  }
+
+  function buildFreeBirthSummary(birthDateStr, lang) {
+    if (!birthDateStr) return '';
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(birthDateStr);
+    if (!m) return '';
+    const by = Number(m[1]), bm = Number(m[2]), bd = Number(m[3]);
+    const now = new Date();
+    let age = now.getFullYear() - by;
+    if (now.getMonth() + 1 < bm || (now.getMonth() + 1 === bm && now.getDate() < bd)) age--;
+    age = Math.max(0, age);
+    const fmt = `${String(bd).padStart(2,'0')}.${String(bm).padStart(2,'0')}.${by}`;
+    const y20_25 = `${by + 20}–${by + 25}`;
+    const y27_30 = `${by + 27}–${by + 30}`;
+    if (lang === 'de') {
+      const p = age > 30 ? `liegt deine 27–30-Jahre-Wende im Zeitraum ${y27_30} bereits hinter dir` : age >= 27 ? `befindest du dich genau jetzt (${y27_30}) mitten in deiner 27–30-Jahre-Wende` : `steht dir deine große 27–30-Jahre-Wende in den Jahren ${y27_30} bevor`;
+      return `📅 Deine persönliche Zeitachse (${fmt}, ${age} J.): Durch dein Geburtsdatum ${p}. Der Brauenabschnitt für 20–25 Jahre (Geschwister & früher Aufbruch) entspricht bei dir exakt den Jahren ${y20_25}.`;
+    }
+    if (lang === 'en') {
+      const p = age > 30 ? `your 27–30 turning point took place in ${y27_30}` : age >= 27 ? `you are in the middle of your 27–30 turning point right now (${y27_30})` : `your major 27–30 turning point will take place in ${y27_30}`;
+      return `📅 Your Personal Timeline (${fmt}, age ${age}): Based on your birth date, ${p}. The 20–25 eyebrow segment (siblings & early momentum) corresponds to ${y20_25}.`;
+    }
+    if (lang === 'es') {
+      const p = age > 30 ? `tu giro de los 27–30 años tuvo lugar entre ${y27_30}` : age >= 27 ? `estás viviendo ahora mismo (${y27_30}) tu giro de los 27–30 años` : `tu gran giro de los 27–30 años llegará entre ${y27_30}`;
+      return `📅 Tu Línea de Tiempo Personal (${fmt}, ${age} años): Según tu fecha de nacimiento, ${p}. El tramo de los 20–25 años (hermanos e impulso juvenil) corresponde exactamente a ${y20_25}.`;
+    }
+    if (lang === 'ru') {
+      const p = age > 30 ? `твой рубеж середины брови (27–30 лет) пришёлся на ${y27_30} гг.` : age >= 27 ? `ты прямо сейчас (${y27_30} гг.) проходишь главный рубеж 27–30 лет` : `главный разворот середины брови (27–30 лет) ждёт тебя в ${y27_30} гг.`;
+      return `📅 Твой личный расчёт по дате рождения (${fmt}, ${age} л.): По твоей дате рождения ${p} А участок 20–25 лет (братья/сёстры и ранний разгон) соответствует ${y20_25} гг.`;
+    }
+    if (lang === 'pt') {
+      const p = age > 30 ? `a sua virada dos 27–30 anos ocorreu entre ${y27_30}` : age >= 27 ? `você está vivendo agora mesmo (${y27_30}) a virada dos 27–30 anos` : `a sua grande virada dos 27–30 anos acontecerá entre ${y27_30}`;
+      return `📅 Sua Linha do Tempo Pessoal (${fmt}, ${age} anos): Pela sua data de nascimento, ${p}. O trecho dos 20–25 anos (irmãos e impulso inicial) corresponde a ${y20_25}.`;
+    }
+    const p = age > 30 ? `ton tournant des 27–30 ans a eu lieu entre ${y27_30}` : age >= 27 ? `tu traverses en ce moment (${y27_30}) ton tournant des 27–30 ans` : `ton grand tournant des 27–30 ans aura lieu entre ${y27_30}`;
+    return `📅 Ta Chronologie Personnelle (${fmt}, ${age} ans) : Selon ta date de naissance, ${p}. Le segment 20–25 ans (fratrie et élan) correspond aux années ${y20_25}.`;
+  }
 
   function setupTelegramPaidForm(onBusyChange = () => {}) {
     const lang = detectLang(), ui = UI_BY_LANG[lang] || UI_BY_LANG.de;
@@ -562,6 +707,9 @@
         mark30_found: result.mark30_found,
         moles: Array.from(selected.values()),
       };
+      if (result.birth_date) payload.birth_date = result.birth_date;
+      if (result.country) payload.country = result.country;
+      if (result.tz) payload.tz = result.tz;
       if (firstName) payload.first_name = firstName;
       if (email) payload.email = email;
       if (tg?.initData) payload.init_data = tg.initData;
@@ -621,7 +769,7 @@
     return {
       isPending: () => pending,
       setResult(value) {
-        result = {brow_form: value.form, brow_subtype: value.subtype || null, mark30_found: !!value.mark30_found};
+        result = {brow_form: value.form, brow_subtype: value.subtype || null, mark30_found: !!value.mark30_found, birth_date: value.birth_date || null, country: value.country || null, tz: value.tz || null};
         updateBusy();
       },
       clear() {
@@ -642,6 +790,100 @@
     const [TH, rules] = await Promise.all([json('thresholds.json'), json(rulesFile)]);
     const input = $('photo-input'), preview = $('photo-preview'), analyze = $('analyze-button'), status = $('analysis-status');
     let objectURL = null, detector = null, pendingDetector = null, generation = 0, busy = false;
+
+    // 1. Inject or bind mandatory Birth Date selector (Day · Month · Year)
+    let birthDay = $('birth-day'), birthMonth = $('birth-month'), birthYear = $('birth-year');
+    if (!birthDay || !birthMonth || !birthYear) {
+      const photoControls = document.querySelector('.photo-controls');
+      if (photoControls && photoControls.parentNode) {
+        const wrap = document.createElement('div');
+        wrap.className = 'birth-field';
+        wrap.id = 'birth-field';
+        const lbl = document.createElement('label');
+        lbl.setAttribute('for', 'birth-day');
+        lbl.textContent = ui.birthLabel || '1. Dein Geburtsdatum';
+        const req = document.createElement('span');
+        req.className = 'birth-req';
+        req.textContent = '*';
+        lbl.append(req);
+        const grid = document.createElement('div');
+        grid.className = 'birth-selects';
+        birthDay = document.createElement('select'); birthDay.id = 'birth-day'; birthDay.setAttribute('aria-label', ui.dayPlaceholder);
+        birthMonth = document.createElement('select'); birthMonth.id = 'birth-month'; birthMonth.setAttribute('aria-label', ui.monthPlaceholder);
+        birthYear = document.createElement('select'); birthYear.id = 'birth-year'; birthYear.setAttribute('aria-label', ui.yearPlaceholder);
+        grid.append(birthDay, birthMonth, birthYear);
+        const hint = document.createElement('p');
+        hint.className = 'birth-hint';
+        hint.textContent = ui.birthHint || '';
+        wrap.append(lbl, grid, hint);
+        photoControls.parentNode.insertBefore(wrap, photoControls);
+      }
+    }
+    const populateBirthSelects = () => {
+      if (!birthDay || !birthMonth || !birthYear) return;
+      if (birthDay.options.length <= 1) {
+        birthDay.replaceChildren();
+        const d0 = document.createElement('option'); d0.value = ''; d0.textContent = ui.dayPlaceholder; birthDay.append(d0);
+        for (let d = 1; d <= 31; d++) {
+          const o = document.createElement('option'); o.value = String(d).padStart(2, '0'); o.textContent = String(d); birthDay.append(o);
+        }
+      }
+      if (birthMonth.options.length <= 1) {
+        birthMonth.replaceChildren();
+        const m0 = document.createElement('option'); m0.value = ''; m0.textContent = ui.monthPlaceholder; birthMonth.append(m0);
+        (ui.months || []).forEach((name, idx) => {
+          const o = document.createElement('option'); o.value = String(idx + 1).padStart(2, '0'); o.textContent = `${String(idx + 1).padStart(2, '0')} – ${name}`; birthMonth.append(o);
+        });
+      }
+      if (birthYear.options.length <= 1) {
+        birthYear.replaceChildren();
+        const y0 = document.createElement('option'); y0.value = ''; y0.textContent = ui.yearPlaceholder; birthYear.append(y0);
+        const maxY = new Date().getFullYear() - 5;
+        for (let y = maxY; y >= 1925; y--) {
+          const o = document.createElement('option'); o.value = String(y); o.textContent = String(y); birthYear.append(o);
+        }
+      }
+      try {
+        const saved = localStorage.getItem('sora_birth_date');
+        if (saved && /^(\d{4})-(\d{2})-(\d{2})$/.test(saved)) {
+          const [, sy, sm, sd] = saved.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+          birthYear.value = sy; birthMonth.value = sm; birthDay.value = sd;
+        }
+      } catch (_) {}
+    };
+    populateBirthSelects();
+
+    const getValidBirthDate = () => {
+      if (!birthDay || !birthMonth || !birthYear) return null;
+      const d = Number(birthDay.value), m = Number(birthMonth.value), y = Number(birthYear.value);
+      if (!d || !m || !y) return null;
+      const dt = new Date(Date.UTC(y, m - 1, d));
+      if (dt.getUTCFullYear() !== y || dt.getUTCMonth() + 1 !== m || dt.getUTCDate() !== d) return null;
+      const iso = `${String(y).padStart(4, '0')}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+      try { localStorage.setItem('sora_birth_date', iso); } catch (_) {}
+      return iso;
+    };
+
+    // 2. Dynamic Regional Pricing (Client timezone/locale + Cloudflare Worker geo confirmation)
+    let clientTz = '';
+    try { clientTz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (_) {}
+    let currentPricing = resolveClientPricing(lang);
+    const applyPricingUI = pricing => {
+      if (!pricing) return;
+      currentPricing = pricing;
+      if (typeof ui.submitIdleDynamic === 'function') {
+        ui.submitIdle = ui.submitIdleDynamic(pricing.price_stars, pricing.fiat_label);
+      }
+      const subBtn = $('report-submit');
+      if (subBtn && !report.isPending()) {
+        subBtn.textContent = ui.submitIdle;
+      }
+      const kickerEl = document.querySelector('#full-analysis > .kicker');
+      if (kickerEl && typeof ui.kickerUnlockDynamic === 'function') {
+        kickerEl.textContent = ui.kickerUnlockDynamic(pricing.price_stars, pricing.fiat_label);
+      }
+    };
+
     const updatePhotoControls = reportPending => {
       $('choose-photo').disabled = busy || reportPending;
       input.disabled = busy || reportPending;
@@ -649,6 +891,19 @@
       analyze.disabled = busy || reportPending || !objectURL;
     };
     const report = setupTelegramPaidForm(updatePhotoControls);
+    applyPricingUI(currentPricing);
+
+    const tgFormEl = $('tg-form');
+    const workerBaseUrl = tgFormEl?.dataset?.workerUrl?.trim().replace(/\/+$/, '');
+    if (workerBaseUrl && /^https:\/\//i.test(workerBaseUrl)) {
+      fetch(workerBaseUrl + '/api/pricing', {
+        method: 'POST', headers: {'Content-Type': 'application/json'}, credentials: 'omit',
+        body: JSON.stringify({lang, tz: clientTz, country: currentPricing.country})
+      }).then(r => r.ok ? r.json() : null).then(d => {
+        if (d?.ok && d.price_stars) applyPricingUI(d);
+      }).catch(() => {});
+    }
+
     const clearResult = () => {
       report.clear();
       $('analysis-result').hidden = true;
@@ -658,9 +913,12 @@
       $('brow-intro').textContent = '';
       $('brow-description').textContent = '';
       $('mark30-description').textContent = '';
+      const pb = $('birth-personal-box');
+      if (pb) pb.remove();
     };
     const releasePhoto = () => { if (objectURL) URL.revokeObjectURL(objectURL); objectURL = null; preview.removeAttribute('src'); preview.hidden = true; $('preview-area').hidden = true; input.value = ''; analyze.disabled = true; $('reset-photo').hidden = true; };
     const showError = key => { const errMap = rules.photo_errors_de || rules['photo_errors_' + lang] || {}; $('photo-error').textContent = errMap[key] || ''; $('photo-error').hidden = false; status.textContent = ''; };
+    const showCustomError = msg => { $('photo-error').textContent = msg; $('photo-error').hidden = false; status.textContent = ''; };
     const loadDetector = async () => {
       if (detector) return detector;
       if (!pendingDetector) pendingDetector = (async () => {
@@ -671,7 +929,24 @@
       })().catch(e => { pendingDetector = null; throw e; });
       return pendingDetector;
     };
-    $('choose-photo').addEventListener('click', () => { if (!busy && !report.isPending()) input.click(); });
+    [birthDay, birthMonth, birthYear].forEach(sel => {
+      if (sel) sel.addEventListener('change', () => {
+        if (getValidBirthDate() && !$('photo-error').hidden && $('photo-error').textContent === ui.missingBirth) {
+          $('photo-error').hidden = true;
+        }
+      });
+    });
+    $('choose-photo').addEventListener('click', () => {
+      if (busy || report.isPending()) return;
+      if (!getValidBirthDate()) {
+        showCustomError(ui.missingBirth);
+        if (birthDay && !birthDay.value) birthDay.focus();
+        else if (birthMonth && !birthMonth.value) birthMonth.focus();
+        else if (birthYear && !birthYear.value) birthYear.focus();
+        return;
+      }
+      input.click();
+    });
     input.addEventListener('change', async () => {
       if (busy || report.isPending()) return;
       const file = input.files && input.files[0]; if (!file) return;
@@ -684,7 +959,16 @@
     });
     $('reset-photo').addEventListener('click', () => { if (report.isPending()) return; generation++; clearResult(); releasePhoto(); status.textContent = ''; });
     analyze.addEventListener('click', async () => {
-      if (busy || report.isPending() || !objectURL) return; busy = true; const ticket = generation;
+      if (busy || report.isPending() || !objectURL) return;
+      const birthDate = getValidBirthDate();
+      if (!birthDate) {
+        showCustomError(ui.missingBirth);
+        if (birthDay && !birthDay.value) birthDay.focus();
+        else if (birthMonth && !birthMonth.value) birthMonth.focus();
+        else if (birthYear && !birthYear.value) birthYear.focus();
+        return;
+      }
+      busy = true; const ticket = generation;
       analyze.disabled = true; $('choose-photo').disabled = true; clearResult(); status.textContent = ui.loadingModel;
       const canvas = document.createElement('canvas'); let pixels, gray;
       try {
@@ -705,12 +989,27 @@
         const result = analyzeLandmarks({gray, width: canvas.width, height: canvas.height, faces}, TH);
         if (ticket !== generation) return;
         if (!result.ok) { showError(result.error); return; }
+        result.birth_date = birthDate;
+        result.country = currentPricing.country;
+        result.tz = clientTz;
         const form = rules.brows[result.form], text = result.subtype && form.subtypes ? form.subtypes[result.subtype] : form;
         $('brow-name').textContent = text.name_de || text['name_' + lang] || '';
         $('brow-intro').textContent = rules.brows_intro_de || rules['brows_intro_' + lang] || '';
         $('brow-description').textContent = text.short_de || text['short_' + lang] || '';
         const mKey = result.mark30_found ? 'free_found' : 'free_not_found';
         $('mark30-description').textContent = rules.mark30[mKey + '_de'] || rules.mark30[mKey + '_' + lang] || '';
+        const personalLine = buildFreeBirthSummary(birthDate, lang);
+        if (personalLine && $('mark30-description')?.parentNode) {
+          let pb = $('birth-personal-box');
+          if (!pb) {
+            pb = document.createElement('p');
+            pb.id = 'birth-personal-box';
+            pb.className = 'birth-personal-box';
+            $('mark30-description').parentNode.append(pb);
+          }
+          pb.textContent = personalLine;
+        }
+        applyPricingUI(currentPricing);
         report.setResult(result);
         $('analysis-result').hidden = false; $('full-analysis').hidden = false; status.textContent = ui.analysisDone;
         $('analysis-result').scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'});

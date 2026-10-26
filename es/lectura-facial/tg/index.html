@@ -38,10 +38,19 @@
       <h2 id="tool-title">¿Qué revelan tus cejas?</h2>
     </div>
     <ol class="gesicht-steps" aria-label="Cómo funciona">
-      <li><span aria-hidden="true">1</span>Elegir selfie</li>
-      <li><span aria-hidden="true">2</span>Analizar</li>
-      <li><span aria-hidden="true">3</span>Leer interpretación</li>
+      <li><span aria-hidden="true">1</span>Fecha de nacimiento</li>
+      <li><span aria-hidden="true">2</span>Elegir selfie</li>
+      <li><span aria-hidden="true">3</span>Analizar y leer</li>
     </ol>
+    <div class="birth-field" id="birth-field">
+      <label for="birth-day">1. Tu Fecha de Nacimiento (Obligatorio para calcular tus años)<span class="birth-req">*</span></label>
+      <div class="birth-selects">
+        <select id="birth-day" aria-label="Día"><option value="">Día</option></select>
+        <select id="birth-month" aria-label="Mes"><option value="">Mes</option></select>
+        <select id="birth-year" aria-label="Año"><option value="">Año</option></select>
+      </div>
+      <p class="birth-hint">Necesaria para calcular tus años exactos (tramo 20–25 y giro de 27–30 años) y cruzar tus lunares con tu signo y grado natal.</p>
+    </div>
     <div class="photo-controls">
       <input type="file" id="photo-input" accept="image/*" capture="user" aria-label="Tomar un selfie o elegir una foto" hidden>
       <button class="btn" id="choose-photo" type="button">Tomar selfie / Elegir foto</button>
