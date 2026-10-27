@@ -1132,15 +1132,19 @@
       }
       const phBtn = $('payhip-link');
       if (phBtn) {
-        if (typeof ui.payhipBtn === 'function') {
-          phBtn.textContent = ui.payhipBtn(pricing.payhip_label || '9,99 €');
-        }
         const tierKey = pricing.payhip_tier || (pricing.payhip_label === '4,99 €' ? 'tier3' : pricing.payhip_label === '6,99 €' ? 'tier2' : 'tier1');
         const tierUrl = (tierKey === 'tier3' && phBtn.dataset.payhipUrlTier3)
           || (tierKey === 'tier2' && phBtn.dataset.payhipUrlTier2)
           || (tierKey === 'tier1' && phBtn.dataset.payhipUrlTier1)
           || phBtn.dataset.payhipUrl
           || '';
+        let displayLabel = pricing.payhip_label || '6,99 €';
+        if (tierUrl.includes('/b/Cp85A')) {
+          displayLabel = '6,99 €';
+        }
+        if (typeof ui.payhipBtn === 'function') {
+          phBtn.textContent = ui.payhipBtn(displayLabel);
+        }
         if (tierUrl) {
           try {
             const u = new URL(tierUrl.trim());
