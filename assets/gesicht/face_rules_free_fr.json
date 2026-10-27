@@ -6,7 +6,8 @@
     "too_small": "Ton visage est trop petit sur la photo. Rapproche-toi de l’objectif pour que ton visage remplisse bien le cadre.",
     "turned": "Ta tête est trop tournée. Regarde droit vers l’objectif (de face).",
     "dark": "La photo est trop sombre ou floue. Trouve une bonne lumière du jour et envoie un nouveau selfie.",
-    "brows_hidden": "Tes sourcils ne sont pas bien visibles. Dégage les cheveux de ton front et envoie un nouveau selfie."
+    "brows_hidden": "Tes sourcils ne sont pas bien visibles. Dégage les cheveux de ton front et envoie un nouveau selfie.",
+    "low_confidence_brow": "Sur cette photo, la forme principale de tes sourcils n’a pas pu être déterminée avec une certitude suffisante (angle limite, ombre ou contour flou). Prends un nouveau selfie de face à la lumière du jour — ou choisis manuellement la forme de tes sourcils dans le guide visuel ci-dessous."
   },
   "disclaimer_de": "Remarque : Cette interprétation est destinée au divertissement et à la réflexion personnelle. Elle ne constitue pas un avis médical, psychologique ou juridique et ne prédit pas ton destin. Si un grain de beauté évolue (taille, couleur, forme, démangeaisons, saignement), consulte un dermatologue.",
   "brows": {
@@ -37,12 +38,23 @@
       "short_de": "Des sourcils bas révèlent un esprit réaliste : tu observes l’essentiel et préfères te préparer aux scénarios difficiles."
     },
     "hoch_winkel": {
-      "name_de": "Sourcils hauts avec angle marqué",
-      "short_de": "Des sourcils hauts montrent une ouverture au monde. Un angle net traduit l’assurance et le tempérament."
+      "name_de": "Sourcils hauts au-dessus des yeux",
+      "short_de": "Des sourcils hauts montrent une ouverture au monde : les impressions entrent librement et tu cherches à agir avec présence (source M12:295–312).",
+      "subtypes": {
+        "hoch_winkel_scharf": {
+          "name_de": "Sourcils hauts avec angle marqué",
+          "short_de": "Des sourcils hauts formant un angle net indiquent l’ouverture au monde, une forte assurance et un tempérament affirmé (source M12:295–312)."
+        },
+        "hoch_winkel_sanft": {
+          "name_de": "Sourcils hauts à l’arc doux",
+          "short_de": "Des sourcils hauts et doucement arrondis sans cassure brusque traduisent une ouverture douce, de la réceptivité et de l’optimisme (source M12:295–312)."
+        }
+      }
     }
   },
   "mark30": {
-    "free_found_de": "Au milieu de ton sourcil, je vois une interruption ou une zone moins fournie. En physiognomonie, cela indique qu’autour de 30 ans (parfois un peu plus tôt, vers 27 ans) un événement a donné ou donnera une nouvelle direction à ta vie.",
-    "free_not_found_de": "Au milieu de ton sourcil — la zone correspondant environ à la trentaine — le tracé des poils est régulier et sans interruption marquée."
+    "free_found_de": "Observation optique sur cette photo (sources M12:316–331, L01:689–695) : Au milieu de ton sourcil, une interruption ou une zone moins dense est visible. Dans l’enseignement traditionnel, c’est un indice conditionnel autour de 27–30 ans qui ne constitue pas une prédiction figée et nécessite toujours une vérification croisée avec les lignes de la main et le reste du visage.",
+    "free_not_found_de": "Observation optique sur cette photo (source M12:316–318) : Au milieu de ton sourcil (zone correspondant approximativement à 27–30 ans), le tracé apparaît régulier sur cette image, sans interruption visible. Cela décrit uniquement l’observation optique de la photo et ne promet pas une période sans événement.",
+    "free_unknown_de": "Note optique sur cette photo : La zone médiane du sourcil (segment 27–30 ans selon M12:316–318) n’a pas pu être évaluée avec une netteté optique suffisante sur cette image en raison de l’éclairage, du contraste ou d’une mèche sur le front. Aucune conclusion individuelle n’est tirée pour la marque des 30 ans."
   }
 }

@@ -103,3 +103,9 @@
   .panel-heading h2 { font-size: 1.3rem; }
 }
 @media (prefers-reduced-motion: reduce) { .gesicht-page * { scroll-behavior: auto !important; transition: none !important; } }
+
+.photo-checklist { margin: 0.75rem 0; padding-left: 1.25rem; font-size: 0.92rem; color: var(--muted, #5c5349); }
+.photo-checklist li { margin-bottom: 0.25rem; }
+.email-opt-in-label { display: flex; align-items: flex-start; gap: 0.5rem; margin: 0.5rem 0 0.9rem; font-size: 0.88rem; line-height: 1.35; cursor: pointer; }
+.email-opt-in-label input { margin-top: 0.2rem; }
+.otp-recovery-box { margin: 0.85rem 0; padding: 0.85rem; border: 1px solid rgba(180, 140, 80, 0.45); border-radius: 8px; background: rgba(250, 244, 232, 0.7); display: flex; flex-direction: column; gap: 0.5rem; }

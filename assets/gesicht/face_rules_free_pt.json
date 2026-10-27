@@ -6,7 +6,8 @@
     "too_small": "Seu rosto está muito pequeno na foto. Aproxime-se mais da câmera para que o rosto preencha bem a imagem.",
     "turned": "Sua cabeça está muito virada. Por favor, olhe diretamente para a câmera (de frente).",
     "dark": "A foto está muito escura ou desfocada. Procure uma boa luz natural e envie uma nova selfie.",
-    "brows_hidden": "Suas sobrancelhas não estão bem visíveis. Por favor, afaste o cabelo da testa e envie uma nova selfie."
+    "brows_hidden": "Suas sobrancelhas não estão bem visíveis. Por favor, afaste o cabelo da testa e envie uma nova selfie.",
+    "low_confidence_brow": "Nesta foto não foi possível determinar com segurança suficiente o formato principal das suas sobrancelhas (ângulo limite, sombra ou contorno pouco nítido). Por favor, tire uma nova selfie de frente com luz natural uniforme — ou selecione o formato das suas sobrancelhas manualmente no guia visual abaixo."
   },
   "disclaimer_de": "Aviso: Esta leitura destina-se ao entretenimento e ao autoconhecimento. Não substitui orientação médica, psicológica ou jurídica, nem é uma previsão do destino. Se um sinal mudar (tamanho, cor, forma, coceira ou sangramento), procure um dermatologista.",
   "brows": {
@@ -37,12 +38,23 @@
       "short_de": "Sobrancelhas baixas revelam uma pessoa realista: você observa a essência das coisas e prefere se preparar para os cenários difíceis."
     },
     "hoch_winkel": {
-      "name_de": "Sobrancelhas altas com ângulo",
-      "short_de": "Sobrancelhas altas mostram abertura para o mundo. Um ângulo marcante indica autoconfiança e temperamento forte."
+      "name_de": "Sobrancelhas altas sobre os olhos",
+      "short_de": "Sobrancelhas altas mostram abertura para o mundo: as impressões entram livremente e você busca agir com presença (fonte M12:295–312).",
+      "subtypes": {
+        "hoch_winkel_scharf": {
+          "name_de": "Sobrancelhas altas com ângulo acentuado",
+          "short_de": "Sobrancelhas altas com um ângulo nítido indicam abertura, forte autoconfiança e temperamento firme (fonte M12:295–312)."
+        },
+        "hoch_winkel_sanft": {
+          "name_de": "Sobrancelhas altas suavemente arqueadas",
+          "short_de": "Sobrancelhas altas e suavemente arredondadas, sem quebra brusca, indicam abertura suave, receptividade e otimismo (fonte M12:295–312)."
+        }
+      }
     }
   },
   "mark30": {
-    "free_found_de": "No meio da sua sobrancelha vejo uma interrupção ou um ponto com menos fios. Na fisiognomia, isso indica que por volta dos 30 anos (às vezes um pouco antes, perto dos 27) houve ou haverá um acontecimento que dá uma nova direção à sua vida.",
-    "free_not_found_de": "No meio da sua sobrancelha — a região correspondente aproximadamente aos 30 anos — o alinhamento dos fios é uniforme e sem interrupções marcantes."
+    "free_found_de": "Observação óptica nesta foto (fontes M12:316–331, L01:689–695): Na região central da sua sobrancelha nota-se uma interrupção ou menor densidade de fios. No ensino tradicional, isso é tratado como um indício condicional por volta dos 27–30 anos — não é uma previsão determinista e exige sempre confirmação nas linhas das mãos e no conjunto do rosto.",
+    "free_not_found_de": "Observação óptica nesta foto (fonte M12:316–318): No meio da sua sobrancelha (faixa aproximada dos 27–30 anos), o contorno aparece uniforme nesta imagem, sem falha visível. Isso descreve apenas o aspecto óptico da foto e não representa promessa de um período sem mudanças.",
+    "free_unknown_de": "Nota óptica sobre esta foto: A região central da sobrancelha (faixa de 27–30 anos segundo M12:316–318) não pôde ser avaliada com segurança óptica suficiente nesta imagem devido à iluminação, ao contraste ou a fios na testa. Não se formula conclusão individual sobre a marca dos 30 anos."
   }
 }

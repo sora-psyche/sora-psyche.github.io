@@ -167,11 +167,12 @@
       </div>
       <p class="birth-hint">Nécessaire pour calculer vos années exactes (période 20–25 ans et tournant 27–30 ans) et relier vos grains de beauté à votre degré natal.</p>
     </div>
+    <ul class="photo-checklist"><li>Regardez bien de face</li><li>Bon éclairage frontal uniforme</li><li>Les deux sourcils bien visibles (sans frange ni lunettes)</li></ul>
     <div class="photo-controls">
       <input type="file" id="photo-input" accept="image/*" capture="user" aria-label="Prendre un selfie ou choisir une photo" hidden>
       <button class="btn" id="choose-photo" type="button">Prendre un selfie / Choisir une photo</button>
     </div>
-    <p class="photo-privacy"><svg width="17" height="19" viewBox="0 0 17 19" fill="none" aria-hidden="true"><path d="M3.5 8V6a5 5 0 0 1 10 0v2M2 8.5h13v9H2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>Votre photo reste sur votre appareil et n’est jamais envoyée sur un serveur.</p>
+    <p class="photo-privacy"><svg width="17" height="19" viewBox="0 0 17 19" fill="none" aria-hidden="true"><path d="M3.5 8V6a5 5 0 0 1 10 0v2M2 8.5h13v9H2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>Lorsque vous choisissez la photo ici dans le scanner du navigateur, elle reste localement sur votre appareil et n’est pas téléversée.</p>
     <div id="preview-area" class="photo-preview" hidden>
       <img id="photo-preview" alt="Aperçu de votre selfie sélectionné" hidden>
     </div>
@@ -207,8 +208,8 @@
       <li>PDF personnel</li>
     </ul>
     <div class="gesicht-actions">
-      <a class="btn" id="telegram-unlock" href="https://t.me/kriptokartybot?start=web_dicht" target="_blank" rel="noopener noreferrer">Débloquer sur Telegram – 250 ⭐</a>
-      <a class="btn-outline" id="payhip-link" data-payhip-url="https://payhip.com/b/Cp85A" target="_blank" rel="noopener noreferrer" hidden>Analyse personnelle – 6,99 € (Payhip)</a>
+      <a class="btn" id="telegram-unlock" href="https://t.me/lecture_du_visage_bot?start=web_dicht" target="_blank" rel="noopener noreferrer">Débloquer sur Telegram – 250 ⭐</a>
+      <a class="btn-outline" id="payhip-link" data-payhip-url="https://payhip.com/b/GesichtTier1" data-payhip-url-tier1="https://payhip.com/b/GesichtTier1" data-payhip-url-tier2="https://payhip.com/b/u0dc1" data-payhip-url-tier3="https://payhip.com/b/GesichtTier3" target="_blank" rel="noopener noreferrer" hidden>Analyse personnelle – 9,99 € (Payhip)</a>
     </div>
     <form id="key-form" class="key-form" data-worker-url="https://gesicht.gesicht-worker.workers.dev" hidden>
       <fieldset id="report-fields">
@@ -219,6 +220,7 @@
           <div id="mole-zones" class="mole-zones" role="group" aria-label="Zone du corps"></div>
           <div class="mole-sides" role="group" aria-label="Côté">
             <button class="mole-choice" id="mole-links" type="button" aria-pressed="false" disabled>gauche</button>
+            <button class="mole-choice" id="mole-mitte" type="button" aria-pressed="false" disabled>milieu</button>
             <button class="mole-choice" id="mole-rechts" type="button" aria-pressed="false" disabled>droite</button>
           </div>
           <button class="mole-choice mole-none" id="mole-none" type="button" aria-pressed="true">Aucun grain de beauté</button>
@@ -229,6 +231,7 @@
         <input id="report-first-name" name="first_name" type="text" maxlength="30" autocomplete="given-name" placeholder="Votre prénom">
         <label for="report-email">E-mail pour copie (facultatif – sinon envoyé à votre e-mail Payhip)</label>
         <input id="report-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="Laisser vide = votre e-mail Payhip">
+        <label class="email-opt-in-label"><input type="checkbox" id="email-opt-in" name="email_opt_in"> <span>Recevoir également mon analyse PDF une seule fois à cette adresse e-mail (optionnel, sans newsletter).</span></label>
         <label for="license-key">Clé de votre achat Payhip</label>
         <input id="license-key" name="license-key" type="text" maxlength="256" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="XXXXX-XXXXX-XXXXX-XXXXX" required>
         <p class="form-hint">Votre analyse complète s’affiche immédiatement sur cette page, lance le téléchargement du PDF et vous est envoyée automatiquement par e-mail. Votre photo reste sur votre appareil.</p>
@@ -249,7 +252,7 @@
   <aside class="handlesen-bridge" aria-labelledby="handlesen-title">
     <div><p class="kicker">Aussi sur Telegram</p><h2 id="handlesen-title">Canal et Bot</h2></div>
     <div class="gesicht-actions">
-      <a class="btn-teal" href="https://t.me/kriptokartybot" target="_blank" rel="noopener noreferrer">Ouvrir @kriptokartybot</a>
+      <a class="btn-teal" href="https://t.me/lecture_du_visage_bot" target="_blank" rel="noopener noreferrer">Ouvrir @lecture_du_visage_bot</a>
       <a class="btn-outline" href="https://t.me/lectureduvisage" target="_blank" rel="noopener noreferrer">Canal @lectureduvisage</a>
     </div>
   </aside>

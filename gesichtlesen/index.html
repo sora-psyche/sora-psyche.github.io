@@ -170,11 +170,12 @@
       </div>
       <p class="birth-hint">Wird für deine exakten Kalenderjahre (20–25 &amp; Wende 27–30 Jahre) sowie für die Zuordnung deiner Muttermale zum Sternzeichen-Grad benötigt.</p>
     </div>
+    <ul class="photo-checklist"><li>Frontal in die Kamera schauen</li><li>Gutes, gleichmäßiges Licht von vorn</li><li>Beide Augenbrauen frei sichtbar (ohne Pony/Brille)</li></ul>
     <div class="photo-controls">
       <input type="file" id="photo-input" accept="image/*" capture="user" aria-label="Selfie aufnehmen oder Foto wählen" hidden>
       <button class="btn" id="choose-photo" type="button">Selfie aufnehmen / Foto wählen</button>
     </div>
-    <p class="photo-privacy"><svg width="17" height="19" viewBox="0 0 17 19" fill="none" aria-hidden="true"><path d="M3.5 8V6a5 5 0 0 1 10 0v2M2 8.5h13v9H2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>Dein Foto bleibt auf deinem Gerät und wird nicht hochgeladen.</p>
+    <p class="photo-privacy"><svg width="17" height="19" viewBox="0 0 17 19" fill="none" aria-hidden="true"><path d="M3.5 8V6a5 5 0 0 1 10 0v2M2 8.5h13v9H2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>Bei Auswahl hier im Browser-Scanner bleibt dein Foto lokal auf deinem Gerät und wird nicht hochgeladen.</p>
     <div id="preview-area" class="photo-preview" hidden>
       <img id="photo-preview" alt="Vorschau deines ausgewählten Selfies" hidden>
     </div>
@@ -210,8 +211,8 @@
       <li>Persönliches PDF</li>
     </ul>
     <div class="gesicht-actions">
-      <a class="btn" id="telegram-unlock" href="https://t.me/gesicht_lesen_bot?start=web_dicht" target="_blank" rel="noopener noreferrer">Im Telegram freischalten – 250 ⭐</a>
-      <a class="btn-outline" id="payhip-link" data-payhip-url="https://payhip.com/b/Cp85A" target="_blank" rel="noopener noreferrer" hidden>Persönliche Analyse – 6,99 € (Payhip)</a>
+      <a class="btn" id="telegram-unlock" href="https://t.me/gesichtslesen_bot?start=web_dicht" target="_blank" rel="noopener noreferrer">Im Telegram freischalten – 250 ⭐</a>
+      <a class="btn-outline" id="payhip-link" data-payhip-url="https://payhip.com/b/GesichtTier1" data-payhip-url-tier1="https://payhip.com/b/GesichtTier1" data-payhip-url-tier2="https://payhip.com/b/u0dc1" data-payhip-url-tier3="https://payhip.com/b/GesichtTier3" target="_blank" rel="noopener noreferrer" hidden>Persönliche Analyse – 9,99 € (Payhip)</a>
     </div>
     <!-- data-worker-url: Worker base URL, without /api/report; empty keeps this form hidden. -->
     <form id="key-form" class="key-form" data-worker-url="https://gesicht.gesicht-worker.workers.dev" hidden>
@@ -223,6 +224,7 @@
           <div id="mole-zones" class="mole-zones" role="group" aria-label="Körperzone"></div>
           <div class="mole-sides" role="group" aria-label="Seite">
             <button class="mole-choice" id="mole-links" type="button" aria-pressed="false" disabled>links</button>
+            <button class="mole-choice" id="mole-mitte" type="button" aria-pressed="false" disabled>Mitte</button>
             <button class="mole-choice" id="mole-rechts" type="button" aria-pressed="false" disabled>rechts</button>
           </div>
           <button class="mole-choice mole-none" id="mole-none" type="button" aria-pressed="true">Keine Muttermale</button>
@@ -233,6 +235,7 @@
         <input id="report-first-name" name="first_name" type="text" maxlength="30" autocomplete="given-name" placeholder="Dein Vorname">
         <label for="report-email">E-Mail für Kopie (optional – sonst automatisch an deine Payhip-E-Mail)</label>
         <input id="report-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="Leer lassen = deine Payhip-E-Mail">
+        <label class="email-opt-in-label"><input type="checkbox" id="email-opt-in" name="email_opt_in"> <span>Ich möchte meine PDF-Analyse zusätzlich einmalig an diese E-Mail-Adresse erhalten (optional, kein Newsletter).</span></label>
         <label for="license-key">Schlüssel aus deinem Payhip-Kauf</label>
         <input id="license-key" name="license-key" type="text" maxlength="256" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="XXXXX-XXXXX-XXXXX-XXXXX" required>
         <p class="form-hint">Deine vollständige Analyse erscheint sofort hier auf der Seite, startet als PDF-Download und wird automatisch an deine E-Mail gesendet. Dein Foto bleibt auf deinem Gerät.</p>

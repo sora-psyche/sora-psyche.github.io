@@ -1,35 +1,11 @@
 {
-  "version": "1.0",
-  "comment": "Shared thresholds for Python (brow_classifier.py) and JS (website, MediaPipe FaceLandmarker JS). All distances normalized by interpupillary distance (IPD). Brow profiles sampled inner (nose) -> outer (tail).",
+  "version": "2.0",
+  "comment": "Shared thresholds for Python (brow_classifier.py) and JS (website, MediaPipe FaceLandmarker JS). All distances normalized by interpupillary distance (IPD). Brow profiles sampled inner (nose) -> outer (tail). Separate confidence gates for baseline dicht vs 5 active forms.",
   "landmarks": {
-    "brow_r_upper": [
-      107,
-      66,
-      105,
-      63,
-      70
-    ],
-    "brow_r_lower": [
-      55,
-      65,
-      52,
-      53,
-      46
-    ],
-    "brow_l_upper": [
-      336,
-      296,
-      334,
-      293,
-      300
-    ],
-    "brow_l_lower": [
-      285,
-      295,
-      282,
-      283,
-      276
-    ],
+    "brow_r_upper": [107, 66, 105, 63, 70],
+    "brow_r_lower": [55, 65, 52, 53, 46],
+    "brow_l_upper": [336, 296, 334, 293, 300],
+    "brow_l_lower": [285, 295, 282, 283, 276],
     "eye_r": {
       "outer": 33,
       "inner": 133,
@@ -50,10 +26,7 @@
     "n_along": 40,
     "n_across": 32,
     "band_margin_ipd": 0.04,
-    "skin_ref_offset_ipd": [
-      0.1,
-      0.22
-    ],
+    "skin_ref_offset_ipd": [0.1, 0.22],
     "dark_ratio": 0.85
   },
   "quality": {
@@ -71,6 +44,8 @@
     "height_low": 0.195,
     "height_high": 0.25,
     "arch_sharp_deg": 38,
+    "arch_ambiguous_range": [34.0, 41.0],
+    "max_lr_arch_diff_deg": 8.0,
     "thin_thickness": 0.068,
     "thin_density": 0.5,
     "uneven_cv": 0.28,
@@ -79,13 +54,34 @@
     "breiter_outer_inner_ratio": 1.12,
     "wechselt_thick_ratio": 0.65
   },
+  "confidence": {
+    "non_dicht": {
+      "min_winner_score": 0.18,
+      "min_top2_margin": 0.12,
+      "max_lr_brow_asymmetry": 0.35
+    },
+    "dicht": {
+      "max_other_score": -0.15,
+      "min_density_mean": 0.52,
+      "min_thickness_mean": 0.072,
+      "max_lr_brow_asymmetry": 0.35
+    }
+  },
   "mark30": {
-    "window": [
-      0.33,
-      0.6
-    ],
+    "window": [0.33, 0.6],
     "gap_ratio": 0.55,
     "min_ref_density": 0.35
+  },
+  "acceptance_criteria_frozen": {
+    "min_accepted_macro_accuracy": 0.85,
+    "min_test_retest_consistency": 0.90,
+    "max_low_confidence_rejection_rate_clean": 0.20,
+    "person_disjoint_split_required": true,
+    "min_dev_subjects": 36,
+    "min_test_subjects": 36,
+    "min_subjects_per_form": 6,
+    "min_photos_per_subject": 3,
+    "min_negative_examples": 12
   },
   "priority": [
     "tief",
@@ -95,5 +91,5 @@
     "breiter_zum_ende",
     "dicht"
   ],
-  "priority_comment": "Highest positive score wins; priority list only breaks ties. dicht = fallback when no rule fires."
+  "priority_comment": "Highest positive score wins if non_dicht confidence gate passes; dicht requires separate dicht confidence gate; otherwise returns low_confidence_brow."
 }

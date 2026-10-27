@@ -68,8 +68,16 @@
       density_mean: pyRound(mean(segment(density, .1, .9)), 4), density_inner: pyRound(mean(segment(density, .05, .35)), 4), density_outer: pyRound(mean(segment(density, .55, .95)), 4),
       uneven_cv: pyRound(uneven, 4), mark30_win_min: pyRound(Math.min(...win), 4), mark30_ref: pyRound(median(refs), 4), mark30_pos: pyRound(positions[win.indexOf(Math.min(...win))], 3)};
   }
-  function classify(f, TH) {
+  function computeLrAsymmetry(r, l) {
+    const hDiff = Math.abs(r.height - l.height) / Math.max(0.15, (r.height + l.height) / 2);
+    const dDiff = Math.abs(r.density_mean - l.density_mean) / Math.max(0.25, (r.density_mean + l.density_mean) / 2);
+    const tDiff = Math.abs(r.thickness_mean - l.thickness_mean) / Math.max(0.04, (r.thickness_mean + l.thickness_mean) / 2);
+    return pyRound(Math.max(hDiff, dDiff * 0.75, tDiff * 0.75), 4);
+  }
+  function classify(f, TH, featsBySide = null) {
     const R = TH.rules, scores = {};
+    const cNon = TH.confidence?.non_dicht || {min_winner_score: 0.18, min_top2_margin: 0.12, max_lr_brow_asymmetry: 0.35};
+    const cDicht = TH.confidence?.dicht || {max_other_score: -0.15, min_density_mean: 0.52, min_thickness_mean: 0.072, max_lr_brow_asymmetry: 0.35};
     scores.tief = (R.height_low - f.height) / R.height_low * 4;
     scores.hoch_winkel = (f.height - R.height_high) / R.height_high * 4;
     scores.duenn = Math.max((R.thin_thickness - f.thickness_mean) / R.thin_thickness, (R.thin_density - f.density_mean) / R.thin_density) * 3;
@@ -80,10 +88,39 @@
     scores.breiter_zum_ende = (ratioT - R.breiter_outer_inner_ratio) / R.breiter_outer_inner_ratio * 4;
     if (f.thickness_inner < .02 || f.density_inner < .05) { scores.dichte_wechselt = Math.min(scores.dichte_wechselt, -.01); scores.breiter_zum_ende = Math.min(scores.breiter_zum_ende, -.01); }
     for (const key of Object.keys(scores)) scores[key] = clamp(scores[key], -3, 3);
+    const roundedScores = Object.fromEntries(Object.entries(scores).map(([k, v]) => [k, pyRound(v, 3)]));
+    const lrAsym = (featsBySide && featsBySide.r && featsBySide.l) ? computeLrAsymmetry(featsBySide.r, featsBySide.l) : (f.lr_asymmetry || 0);
     const firing = Object.keys(scores).filter(k => scores[k] > 0).sort((a, b) => scores[b] - scores[a] || TH.priority.indexOf(a) - TH.priority.indexOf(b));
-    const form = firing[0] || 'dicht', confidence = .55 + .4 * Math.min(1, firing.length ? scores[form] : -Math.max(...Object.values(scores)));
-    return {form, subtype: form === 'duenn' && f.uneven_cv > R.uneven_cv ? 'duenn_unruhig' : null, confidence: pyRound(confidence, 2), angle_sharp: f.arch_deg >= R.arch_sharp_deg,
-      scores: Object.fromEntries(Object.entries(scores).map(([k, v]) => [k, pyRound(v, 3)])), secondary: firing.slice(1)};
+    let form = null;
+    if (firing.length > 0) {
+      const topScore = scores[firing[0]];
+      const secondScore = firing.length > 1 ? scores[firing[1]] : 0;
+      const margin = topScore - secondScore;
+      if (topScore < cNon.min_winner_score || (firing.length > 1 && margin < cNon.min_top2_margin) || lrAsym > cNon.max_lr_brow_asymmetry) {
+        return {ok_conf: false, confident: false, form: null, subtype: null, angle_state: 'unknown', angle_sharp: false, scores: roundedScores, secondary: [], candidate_forms: firing.slice(0, 2)};
+      }
+      form = firing[0];
+    } else {
+      const maxOther = Math.max(...Object.values(scores));
+      if (maxOther > cDicht.max_other_score || f.density_mean < cDicht.min_density_mean || f.thickness_mean < cDicht.min_thickness_mean || lrAsym > cDicht.max_lr_brow_asymmetry) {
+        const nearForms = Object.keys(scores).sort((a, b) => scores[b] - scores[a]).slice(0, 1);
+        return {ok_conf: false, confident: false, form: null, subtype: null, angle_state: 'unknown', angle_sharp: false, scores: roundedScores, secondary: [], candidate_forms: ['dicht', ...nearForms]};
+      }
+      form = 'dicht';
+    }
+    const [ambLo, ambHi] = R.arch_ambiguous_range || [34.0, 41.0];
+    const maxLrArch = R.max_lr_arch_diff_deg || 8.0;
+    const lrArchDiff = (featsBySide && featsBySide.r && featsBySide.l) ? Math.abs(featsBySide.r.arch_deg - featsBySide.l.arch_deg) : 0;
+    let angleState = 'smooth';
+    if ((f.arch_deg >= ambLo && f.arch_deg <= ambHi) || lrArchDiff > maxLrArch) angleState = 'unknown';
+    else if (f.arch_deg >= R.arch_sharp_deg) angleState = 'sharp';
+    let subtype = null;
+    if (form === 'duenn' && f.uneven_cv > R.uneven_cv) subtype = 'duenn_unruhig';
+    else if (form === 'hoch_winkel') {
+      if (angleState === 'sharp') subtype = 'hoch_winkel_scharf';
+      else if (angleState === 'smooth') subtype = 'hoch_winkel_sanft';
+    }
+    return {ok_conf: true, confident: true, form, subtype, angle_state: angleState, angle_sharp: angleState === 'sharp', scores: roundedScores, secondary: firing.slice(1), candidate_forms: [form]};
   }
   function faceQuality(gray, width, height, P) {
     const xs = P.map(p => p[0]), ys = P.map(p => p[1]);
@@ -126,8 +163,19 @@
     const avg = {};
     for (const k of Object.keys(feats.r)) if (typeof feats.r[k] !== 'boolean') avg[k] = pyRound((feats.r[k] + feats.l[k]) / 2, 4);
     avg.forehead_covered = feats.r.forehead_covered || feats.l.forehead_covered;
-    const marks = Object.fromEntries(['r', 'l'].map(side => { const f = feats[side]; return [side, f.mark30_ref >= TH.mark30.min_ref_density && f.mark30_win_min < TH.mark30.gap_ratio * f.mark30_ref]; }));
-    return {ok: true, ...classify(avg, TH), mark30_found: marks.r || marks.l, mark30_sides: marks, features: avg, features_by_side: feats, ipd_px: pyRound(ipd, 1), yaw: pyRound(yaw, 3)};
+    avg.lr_asymmetry = computeLrAsymmetry(feats.r, feats.l);
+    const cls = classify(avg, TH, feats);
+    if (!cls.ok_conf || !cls.form) {
+      return {ok: false, error: 'low_confidence_brow', form: null, candidate_forms: cls.candidate_forms, scores: cls.scores, features: avg};
+    }
+    const refValidR = feats.r.mark30_ref >= TH.mark30.min_ref_density;
+    const refValidL = feats.l.mark30_ref >= TH.mark30.min_ref_density;
+    const marks = {
+      r: refValidR && feats.r.mark30_win_min < TH.mark30.gap_ratio * feats.r.mark30_ref,
+      l: refValidL && feats.l.mark30_win_min < TH.mark30.gap_ratio * feats.l.mark30_ref
+    };
+    const mark30State = (avg.forehead_covered || (!refValidR && !refValidL)) ? 'unknown' : ((marks.r || marks.l) ? 'found' : 'not_found');
+    return {ok: true, ...cls, mark30_state: mark30State, mark30_found: mark30State === 'found', mark30_sides: marks, features: avg, features_by_side: feats, ipd_px: pyRound(ipd, 1), yaw: pyRound(yaw, 3)};
   }
   function rgbaToGray(rgba) { const out = new Float32Array(rgba.length / 4); for (let i = 0; i < out.length; i++) { const j = i * 4; out[i] = (rgba[j] * 9798 + rgba[j + 1] * 19235 + rgba[j + 2] * 3735 + 16384) >> 15; } return out; }
   function resizeAreaRGBA(source, width, height, outWidth, outHeight) {
@@ -173,11 +221,11 @@
   const SUPPORTED_LANGS = new Set(['de', 'en', 'es', 'ru', 'pt', 'fr']);
   const BOTS_BY_LANG = {
     de: 'gesichtslesen_bot',
-    en: 'udalyonnayarabota_bot',
-    es: 'tarjetascripto_bot',
+    en: 'facereading_en_bot',
+    es: 'lecturafacial_bot',
     ru: 'chtenielica_bot',
-    pt: 'quemargrasa_bot',
-    fr: 'kriptokartybot'
+    pt: 'leiturafacial_pt_bot',
+    fr: 'lecture_du_visage_bot'
   };
   function detectLang() {
     const raw = ((typeof document !== 'undefined' && ((typeof document.querySelector === 'function' && (document.querySelector('[data-gesicht-app]')?.dataset?.lang || document.querySelector('[data-gesicht-tg-app]')?.dataset?.lang)) || document.documentElement?.lang)) || 'de').slice(0, 2).toLowerCase();
@@ -277,7 +325,7 @@
   };
   const UI_BY_LANG = {
     de: {
-      sides: {links: 'links', rechts: 'rechts'},
+      sides: {links: 'links', mitte: 'Mitte', rechts: 'rechts'},
       removeSuffix: ': entfernen',
       moleNone: 'Keine Muttermale ausgewählt.',
       moleCount: n => n + ' von 13 Angaben ausgewählt. Zum Entfernen anklicken.',
@@ -288,6 +336,9 @@
       submitPending: 'Bitte warten …',
       submitDone: 'Vollständige Analyse freigeschaltet',
       missingBirth: 'Bitte wähle zuerst dein vollständiges Geburtsdatum (Tag, Monat, Jahr), damit deine Lebensjahre um 30 und deine Körperzonen exakt berechnet werden.',
+      invalidCalendarDate: 'Dieses Kalenderdatum existiert nicht (z. B. 31.02.). Bitte prüfe Tag und Monat.',
+      emailOptInLabel: 'Ich möchte meine PDF-Analyse zusätzlich einmalig an diese E-Mail-Adresse erhalten (optional, kein Newsletter).',
+      photoChecklist: ['Frontal in die Kamera schauen', 'Gutes, gleichmäßiges Licht von vorn', 'Beide Augenbrauen frei sichtbar (ohne Pony/Brille)'],
       birthLabel: '1. Dein Geburtsdatum (Pflichtfeld für die Jahresberechnung)',
       birthHint: 'Wird für deine exakten Kalenderjahre (20–25 & Wende 27–30 Jahre) sowie für die Zuordnung deiner Muttermale zum Sternzeichen-Grad benötigt.',
       dayPlaceholder: 'Tag',
@@ -314,7 +365,7 @@
       analysisFailed: 'Die lokale Analyse konnte nicht gestartet werden. Bitte lade die Seite erneut.'
     },
     en: {
-      sides: {links: 'left', rechts: 'right'},
+      sides: {links: 'left', mitte: 'center', rechts: 'right'},
       removeSuffix: ': remove',
       moleNone: 'No moles selected.',
       moleCount: n => n + ' of 13 selected. Click to remove.',
@@ -325,6 +376,9 @@
       submitPending: 'Please wait …',
       submitDone: 'Full reading unlocked',
       missingBirth: 'Please select your full birth date (Day, Month, Year) first so we can calculate your exact age-30 turning point years and body zones.',
+      invalidCalendarDate: 'This calendar date does not exist (e.g., Feb 31). Please check Day and Month.',
+      emailOptInLabel: 'Also send my PDF reading once to this email address (optional, no newsletter).',
+      photoChecklist: ['Look straight at the camera', 'Good, even lighting from the front', 'Both eyebrows clearly visible (no bangs/glasses)'],
       birthLabel: '1. Your Date of Birth (Required for timeline calculation)',
       birthHint: 'Required to calculate your exact calendar years (ages 20–25 & 27–30 turning point) and match your moles to your birth degree.',
       dayPlaceholder: 'Day',
@@ -351,7 +405,7 @@
       analysisFailed: 'Local analysis could not start. Please reload the page.'
     },
     es: {
-      sides: {links: 'izquierda', rechts: 'derecha'},
+      sides: {links: 'izquierda', mitte: 'centro', rechts: 'derecha'},
       removeSuffix: ': quitar',
       moleNone: 'Ningún lunar seleccionado.',
       moleCount: n => n + ' de 13 seleccionados. Haz clic para quitar.',
@@ -362,6 +416,9 @@
       submitPending: 'Espera un momento …',
       submitDone: 'Análisis completo desbloqueado',
       missingBirth: 'Por favor, selecciona primero tu fecha de nacimiento completa (Día, Mes, Año) para calcular tus años exactos del giro de los 30 años.',
+      invalidCalendarDate: 'Esta fecha del calendario no existe (p. ej. 31 de febrero). Revisa el día y el mes.',
+      emailOptInLabel: 'Quiero recibir mi análisis PDF adicionalmente una sola vez en este correo (opcional, sin boletín).',
+      photoChecklist: ['Mira de frente a la cámara', 'Buena luz frontal uniforme', 'Ambas cejas completamente visibles (sin flequillo ni gafas)'],
       birthLabel: '1. Tu Fecha de Nacimiento (Obligatorio para calcular tus años)',
       birthHint: 'Necesaria para calcular tus años exactos (tramo 20–25 y giro de 27–30 años) y cruzar tus lunares con tu signo y grado natal.',
       dayPlaceholder: 'Día',
@@ -388,7 +445,7 @@
       analysisFailed: 'No se pudo iniciar el análisis local. Por favor, recarga la página.'
     },
     ru: {
-      sides: {links: 'слева', rechts: 'справа'},
+      sides: {links: 'слева', mitte: 'по центру', rechts: 'справа'},
       removeSuffix: ': удалить',
       moleNone: 'Родинки не выбраны.',
       moleCount: n => 'Выбрано ' + n + ' из 13. Нажми, чтобы удалить.',
@@ -399,6 +456,9 @@
       submitPending: 'Пожалуйста, подождите …',
       submitDone: 'Полный разбор открыт',
       missingBirth: 'Пожалуйста, сначала укажи полную дату рождения (День, Месяц, Год) — без неё невозможно рассчитать твои точные годы рубежа 27–30 лет и карту родинок.',
+      invalidCalendarDate: 'Такой календарной даты не существует (например, 31 февраля). Пожалуйста, проверь день и месяц.',
+      emailOptInLabel: 'Отправить мой PDF-разбор дополнительно один раз на этот e-mail (по желанию, без рассылок).',
+      photoChecklist: ['Смотри прямо в камеру (анфас)', 'Ровный свет спереди без резких теней', 'Обе брови полностью открыты (без чёлки и очков)'],
       birthLabel: '1. Твоя дата рождения (обязательно для точного расчёта)',
       birthHint: 'Нужна для расчёта твоих календарных лет (период 20–25 лет и главный рубеж 27–30 лет) и привязки родинок к градусу рождения.',
       dayPlaceholder: 'День',
@@ -425,7 +485,7 @@
       analysisFailed: 'Не удалось запустить локальный анализ. Пожалуйста, обнови страницу.'
     },
     pt: {
-      sides: {links: 'esquerda', rechts: 'direita'},
+      sides: {links: 'esquerda', mitte: 'centro', rechts: 'direita'},
       removeSuffix: ': remover',
       moleNone: 'Nenhum sinal selecionado.',
       moleCount: n => n + ' de 13 selecionados. Clique para remover.',
@@ -436,6 +496,9 @@
       submitPending: 'Aguarde …',
       submitDone: 'Análise completa desbloqueada',
       missingBirth: 'Por favor, selecione primeiro sua data de nascimento completa (Dia, Mês, Ano) para calcularmos os anos exatos da sua virada dos 30 anos.',
+      invalidCalendarDate: 'Esta data do calendário não existe (ex.: 31 de fevereiro). Verifique o dia e o mês.',
+      emailOptInLabel: 'Quero receber minha análise em PDF adicionalmente uma única vez neste e-mail (opcional, sem newsletter).',
+      photoChecklist: ['Olhe de frente para a câmera', 'Boa iluminação frontal uniforme', 'Ambas as sobrancelhas totalmente visíveis (sem franja ou óculos)'],
       birthLabel: '1. Sua Data de Nascimento (Obrigatório para o cálculo dos anos)',
       birthHint: 'Necessária para calcular seus anos exatos (fase 20–25 e virada dos 27–30 anos) e cruzar seus sinais com o seu grau natal.',
       dayPlaceholder: 'Dia',
@@ -462,7 +525,7 @@
       analysisFailed: 'Não foi possível iniciar a análise local. Por favor, recarregue a página.'
     },
     fr: {
-      sides: {links: 'gauche', rechts: 'droite'},
+      sides: {links: 'gauche', mitte: 'milieu', rechts: 'droite'},
       removeSuffix: ': retirer',
       moleNone: 'Aucun grain de beauté sélectionné.',
       moleCount: n => n + ' sur 13 sélectionnés. Cliquez pour retirer.',
@@ -473,6 +536,9 @@
       submitPending: 'Veuillez patienter …',
       submitDone: 'Analyse complète débloquée',
       missingBirth: 'Veuillez d’abord sélectionner votre date de naissance complète (Jour, Mois, Année) afin de calculer vos années exactes du cap des 30 ans.',
+      invalidCalendarDate: 'Cette date de calendrier n’existe pas (ex. 31 février). Veuillez vérifier le jour et le mois.',
+      emailOptInLabel: 'Recevoir également mon analyse PDF une seule fois à cette adresse e-mail (optionnel, sans newsletter).',
+      photoChecklist: ['Regardez bien de face', 'Bon éclairage frontal uniforme', 'Les deux sourcils bien visibles (sans frange ni lunettes)'],
       birthLabel: '1. Votre Date de Naissance (Obligatoire pour le calcul des années)',
       birthHint: 'Nécessaire pour calculer vos années exactes (période 20–25 ans et tournant 27–30 ans) et relier vos grains de beauté à votre degré natal.',
       dayPlaceholder: 'Jour',
@@ -541,18 +607,17 @@
     return {de:'DE',en:'US',es:'MX',pt:'BR',fr:'FR',ru:'RU'}[lang] || 'DE';
   }
 
-  function resolveClientPricing(lang, ccOverride) {
-    const cc = (ccOverride || inferClientCountry(lang)).toUpperCase();
-    if (lang === 'ru') {
-      if (TIER1_CC.has(cc)) return {country: cc, price_stars: 200, fiat_label: '3,99 €'};
-      if (TIER2_RU_CC.has(cc) || TIER2_EU_CC.has(cc)) return {country: cc, price_stars: 120, fiat_label: '240 ₽ (~2,39 €)'};
-      if (TIER4_POOR_CC.has(cc)) return {country: cc, price_stars: 45, fiat_label: '0,89 $'};
-      return {country: cc, price_stars: 75, fiat_label: '1,49 $'};
-    }
-    if (TIER4_POOR_CC.has(cc)) return {country: cc, price_stars: 45, fiat_label: '0,89 €'};
-    if (TIER3_EMERGING_CC.has(cc)) return {country: cc, price_stars: 75, fiat_label: '1,49 €'};
-    if (TIER2_EU_CC.has(cc) || TIER2_RU_CC.has(cc)) return {country: cc, price_stars: 150, fiat_label: '2,99 €'};
-    return {country: cc, price_stars: 250, fiat_label: '4,99 €'};
+  function inferClientCountry(_lang) {
+    return 'UNKNOWN';
+  }
+
+  function resolveClientPricing(_lang, ccOverride) {
+    // B8: Strict IP-country pricing from Cloudflare Worker (/api/pricing). No language discount for lang=ru and no client locale/tz override.
+    const cc = (ccOverride || 'UNKNOWN').toUpperCase();
+    if (TIER4_POOR_CC.has(cc)) return {country: cc, tier: 'tier4_social', price_stars: 45, fiat_label: '0,89 €', payhip_tier: 'tier3', payhip_label: '4,99 €'};
+    if (TIER3_EMERGING_CC.has(cc)) return {country: cc, tier: 'tier3_emerging', price_stars: 75, fiat_label: '1,49 €', payhip_tier: 'tier3', payhip_label: '4,99 €'};
+    if (TIER2_EU_CC.has(cc) || TIER2_RU_CC.has(cc)) return {country: cc, tier: 'tier2_eu_cis', price_stars: 150, fiat_label: '2,99 €', payhip_tier: 'tier2', payhip_label: '6,99 €'};
+    return {country: cc, tier: cc === 'UNKNOWN' ? 'tier1_default' : 'tier1_high', price_stars: 250, fiat_label: '4,99 €', payhip_tier: 'tier1', payhip_label: '9,99 €'};
   }
 
   function buildFreeBirthSummary(birthDateStr, lang) {
@@ -591,7 +656,7 @@
     return `📅 Ta Chronologie Personnelle (${fmt}, ${age} ans) : Selon ta date de naissance, ${p}. Le segment 20–25 ans (fratrie et élan) correspond aux années ${y20_25}.`;
   }
 
-  function setupTelegramPaidForm(onBusyChange = () => {}) {
+  function setupTelegramPaidForm(onBusyChange = () => {}, onMolesChange = () => {}) {
     const lang = detectLang(), ui = UI_BY_LANG[lang] || UI_BY_LANG.de;
     const MOLE_ZONE_NAMES = MOLE_ZONE_NAMES_BY_LANG[lang] || MOLE_ZONE_NAMES_BY_LANG.de;
     const $ = id => document.getElementById(id), form = $('tg-form');
@@ -604,9 +669,36 @@
       const tgFirstName = tg.initDataUnsafe?.user?.first_name;
       if (tgFirstName && !$('report-first-name').value) $('report-first-name').value = tgFirstName.slice(0, 30);
     }
-    const botParam = new URLSearchParams(location.search).get('bot') || (lang === 'de' ? 'gesichtslesen_bot' : (BOTS_BY_LANG[lang] || 'gesichtslesen_bot'));
+    const searchParams = new URLSearchParams(location.search);
+    const botParam = searchParams.get('bot') || (lang === 'de' ? 'gesichtslesen_bot' : (BOTS_BY_LANG[lang] || 'gesichtslesen_bot'));
+    const prePaidOrderIdParam = searchParams.get('order_id') || '';
+    const recoverOrderParam = searchParams.get('recover_order') || '';
     const workerBase = (form.dataset.workerUrl || '').trim().replace(/\/+$/, '');
     let result = null, activeZone = null, revision = 0, pending = false, complete = false, pdfURL = null;
+
+    if (!$('mole-mitte') && $('mole-links') && $('mole-rechts') && $('mole-links').parentNode) {
+      const mBtn = document.createElement('button');
+      mBtn.type = 'button';
+      mBtn.id = 'mole-mitte';
+      mBtn.className = $('mole-links').className || 'mole-choice';
+      mBtn.setAttribute('aria-pressed', 'false');
+      mBtn.disabled = true;
+      mBtn.textContent = ui.sides.mitte || 'Mitte';
+      $('mole-links').parentNode.insertBefore(mBtn, $('mole-rechts'));
+    }
+    const emailInput = $('report-email');
+    let emailOptIn = $('email-opt-in');
+    if (!emailOptIn && emailInput && emailInput.parentNode) {
+      const optWrap = document.createElement('label');
+      optWrap.className = 'email-opt-in-label';
+      emailOptIn = document.createElement('input');
+      emailOptIn.type = 'checkbox';
+      emailOptIn.id = 'email-opt-in';
+      const optSpan = document.createElement('span');
+      optSpan.textContent = ' ' + (ui.emailOptInLabel || '');
+      optWrap.append(emailOptIn, optSpan);
+      emailInput.parentNode.append(optWrap);
+    }
 
     const showError = text => { error.textContent = text; error.hidden = false; };
     const clearError = () => { error.textContent = ''; error.hidden = true; };
@@ -620,9 +712,10 @@
     };
     const renderMoles = () => {
       for (const [zone, button] of zoneButtons) button.setAttribute('aria-pressed', String(zone === activeZone));
-      for (const side of ['links', 'rechts']) {
+      for (const side of ['links', 'mitte', 'rechts']) {
         const button = $('mole-' + side);
-        if (lang !== 'de') button.textContent = ui.sides[side];
+        if (!button) continue;
+        button.textContent = ui.sides[side] || side;
         const fixedSide = activeZone === 'links_gesicht' ? 'links' : activeZone === 'rechts_gesicht' ? 'rechts' : null;
         button.disabled = !activeZone || (fixedSide !== null && fixedSide !== side);
         button.setAttribute('aria-pressed', String(!!activeZone && selected.has(activeZone + ':' + side)));
@@ -632,11 +725,11 @@
       const list = $('mole-selection'); list.replaceChildren();
       for (const [key, mole] of selected) {
         const item = document.createElement('li'), button = document.createElement('button');
-        const sideLabel = lang === 'de' ? mole.side : (ui.sides[mole.side] || mole.side);
+        const sideLabel = ui.sides[mole.side] || mole.side;
         button.type = 'button'; button.className = 'mole-choice mole-selected';
         button.textContent = MOLE_ZONE_NAMES[mole.zone] + ' · ' + sideLabel + ' ×';
         button.setAttribute('aria-label', MOLE_ZONE_NAMES[mole.zone] + ', ' + sideLabel + ui.removeSuffix);
-        button.addEventListener('click', () => { if (pending || complete) return; selected.delete(key); clearError(); renderMoles(); });
+        button.addEventListener('click', () => { if (pending || complete) return; selected.delete(key); clearError(); renderMoles(); onMolesChange(Array.from(selected.values())); });
         item.append(button); list.append(item);
       }
     };
@@ -646,15 +739,19 @@
       button.addEventListener('click', () => { if (pending || complete) return; activeZone = zone; clearError(); renderMoles(); });
       zoneButtons.set(zone, button); $('mole-zones').append(button);
     }
-    for (const side of ['links', 'rechts']) $('mole-' + side).addEventListener('click', () => {
-      if (pending || complete || !activeZone || $('mole-' + side).disabled) return;
-      const key = activeZone + ':' + side;
-      if (selected.has(key)) selected.delete(key);
-      else if (selected.size < 13) selected.set(key, {zone: activeZone, side});
-      else { showError(ui.moleMax); return; }
-      clearError(); renderMoles();
-    });
-    $('mole-none').addEventListener('click', () => { if (pending || complete) return; selected.clear(); activeZone = null; clearError(); renderMoles(); });
+    for (const side of ['links', 'mitte', 'rechts']) {
+      const btn = $('mole-' + side);
+      if (!btn) continue;
+      btn.addEventListener('click', () => {
+        if (pending || complete || !activeZone || btn.disabled) return;
+        const key = activeZone + ':' + side;
+        if (selected.has(key)) selected.delete(key);
+        else if (selected.size < 13) selected.set(key, {zone: activeZone, side});
+        else { showError(ui.moleMax); return; }
+        clearError(); renderMoles(); onMolesChange(Array.from(selected.values()));
+      });
+    }
+    $('mole-none').addEventListener('click', () => { if (pending || complete) return; selected.clear(); activeZone = null; clearError(); renderMoles(); onMolesChange([]); });
 
     const renderPaidReport = data => {
       paidContainer.replaceChildren();
@@ -687,13 +784,13 @@
       paidPanel.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'});
     };
 
-    const emailInput = $('report-email');
     form.addEventListener('submit', async event => {
       event.preventDefault();
       if (!workerBase || !result || pending || complete) return;
       clearError();
       const firstName = $('report-first-name').value.trim();
       const email = emailInput ? emailInput.value.trim() : '';
+      const optInChecked = Boolean(emailOptIn && emailOptIn.checked);
       if (Array.from(firstName).length > 30) { showError(ui.nameTooLong); $('report-first-name').focus(); return; }
       if (email && (email.length > 254 || !/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]{2,}$/.test(email))) {
         showError(ui.invalidEmail);
@@ -705,21 +802,42 @@
         brow_form: result.brow_form,
         brow_subtype: result.brow_subtype,
         mark30_found: result.mark30_found,
+        mark30_state: result.mark30_state || (result.mark30_found ? 'found' : 'not_found'),
+        angle_state: result.angle_state || 'rund',
         moles: Array.from(selected.values()),
+        email_opt_in: optInChecked,
+        source_channel: 'miniapp'
       };
+      if (result.draft_id) payload.draft_id = result.draft_id;
+      if (prePaidOrderIdParam) payload.order_id = prePaidOrderIdParam;
+      if (recoverOrderParam) payload.recover_order = recoverOrderParam;
       if (result.birth_date) payload.birth_date = result.birth_date;
+      if (typeof result.birth_tz_offset_min === 'number') payload.birth_tz_offset_min = result.birth_tz_offset_min;
       if (result.country) payload.country = result.country;
       if (result.tz) payload.tz = result.tz;
       if (firstName) payload.first_name = firstName;
-      if (email) payload.email = email;
+      if (email && optInChecked) payload.email = email;
       if (tg?.initData) payload.init_data = tg.initData;
       if (lang !== 'de') payload.lang = lang;
 
       const ticket = revision;
       pending = true; releasePDF(); updateBusy();
-      message.textContent = ui.openingInvoice;
+      message.textContent = prePaidOrderIdParam ? ui.paymentSuccessCreating : ui.openingInvoice;
 
       try {
+        if (prePaidOrderIdParam) {
+          const repRes = await fetch(workerBase + '/api/tg/report', {
+            method: 'POST', headers: {'Content-Type': 'application/json'}, credentials: 'omit',
+            cache: 'no-store', body: JSON.stringify(payload),
+          });
+          if (ticket !== revision) return;
+          if (!repRes.ok) { message.textContent = ui.sentToChat; complete = true; return; }
+          const repData = await repRes.json();
+          complete = true;
+          renderPaidReport(repData);
+          message.textContent = repData.email_sent ? ui.tgReadyEmail : ui.tgReadyChat;
+          return;
+        }
         const invRes = await fetch(workerBase + '/api/tg/invoice', {
           method: 'POST', headers: {'Content-Type': 'application/json'}, credentials: 'omit',
           cache: 'no-store', body: JSON.stringify(payload),
@@ -728,6 +846,8 @@
         if (!invRes.ok) { message.textContent = ''; showError(ui.invoiceErrorRetry); return; }
         const invData = await invRes.json();
         if (!invData?.ok || !invData.invoice_url) { message.textContent = ''; showError(ui.invoiceError); return; }
+        if (invData.order_id) payload.order_id = invData.order_id;
+        if (invData.draft_id) payload.draft_id = invData.draft_id;
 
         if (tg && typeof tg.openInvoice === 'function') {
           const status = await new Promise(resolve => tg.openInvoice(invData.invoice_url, resolve));
@@ -768,13 +888,40 @@
     renderMoles(); updateBusy();
     return {
       isPending: () => pending,
+      getMoles: () => Array.from(selected.values()),
+      getBotParam: () => botParam,
+      setDraftId(draftId) {
+        if (result && draftId) result.draft_id = draftId;
+      },
+      setMoles(molesList) {
+        selected.clear();
+        for (const m of (molesList || [])) {
+          if (m && m.zone && m.side && selected.size < 13) {
+            selected.set(m.zone + ':' + m.side, {zone: m.zone, side: m.side});
+          }
+        }
+        renderMoles();
+      },
+      renderRecoveredReport(data) {
+        complete = true;
+        renderPaidReport(data);
+        message.textContent = data.email_sent ? ui.tgReadyEmail : ui.tgReadyChat;
+        updateBusy();
+      },
       setResult(value) {
-        result = {brow_form: value.form, brow_subtype: value.subtype || null, mark30_found: !!value.mark30_found, birth_date: value.birth_date || null, country: value.country || null, tz: value.tz || null};
+        result = {
+          brow_form: value.form, brow_subtype: value.subtype || null,
+          mark30_found: !!value.mark30_found, mark30_state: value.mark30_state || (value.mark30_found ? 'found' : 'not_found'),
+          angle_state: value.angle_state || (value.angle_sharp ? 'scharf' : 'rund'),
+          birth_date: value.birth_date || null, birth_tz_offset_min: value.birth_tz_offset_min ?? null,
+          country: value.country || null, tz: value.tz || null, draft_id: value.draft_id || null
+        };
         updateBusy();
       },
       clear() {
         revision++; result = null; complete = false; selected.clear(); activeZone = null;
         if (emailInput) emailInput.value = '';
+        if (emailOptIn) emailOptIn.checked = false;
         message.textContent = ''; clearError(); releasePDF(); renderMoles();
         paidContainer.replaceChildren(); paidPanel.hidden = true; updateBusy();
       }
@@ -789,12 +936,12 @@
     const rulesFile = lang === 'de' ? 'face_rules_free_de.json' : `face_rules_free_${lang}.json`;
     const [TH, rules] = await Promise.all([json('thresholds.json'), json(rulesFile)]);
     const input = $('photo-input'), preview = $('photo-preview'), analyze = $('analyze-button'), status = $('analysis-status');
-    let objectURL = null, detector = null, pendingDetector = null, generation = 0, busy = false;
+    let objectURL = null, detector = null, pendingDetector = null, generation = 0, busy = false, lastAnalysisResult = null;
 
-    // 1. Inject or bind mandatory Birth Date selector (Day · Month · Year)
+    // 1. Inject or bind mandatory Birth Date selector (Day · Month · Year) and Photo Checklist (V6)
     let birthDay = $('birth-day'), birthMonth = $('birth-month'), birthYear = $('birth-year');
+    const photoControls = document.querySelector('.photo-controls');
     if (!birthDay || !birthMonth || !birthYear) {
-      const photoControls = document.querySelector('.photo-controls');
       if (photoControls && photoControls.parentNode) {
         const wrap = document.createElement('div');
         wrap.className = 'birth-field';
@@ -818,6 +965,16 @@
         wrap.append(lbl, grid, hint);
         photoControls.parentNode.insertBefore(wrap, photoControls);
       }
+    }
+    if (!document.querySelector('.photo-checklist') && photoControls && photoControls.parentNode && Array.isArray(ui.photoChecklist)) {
+      const cl = document.createElement('ul');
+      cl.className = 'photo-checklist';
+      for (const itemText of ui.photoChecklist) {
+        const li = document.createElement('li');
+        li.textContent = itemText;
+        cl.append(li);
+      }
+      photoControls.parentNode.insertBefore(cl, photoControls);
     }
     const populateBirthSelects = () => {
       if (!birthDay || !birthMonth || !birthYear) return;
@@ -844,15 +1001,18 @@
         }
       }
       try {
-        const saved = localStorage.getItem('sora_birth_date');
+        const urlBdate = new URLSearchParams(location.search).get('bdate');
+        const saved = (urlBdate && /^(\d{4})-(\d{2})-(\d{2})$/.test(urlBdate)) ? urlBdate : localStorage.getItem('sora_birth_date');
         if (saved && /^(\d{4})-(\d{2})-(\d{2})$/.test(saved)) {
           const [, sy, sm, sd] = saved.match(/^(\d{4})-(\d{2})-(\d{2})$/);
           birthYear.value = sy; birthMonth.value = sm; birthDay.value = sd;
+          localStorage.setItem('sora_birth_date', saved);
         }
       } catch (_) {}
     };
     populateBirthSelects();
 
+    const isCompleteBirthSelection = () => Boolean(birthDay && birthMonth && birthYear && birthDay.value && birthMonth.value && birthYear.value);
     const getValidBirthDate = () => {
       if (!birthDay || !birthMonth || !birthYear) return null;
       const d = Number(birthDay.value), m = Number(birthMonth.value), y = Number(birthYear.value);
@@ -864,9 +1024,12 @@
       return iso;
     };
 
-    // 2. Dynamic Regional Pricing (Client timezone/locale + Cloudflare Worker geo confirmation)
+    // 2. Dynamic Regional Pricing (Strict Cloudflare Worker IP-country confirmation)
     let clientTz = '';
     try { clientTz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (_) {}
+    // Critique #4: Do NOT substitute current viewer timezone offset for birthplace timezone offset!
+    // When birth time/place is unknown, birth_tz_offset_min MUST remain null so the server computes the full 50h (-12:00..+14:00) window.
+    const birthTzOffsetMin = null;
     let currentPricing = resolveClientPricing(lang);
     const applyPricingUI = pricing => {
       if (!pricing) return;
@@ -890,11 +1053,103 @@
       $('reset-photo').disabled = reportPending;
       analyze.disabled = busy || reportPending || !objectURL;
     };
-    const report = setupTelegramPaidForm(updatePhotoControls);
-    applyPricingUI(currentPricing);
-
     const tgFormEl = $('tg-form');
     const workerBaseUrl = tgFormEl?.dataset?.workerUrl?.trim().replace(/\/+$/, '');
+    const tgObj = root.Telegram && root.Telegram.WebApp ? root.Telegram.WebApp : null;
+    const urlParams = new URLSearchParams(location.search);
+    const recoverOrderId = urlParams.get('recover_order') || '';
+    const startDraftParam = urlParams.get('draft_id') || (tgObj?.initDataUnsafe?.start_param?.startsWith('drf_') ? tgObj.initDataUnsafe.start_param : '');
+
+    const syncMiniAppDraft = async (analysisRes, molesList) => {
+      if (!analysisRes || !workerBaseUrl) return;
+      try {
+        const payload = {
+          bot_username: report.getBotParam(),
+          brow_form: analysisRes.form, brow_subtype: analysisRes.subtype || null,
+          mark30_found: !!analysisRes.mark30_found, mark30_state: analysisRes.mark30_state || (analysisRes.mark30_found ? 'found' : 'not_found'),
+          angle_state: analysisRes.angle_state || (analysisRes.angle_sharp ? 'scharf' : 'rund'),
+          moles: molesList || [], birth_date: analysisRes.birth_date,
+          birth_tz_offset_min: birthTzOffsetMin, country: currentPricing.country, tz: clientTz, lang, source_channel: 'miniapp'
+        };
+        if (recoverOrderId) payload.recover_order = recoverOrderId;
+        if (tgObj?.initData) payload.init_data = tgObj.initData;
+        const endpointPath = tgObj?.initData ? '/api/tg/draft' : '/api/draft';
+        const res = await fetch(workerBaseUrl + endpointPath, {
+          method: 'POST', headers: {'Content-Type': 'application/json'}, credentials: 'omit',
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json().catch(() => null);
+        if (data?.ok && data.draft_id) {
+          analysisRes.draft_id = data.draft_id;
+          report.setDraftId(data.draft_id);
+        }
+        if (data?.ok && data.recovered_order_id && data.pdf_base64) {
+          report.renderRecoveredReport(data);
+        }
+      } catch (_) {}
+    };
+
+    const report = setupTelegramPaidForm(updatePhotoControls, molesList => {
+      if (lastAnalysisResult) syncMiniAppDraft(lastAnalysisResult, molesList);
+    });
+    applyPricingUI(currentPricing);
+
+    const renderFreeAnalysisResult = (resObj, bDate) => {
+      const form = rules.brows[resObj.form], text = resObj.subtype && form?.subtypes ? form.subtypes[resObj.subtype] : form;
+      if (!form) return;
+      $('brow-name').textContent = text.name_de || text['name_' + lang] || '';
+      $('brow-intro').textContent = rules.brows_intro_de || rules['brows_intro_' + lang] || '';
+      $('brow-description').textContent = text.short_de || text['short_' + lang] || '';
+      const mKey = resObj.mark30_state === 'unknown' ? 'free_unknown' : (resObj.mark30_found ? 'free_found' : 'free_not_found');
+      $('mark30-description').textContent = rules.mark30[mKey + '_de'] || rules.mark30[mKey + '_' + lang] || '';
+      const personalLine = buildFreeBirthSummary(bDate, lang);
+      if (personalLine && $('mark30-description')?.parentNode) {
+        let pb = $('birth-personal-box');
+        if (!pb) {
+          pb = document.createElement('p');
+          pb.id = 'birth-personal-box';
+          pb.className = 'birth-personal-box';
+          $('mark30-description').parentNode.append(pb);
+        }
+        pb.textContent = personalLine;
+      }
+      report.setResult(resObj);
+      $('analysis-result').hidden = false;
+      $('full-analysis').hidden = false;
+    };
+
+    // B10 & Critique #6: Restore Web/Bot draft in Mini App when draft_id is passed via URL or start_param
+    if (startDraftParam && workerBaseUrl && /^https:\/\//i.test(workerBaseUrl)) {
+      fetch(workerBaseUrl + '/api/draft?draft_id=' + encodeURIComponent(startDraftParam), {
+        method: 'GET', credentials: 'omit'
+      }).then(r => r.ok ? r.json() : null).then(d => {
+        const snap = d?.draft?.snapshot;
+        if (d?.ok && snap && snap.brow_form) {
+          if (snap.birth_date && /^(\d{4})-(\d{2})-(\d{2})$/.test(snap.birth_date) && birthYear && birthMonth && birthDay) {
+            const [, sy, sm, sd] = snap.birth_date.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+            birthYear.value = sy; birthMonth.value = sm; birthDay.value = sd;
+            try { localStorage.setItem('sora_birth_date', snap.birth_date); } catch (_) {}
+          }
+          if (Array.isArray(snap.moles)) report.setMoles(snap.moles);
+          const restored = {
+            ok: true,
+            form: snap.brow_form,
+            subtype: snap.brow_subtype || null,
+            mark30_found: !!snap.mark30_found,
+            mark30_state: snap.mark30_state || (snap.mark30_found ? 'found' : 'not_found'),
+            angle_state: snap.angle_state || 'rund',
+            birth_date: snap.birth_date || getValidBirthDate(),
+            birth_tz_offset_min: null,
+            country: currentPricing.country,
+            tz: clientTz,
+            draft_id: d.draft.draft_id || startDraftParam
+          };
+          lastAnalysisResult = restored;
+          renderFreeAnalysisResult(restored, restored.birth_date);
+        }
+      }).catch(() => {});
+    }
+
     if (workerBaseUrl && /^https:\/\//i.test(workerBaseUrl)) {
       fetch(workerBaseUrl + '/api/pricing', {
         method: 'POST', headers: {'Content-Type': 'application/json'}, credentials: 'omit',
@@ -905,6 +1160,7 @@
     }
 
     const clearResult = () => {
+      lastAnalysisResult = null;
       report.clear();
       $('analysis-result').hidden = true;
       $('full-analysis').hidden = true;
@@ -931,18 +1187,24 @@
     };
     [birthDay, birthMonth, birthYear].forEach(sel => {
       if (sel) sel.addEventListener('change', () => {
-        if (getValidBirthDate() && !$('photo-error').hidden && $('photo-error').textContent === ui.missingBirth) {
-          $('photo-error').hidden = true;
+        const valid = getValidBirthDate();
+        if (valid) {
+          if (!$('photo-error').hidden && ($('photo-error').textContent === ui.missingBirth || $('photo-error').textContent === ui.invalidCalendarDate)) {
+            $('photo-error').hidden = true;
+          }
+        } else if (isCompleteBirthSelection()) {
+          showCustomError(ui.invalidCalendarDate || ui.missingBirth);
         }
       });
     });
     $('choose-photo').addEventListener('click', () => {
       if (busy || report.isPending()) return;
       if (!getValidBirthDate()) {
-        showCustomError(ui.missingBirth);
+        showCustomError(isCompleteBirthSelection() ? (ui.invalidCalendarDate || ui.missingBirth) : ui.missingBirth);
         if (birthDay && !birthDay.value) birthDay.focus();
         else if (birthMonth && !birthMonth.value) birthMonth.focus();
         else if (birthYear && !birthYear.value) birthYear.focus();
+        else if (birthDay) birthDay.focus();
         return;
       }
       input.click();
@@ -962,10 +1224,11 @@
       if (busy || report.isPending() || !objectURL) return;
       const birthDate = getValidBirthDate();
       if (!birthDate) {
-        showCustomError(ui.missingBirth);
+        showCustomError(isCompleteBirthSelection() ? (ui.invalidCalendarDate || ui.missingBirth) : ui.missingBirth);
         if (birthDay && !birthDay.value) birthDay.focus();
         else if (birthMonth && !birthMonth.value) birthMonth.focus();
         else if (birthYear && !birthYear.value) birthYear.focus();
+        else if (birthDay) birthDay.focus();
         return;
       }
       busy = true; const ticket = generation;
@@ -990,28 +1253,14 @@
         if (ticket !== generation) return;
         if (!result.ok) { showError(result.error); return; }
         result.birth_date = birthDate;
+        result.birth_tz_offset_min = birthTzOffsetMin;
         result.country = currentPricing.country;
         result.tz = clientTz;
-        const form = rules.brows[result.form], text = result.subtype && form.subtypes ? form.subtypes[result.subtype] : form;
-        $('brow-name').textContent = text.name_de || text['name_' + lang] || '';
-        $('brow-intro').textContent = rules.brows_intro_de || rules['brows_intro_' + lang] || '';
-        $('brow-description').textContent = text.short_de || text['short_' + lang] || '';
-        const mKey = result.mark30_found ? 'free_found' : 'free_not_found';
-        $('mark30-description').textContent = rules.mark30[mKey + '_de'] || rules.mark30[mKey + '_' + lang] || '';
-        const personalLine = buildFreeBirthSummary(birthDate, lang);
-        if (personalLine && $('mark30-description')?.parentNode) {
-          let pb = $('birth-personal-box');
-          if (!pb) {
-            pb = document.createElement('p');
-            pb.id = 'birth-personal-box';
-            pb.className = 'birth-personal-box';
-            $('mark30-description').parentNode.append(pb);
-          }
-          pb.textContent = personalLine;
-        }
+        lastAnalysisResult = result;
+        renderFreeAnalysisResult(result, birthDate);
+        syncMiniAppDraft(result, report.getMoles());
         applyPricingUI(currentPricing);
-        report.setResult(result);
-        $('analysis-result').hidden = false; $('full-analysis').hidden = false; status.textContent = ui.analysisDone;
+        status.textContent = ui.analysisDone;
         $('analysis-result').scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'});
       } catch (error) { if (ticket === generation) { status.textContent = ui.analysisFailed; console.error('Gesichtlesen TG: local analysis failed', error.name); } }
       finally { if (pixels) pixels.data.fill(0); if (gray) gray.fill(0); canvas.width = canvas.height = 0; busy = false; updatePhotoControls(report.isPending()); }
@@ -1020,10 +1269,15 @@
     status.textContent = '';
   }
 
-  if (typeof document !== 'undefined') boot().catch(error => {
-    const ui = UI_BY_LANG[detectLang()] || UI_BY_LANG.de;
-    const el = document.getElementById('analysis-status');
-    if (el) el.textContent = ui.bootError;
-    console.error('Gesichtlesen TG: initialization failed', error.name);
-  });
+  const api = {analyzeLandmarks, browFeatures, classify, rgbaToGray, resizeAreaRGBA, pyRound, sample, setupTelegramPaidForm};
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  else {
+    root.GesichtTelegramApp = api;
+    if (typeof document !== 'undefined') boot().catch(error => {
+      const ui = UI_BY_LANG[detectLang()] || UI_BY_LANG.de;
+      const el = document.getElementById('analysis-status');
+      if (el) el.textContent = ui.bootError;
+      console.error('Gesichtlesen TG: initialization failed', error.name);
+    });
+  }
 })(typeof globalThis !== 'undefined' ? globalThis : this);

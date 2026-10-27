@@ -51,11 +51,12 @@
       </div>
       <p class="birth-hint">Necessária para calcular seus anos exatos (fase 20–25 e virada dos 27–30 anos) e cruzar seus sinais com o seu grau natal.</p>
     </div>
+    <ul class="photo-checklist"><li>Olhe de frente para a câmera</li><li>Boa iluminação frontal uniforme</li><li>Ambas as sobrancelhas totalmente visíveis (sem franja ou óculos)</li></ul>
     <div class="photo-controls">
       <input type="file" id="photo-input" accept="image/*" capture="user" aria-label="Tirar uma selfie ou escolher uma foto" hidden>
       <button class="btn" id="choose-photo" type="button">Tirar selfie / Escolher foto</button>
     </div>
-    <p class="photo-privacy"><svg width="17" height="19" viewBox="0 0 17 19" fill="none" aria-hidden="true"><path d="M3.5 8V6a5 5 0 0 1 10 0v2M2 8.5h13v9H2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>Sua foto permanece no seu dispositivo e nunca é enviada para servidores.</p>
+    <p class="photo-privacy"><svg width="17" height="19" viewBox="0 0 17 19" fill="none" aria-hidden="true"><path d="M3.5 8V6a5 5 0 0 1 10 0v2M2 8.5h13v9H2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>Ao escolher a foto aqui no scanner, ela permanece localmente no seu dispositivo (diferente de uma foto enviada diretamente no chat do bot).</p>
     <div id="preview-area" class="photo-preview" hidden>
       <img id="photo-preview" alt="Prévia da selfie selecionada" hidden>
     </div>
@@ -99,6 +100,7 @@
           <div id="mole-zones" class="mole-zones" role="group" aria-label="Zona corporal"></div>
           <div class="mole-sides" role="group" aria-label="Lado">
             <button class="mole-choice" id="mole-links" type="button" aria-pressed="false" disabled>esquerda</button>
+            <button class="mole-choice" id="mole-mitte" type="button" aria-pressed="false" disabled>centro</button>
             <button class="mole-choice" id="mole-rechts" type="button" aria-pressed="false" disabled>direita</button>
           </div>
           <button class="mole-choice mole-none" id="mole-none" type="button" aria-pressed="true">Sem sinais</button>
@@ -109,6 +111,7 @@
         <input id="report-first-name" name="first_name" type="text" maxlength="30" autocomplete="given-name" placeholder="Seu primeiro nome">
         <label for="report-email">E-mail para cópia (opcional)</label>
         <input id="report-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="voce@email.com – receber também por e-mail">
+        <label class="email-opt-in-label"><input type="checkbox" id="email-opt-in" name="email_opt_in"> <span>Quero receber minha análise em PDF adicionalmente uma única vez neste e-mail (opcional, sem newsletter).</span></label>
         <p class="form-hint">Após desbloquear (250 ⭐), sua análise completa aparece aqui mesmo e seu PDF pessoal também é enviado no chat do Telegram (e opcionalmente para o seu e-mail).</p>
         <button class="btn-teal" id="report-submit" type="submit">Desbloquear análise completa – 250 ⭐</button>
       </fieldset>
@@ -154,7 +157,7 @@
     </div>
     <h3>A Marca dos 30 Anos</h3>
     <p class="reading-label">Quando há uma interrupção visível:</p>
-    <p>No centro da sua sobrancelha nota-se uma pequena interrupção ou uma área com menos fios. Na fisiognomonia, isso indica que por volta dos 30 anos (às vezes um pouco antes, por volta dos 27) houve ou haverá um acontecimiento que dá uma nova direção à sua vida.</p>
+    <p>No centro da sua sobrancelha nota-se uma pequena interrupção ou uma área com menos fios. Na fisiognomonia, isso indica que por volta dos 30 anos (às vezes um pouco antes, por volta dos 27) houve ou haverá um acontecimento que dá uma nova direção à sua vida.</p>
     <p class="reading-label">Quando não há interrupção visível:</p>
     <p>No centro da sua sobrancelha — a área associada aproximadamente aos 30 anos — o fluxo dos fios é uniforme e sem interrupções marcantes.</p>
     <p class="note gesicht-disclaimer" id="gesicht-disclaimer">Nota: Esta leitura destina-se ao entretenimento e à autorreflexão. Não é aconselhamento médico, psicológico ou jurídico, nem uma previsão do seu destino. Se um sinal ou pinta mudar (tamanho, cor, forma, coceira, sangramento), consulte um dermatologista.</p>

@@ -6,7 +6,8 @@
     "too_small": "Tu rostro se ve demasiado pequeño en la foto. Acércate más a la cámara para que tu cara llene bien el encuadre.",
     "turned": "Tu cabeza está demasiado girada. Por favor, mira directamente a la cámara (de frente).",
     "dark": "La foto está demasiado oscura o borrosa. Busca buena luz natural y envía un nuevo selfie.",
-    "brows_hidden": "Tus cejas no se ven con claridad. Por favor, aparta el cabello de la frente y envía un nuevo selfie."
+    "brows_hidden": "Tus cejas no se ven con claridad. Por favor, aparta el cabello de la frente y envía un nuevo selfie.",
+    "low_confidence_brow": "En esta foto no fue posible determinar con suficiente seguridad la forma principal de tus cejas (ángulo límite, sombra o contorno poco nítido). Por favor, haz una nueva selfie de frente con luz natural uniforme — o elige la forma de tus cejas manualmente en la guía visual de abajo."
   },
   "disclaimer_de": "Nota: Esta interpretación tiene fines de entretenimiento y autoconocimiento. No sustituye el consejo médico, psicológico ni legal, ni predice tu destino. Si un lunar cambia (tamaño, color, forma, picor o sangrado), consulta a un dermatólogo.",
   "brows": {
@@ -37,12 +38,23 @@
       "short_de": "Las cejas bajas revelan a una persona realista: observas el fondo de las cosas y prefieres prepararte ante los escenarios difíciles."
     },
     "hoch_winkel": {
-      "name_de": "Cejas altas con ángulo",
-      "short_de": "Las cejas altas muestran apertura al mundo. Un ángulo marcado refleja autoconfianza y temperamento."
+      "name_de": "Cejas altas sobre los ojos",
+      "short_de": "Las cejas altas muestran apertura al mundo: las impresiones entran libremente y buscas actuar con iniciativa (fuente M12:295–312).",
+      "subtypes": {
+        "hoch_winkel_scharf": {
+          "name_de": "Cejas altas con ángulo marcado",
+          "short_de": "Las cejas altas con un ángulo definido indican apertura, gran autoconfianza y temperamento decidido (fuente M12:295–312)."
+        },
+        "hoch_winkel_sanft": {
+          "name_de": "Cejas altas de arco suave",
+          "short_de": "Las cejas altas y suavemente arqueadas sin quiebre brusco reflejan apertura serena, receptividad y optimismo (fuente M12:295–312)."
+        }
+      }
     }
   },
   "mark30": {
-    "free_found_de": "En la mitad de tu ceja observo una interrupción o una zona con menos vello. En fisiognomía esto indica que alrededor de los 30 años (a veces algo antes, hacia los 27) hubo o habrá un acontecimiento que da un nuevo rumbo a tu vida.",
-    "free_not_found_de": "En la mitad de tu ceja —la zona correspondiente aproximadamente a los 30 años— el recorrido del vello es uniforme y sin interrupciones llamativas."
+    "free_found_de": "Observación óptica en esta foto (fuentes M12:316–331, L01:689–695): En la parte media de tu ceja se aprecia una interrupción o menor densidad. En la enseñanza tradicional, esto se considera un indicio condicional en torno a los 27–30 años, que no constituye una predicción fija y siempre requiere confirmación en las líneas de las manos y el resto del rostro.",
+    "free_not_found_de": "Observación óptica en esta foto (fuente M12:316–318): En la zona media de tu ceja (correspondiente aproximadamente a los 27–30 años), el trazo se ve uniforme en esta imagen, sin interrupción visible. Esto describe únicamente la observación óptica de la foto y no promete un período libre de cambios.",
+    "free_unknown_de": "Nota óptica sobre esta foto: La zona media de la ceja (tramo de 27–30 años según M12:316–318) no pudo evaluarse con suficiente nitidez óptica en esta imagen por la luz, el contraste o el cabello sobre la frente. No se emite una conclusión individual sobre la marca de los 30 años."
   }
 }

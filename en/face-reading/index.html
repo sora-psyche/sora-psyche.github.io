@@ -167,11 +167,12 @@
       </div>
       <p class="birth-hint">Required to calculate your exact calendar years (ages 20–25 &amp; 27–30 turning point) and match your moles to your birth degree.</p>
     </div>
+    <ul class="photo-checklist"><li>Look straight at the camera</li><li>Good, even lighting from the front</li><li>Both eyebrows clearly visible (no bangs/glasses)</li></ul>
     <div class="photo-controls">
       <input type="file" id="photo-input" accept="image/*" capture="user" aria-label="Take a selfie or choose a photo" hidden>
       <button class="btn" id="choose-photo" type="button">Take selfie / Choose photo</button>
     </div>
-    <p class="photo-privacy"><svg width="17" height="19" viewBox="0 0 17 19" fill="none" aria-hidden="true"><path d="M3.5 8V6a5 5 0 0 1 10 0v2M2 8.5h13v9H2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>Your photo stays on your device and is never uploaded.</p>
+    <p class="photo-privacy"><svg width="17" height="19" viewBox="0 0 17 19" fill="none" aria-hidden="true"><path d="M3.5 8V6a5 5 0 0 1 10 0v2M2 8.5h13v9H2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>When selected here in the browser scanner, your photo stays locally on your device and is not uploaded.</p>
     <div id="preview-area" class="photo-preview" hidden>
       <img id="photo-preview" alt="Preview of your selected selfie" hidden>
     </div>
@@ -207,8 +208,8 @@
       <li>Personal PDF report</li>
     </ul>
     <div class="gesicht-actions">
-      <a class="btn" id="telegram-unlock" href="https://t.me/udalyonnayarabota_bot?start=web_dicht" target="_blank" rel="noopener noreferrer">Unlock in Telegram – 250 ⭐</a>
-      <a class="btn-outline" id="payhip-link" data-payhip-url="https://payhip.com/b/Cp85A" target="_blank" rel="noopener noreferrer" hidden>Personal Reading – €6.99 (Payhip)</a>
+      <a class="btn" id="telegram-unlock" href="https://t.me/facereading_en_bot?start=web_dicht" target="_blank" rel="noopener noreferrer">Unlock in Telegram – 250 ⭐</a>
+      <a class="btn-outline" id="payhip-link" data-payhip-url="https://payhip.com/b/GesichtTier1" data-payhip-url-tier1="https://payhip.com/b/GesichtTier1" data-payhip-url-tier2="https://payhip.com/b/u0dc1" data-payhip-url-tier3="https://payhip.com/b/GesichtTier3" target="_blank" rel="noopener noreferrer" hidden>Personal Reading – 9,99 € (Payhip)</a>
     </div>
     <form id="key-form" class="key-form" data-worker-url="https://gesicht.gesicht-worker.workers.dev" hidden>
       <fieldset id="report-fields">
@@ -219,6 +220,7 @@
           <div id="mole-zones" class="mole-zones" role="group" aria-label="Body zone"></div>
           <div class="mole-sides" role="group" aria-label="Side">
             <button class="mole-choice" id="mole-links" type="button" aria-pressed="false" disabled>left</button>
+            <button class="mole-choice" id="mole-mitte" type="button" aria-pressed="false" disabled>center</button>
             <button class="mole-choice" id="mole-rechts" type="button" aria-pressed="false" disabled>right</button>
           </div>
           <button class="mole-choice mole-none" id="mole-none" type="button" aria-pressed="true">No moles</button>
@@ -229,6 +231,7 @@
         <input id="report-first-name" name="first_name" type="text" maxlength="30" autocomplete="given-name" placeholder="Your first name">
         <label for="report-email">Email for copy (optional – otherwise sent to your Payhip email)</label>
         <input id="report-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="Leave blank = your Payhip email">
+        <label class="email-opt-in-label"><input type="checkbox" id="email-opt-in" name="email_opt_in"> <span>Also send my PDF reading once to this email address (optional, no newsletter).</span></label>
         <label for="license-key">License key from your Payhip purchase</label>
         <input id="license-key" name="license-key" type="text" maxlength="256" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="XXXXX-XXXXX-XXXXX-XXXXX" required>
         <p class="form-hint">Your full reading appears immediately on this page, starts as a PDF download, and is automatically emailed to you. Your photo stays on your device.</p>
@@ -249,7 +252,7 @@
   <aside class="handlesen-bridge" aria-labelledby="handlesen-title">
     <div><p class="kicker">Explore More</p><h2 id="handlesen-title">Telegram Channels &amp; Bot</h2></div>
     <div class="gesicht-actions">
-      <a class="btn-teal" href="https://t.me/udalyonnayarabota_bot" target="_blank" rel="noopener noreferrer">Open @udalyonnayarabota_bot</a>
+      <a class="btn-teal" href="https://t.me/facereading_en_bot" target="_blank" rel="noopener noreferrer">Open @facereading_en_bot</a>
       <a class="btn-outline" href="https://t.me/eyebrowreading" target="_blank" rel="noopener noreferrer">Channel @eyebrowreading</a>
       <a class="btn-outline" href="https://t.me/molemeaning" target="_blank" rel="noopener noreferrer">Channel @molemeaning</a>
     </div>

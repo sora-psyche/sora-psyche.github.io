@@ -51,11 +51,12 @@
       </div>
       <p class="birth-hint">Нужна для расчёта твоих календарных лет (период 20–25 лет и главный рубеж 27–30 лет) и привязки родинок к градусу рождения.</p>
     </div>
+    <ul class="photo-checklist"><li>Смотри прямо в камеру (анфас)</li><li>Ровный свет спереди без резких теней</li><li>Обе брови полностью открыты (без чёлки и очков)</li></ul>
     <div class="photo-controls">
       <input type="file" id="photo-input" accept="image/*" capture="user" aria-label="Сделать селфи или выбрать фото" hidden>
       <button class="btn" id="choose-photo" type="button">Сделать селфи / Выбрать фото</button>
     </div>
-    <p class="photo-privacy"><svg width="17" height="19" viewBox="0 0 17 19" fill="none" aria-hidden="true"><path d="M3.5 8V6a5 5 0 0 1 10 0v2M2 8.5h13v9H2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>Твоё фото остаётся на устройстве и никуда не загружается.</p>
+    <p class="photo-privacy"><svg width="17" height="19" viewBox="0 0 17 19" fill="none" aria-hidden="true"><path d="M3.5 8V6a5 5 0 0 1 10 0v2M2 8.5h13v9H2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>При выборе здесь в сканере фото обрабатывается локально на твоём устройстве (в отличие от фото, отправленного прямо в чат бота).</p>
     <div id="preview-area" class="photo-preview" hidden>
       <img id="photo-preview" alt="Предпросмотр выбранного селфи" hidden>
     </div>
@@ -99,6 +100,7 @@
           <div id="mole-zones" class="mole-zones" role="group" aria-label="Зона тела"></div>
           <div class="mole-sides" role="group" aria-label="Сторона">
             <button class="mole-choice" id="mole-links" type="button" aria-pressed="false" disabled>слева</button>
+            <button class="mole-choice" id="mole-mitte" type="button" aria-pressed="false" disabled>по центру</button>
             <button class="mole-choice" id="mole-rechts" type="button" aria-pressed="false" disabled>справа</button>
           </div>
           <button class="mole-choice mole-none" id="mole-none" type="button" aria-pressed="true">Нет родинок</button>
@@ -109,6 +111,7 @@
         <input id="report-first-name" name="first_name" type="text" maxlength="30" autocomplete="given-name" placeholder="Твоё имя">
         <label for="report-email">E-mail для копии (необязательно)</label>
         <input id="report-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="you@mail.com – также получить на почту">
+        <label class="email-opt-in-label"><input type="checkbox" id="email-opt-in" name="email_opt_in"> <span>Отправить мой PDF-разбор дополнительно один раз на этот e-mail (по желанию, без рассылок).</span></label>
         <p class="form-hint">После открытия (250 ⭐) полный разбор сразу появится прямо здесь, а твой персональный PDF дополнительно придёт в чат Telegram (и по желанию на твой e-mail).</p>
         <button class="btn-teal" id="report-submit" type="submit">Открыть полный разбор – 250 ⭐</button>
       </fieldset>

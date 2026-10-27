@@ -51,11 +51,12 @@
       </div>
       <p class="birth-hint">Necesaria para calcular tus años exactos (tramo 20–25 y giro de 27–30 años) y cruzar tus lunares con tu signo y grado natal.</p>
     </div>
+    <ul class="photo-checklist"><li>Mira de frente a la cámara</li><li>Buena luz frontal uniforme</li><li>Ambas cejas completamente visibles (sin flequillo ni gafas)</li></ul>
     <div class="photo-controls">
       <input type="file" id="photo-input" accept="image/*" capture="user" aria-label="Tomar un selfie o elegir una foto" hidden>
       <button class="btn" id="choose-photo" type="button">Tomar selfie / Elegir foto</button>
     </div>
-    <p class="photo-privacy"><svg width="17" height="19" viewBox="0 0 17 19" fill="none" aria-hidden="true"><path d="M3.5 8V6a5 5 0 0 1 10 0v2M2 8.5h13v9H2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>Tu foto permanece en tu dispositivo y nunca se sube a ningún servidor.</p>
+    <p class="photo-privacy"><svg width="17" height="19" viewBox="0 0 17 19" fill="none" aria-hidden="true"><path d="M3.5 8V6a5 5 0 0 1 10 0v2M2 8.5h13v9H2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>Al elegirla aquí en el escáner, tu foto permanece localmente en tu dispositivo (a diferencia de una foto enviada directamente al chat del bot).</p>
     <div id="preview-area" class="photo-preview" hidden>
       <img id="photo-preview" alt="Vista previa de tu selfie seleccionado" hidden>
     </div>
@@ -99,6 +100,7 @@
           <div id="mole-zones" class="mole-zones" role="group" aria-label="Zona corporal"></div>
           <div class="mole-sides" role="group" aria-label="Lado">
             <button class="mole-choice" id="mole-links" type="button" aria-pressed="false" disabled>izquierda</button>
+            <button class="mole-choice" id="mole-mitte" type="button" aria-pressed="false" disabled>centro</button>
             <button class="mole-choice" id="mole-rechts" type="button" aria-pressed="false" disabled>derecha</button>
           </div>
           <button class="mole-choice mole-none" id="mole-none" type="button" aria-pressed="true">Sin lunares</button>
@@ -109,6 +111,7 @@
         <input id="report-first-name" name="first_name" type="text" maxlength="30" autocomplete="given-name" placeholder="Tu nombre">
         <label for="report-email">Correo electrónico para copia (opcional)</label>
         <input id="report-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="tu@correo.es – recibir también por correo">
+        <label class="email-opt-in-label"><input type="checkbox" id="email-opt-in" name="email_opt_in"> <span>Quiero recibir mi análisis PDF adicionalmente una sola vez en este correo (opcional, sin boletín).</span></label>
         <p class="form-hint">Tras desbloquear (250 ⭐), tu análisis completo aparece aquí mismo y tu PDF personal se envía además al chat de Telegram (y opcionalmente a tu correo).</p>
         <button class="btn-teal" id="report-submit" type="submit">Desbloquear análisis completo – 250 ⭐</button>
       </fieldset>
