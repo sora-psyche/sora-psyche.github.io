@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Un Momento Interior · Eternal Solace — Santuario de Música 1 Hora (4K) &amp; Historias Sin Rostro</title>
-  <meta name="description" content="Escucha tu propia música silenciosa otra vez. Paisajes sonoros de 1 hora en 4K para dormir en paz, descanso del alma y recursos oficiales de nuestro estudio de historias animadas sin rostro.">
+  <title>Un Momento Interior · Eternal Solace — Santuario 1 Hora (4K) &amp; Cómo Crear Historias Sin Rostro con IA</title>
+  <meta name="description" content="Escucha tu propia música silenciosa en 4K y descubre cómo creamos historias animadas sin rostro con IA: herramientas oficiales, plantilla gratis y canales de Telegram.">
   <link rel="canonical" href="https://sorainfo.de/es/calma/">
   <link rel="alternate" hreflang="es" href="https://sorainfo.de/es/calma/">
   <link rel="alternate" hreflang="en" href="https://sorainfo.de/solace/">
@@ -13,12 +13,14 @@
     :root {
       --bg: #08100d;
       --card: #101d18;
-      --card-alt: #13221c;
+      --card-studio: #15251f;
       --gold: #f3d28c;
+      --gold-bright: #ffe29e;
       --text: #f5efe4;
       --muted: #b7c2bc;
       --accent: #2c5e4a;
       --tg: #1e4b6e;
+      --partner: #5a3e1b;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -26,10 +28,10 @@
       background: radial-gradient(circle at top, #152b22 0%, #08100d 70%);
       color: var(--text);
       line-height: 1.6;
-      padding: 28px 18px 60px;
+      padding: 24px 16px 60px;
       min-height: 100vh;
     }
-    .wrap { max-width: 680px; margin: 0 auto; text-align: center; }
+    .wrap { max-width: 720px; margin: 0 auto; text-align: center; }
     .badge {
       display: inline-block;
       background: rgba(243, 210, 140, 0.14);
@@ -38,66 +40,127 @@
       padding: 6px 16px;
       border-radius: 999px;
       font-size: 0.9rem;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
-    h1 { font-size: 2rem; color: var(--gold); margin-bottom: 12px; font-weight: normal; }
-    .sub { color: var(--muted); font-size: 1.08rem; margin-bottom: 26px; }
-    .cta-main {
+    h1 { font-size: 1.95rem; color: var(--gold); margin-bottom: 10px; font-weight: normal; }
+    .sub { color: var(--muted); font-size: 1.05rem; margin-bottom: 20px; }
+    .quick-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    @media (max-width: 560px) {
+      .quick-nav { grid-template-columns: 1fr; }
+    }
+    .nav-pill-music {
       display: block;
       background: linear-gradient(135deg, #d8a94b 0%, #b57d24 100%);
       color: #0b120f;
       text-decoration: none;
       font-weight: bold;
-      font-size: 1.15rem;
-      padding: 16px 24px;
-      border-radius: 14px;
-      margin-bottom: 32px;
-      box-shadow: 0 8px 28px rgba(216, 169, 75, 0.28);
+      font-size: 1.03rem;
+      padding: 14px 16px;
+      border-radius: 12px;
+      box-shadow: 0 6px 22px rgba(216, 169, 75, 0.25);
+    }
+    .nav-pill-creators {
+      display: block;
+      background: linear-gradient(135deg, #244b6b 0%, #16324a 100%);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.03rem;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(243, 210, 140, 0.45);
+      box-shadow: 0 6px 22px rgba(30, 75, 110, 0.35);
     }
     .section-title {
       font-size: 1.35rem;
       color: var(--gold);
-      margin: 34px 0 14px;
+      margin: 32px 0 14px;
       text-align: left;
       font-weight: normal;
-      border-bottom: 1px solid rgba(243, 210, 140, 0.2);
+      border-bottom: 1px solid rgba(243, 210, 140, 0.25);
       padding-bottom: 8px;
     }
-    .grid { display: flex; flex-direction: column; gap: 18px; text-align: left; }
+    .grid { display: flex; flex-direction: column; gap: 16px; text-align: left; }
     .card {
       background: var(--card);
       border: 1px solid rgba(243, 210, 140, 0.22);
       border-radius: 16px;
       padding: 20px;
     }
-    .card-studio {
-      background: var(--card-alt);
-      border: 1px solid rgba(243, 210, 140, 0.28);
+    .card-creator {
+      background: var(--card-studio);
+      border: 2px solid rgba(243, 210, 140, 0.45);
       border-radius: 16px;
-      padding: 20px;
+      padding: 22px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
     }
-    .card h2, .card-studio h2 { font-size: 1.22rem; color: var(--gold); margin-bottom: 8px; font-weight: normal; }
-    .card p, .card-studio p { color: var(--muted); font-size: 0.98rem; margin-bottom: 14px; }
+    .card h2, .card-creator h2 { font-size: 1.22rem; color: var(--gold-bright); margin-bottom: 8px; font-weight: normal; }
+    .card p, .card-creator p { color: var(--muted); font-size: 0.98rem; margin-bottom: 14px; }
     .btn-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    .tool-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    @media (max-width: 580px) {
+      .tool-grid { grid-template-columns: 1fr; }
+    }
+    .tool-box {
+      background: rgba(8, 16, 13, 0.65);
+      border: 1px solid rgba(243, 210, 140, 0.32);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .tool-box strong { color: var(--gold-bright); font-size: 1.02rem; display: block; margin-bottom: 4px; }
+    .tool-box span { color: var(--muted); font-size: 0.88rem; display: block; margin-bottom: 10px; }
     .btn {
       display: inline-block;
       background: var(--accent);
       color: var(--text);
       text-decoration: none;
-      padding: 11px 18px;
+      padding: 11px 16px;
       border-radius: 10px;
-      font-size: 0.96rem;
+      font-size: 0.95rem;
       border: 1px solid rgba(243, 210, 140, 0.3);
+      text-align: center;
+    }
+    .btn-gold {
+      display: inline-block;
+      background: linear-gradient(135deg, #d8a94b 0%, #b57d24 100%);
+      color: #0b120f;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 11px 16px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      text-align: center;
     }
     .btn-tg {
       display: inline-block;
       background: var(--tg);
-      color: var(--text);
+      color: #ffffff;
+      font-weight: bold;
       text-decoration: none;
-      padding: 11px 18px;
+      padding: 12px 18px;
       border-radius: 10px;
       font-size: 0.96rem;
-      border: 1px solid rgba(243, 210, 140, 0.3);
+      border: 1px solid rgba(243, 210, 140, 0.38);
+      text-align: center;
+    }
+    .disclosure {
+      margin-top: 12px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      opacity: 0.85;
     }
     .ownership {
       margin-top: 32px;
@@ -117,35 +180,97 @@
 </head>
 <body>
   <div class="wrap">
-    <span class="badge">🌙 Un Momento Interior · Eternal Solace (Santuario 4K)</span>
+    <span class="badge">🌙 Un Momento Interior · Eternal Solace &amp; Estudio IA</span>
     <h1>Escucha tu propia música silenciosa otra vez.</h1>
-    <p class="sub">Cuando ocho horas de sueño no bastan para descansar tu alma, sal del ruido ajeno. Elige aquí abajo tu refugio sonoro de 1 hora para respirar, soltar el día y volver a tu propio ritmo interior.</p>
+    <p class="sub">Elige aquí abajo tu santuario de música de 1 hora para descansar el alma — o descubre cómo creamos nuestras historias animadas sin rostro con Inteligencia Artificial.</p>
 
-    <a class="cta-main" href="https://www.youtube.com/@EternalSolaceAmbient?sub_confirmation=1">
-      ✨ Abrir y Suscribirse a @EternalSolaceAmbient en YouTube (1 Hora · 4K)
-    </a>
+    <div class="quick-nav">
+      <a class="nav-pill-music" href="#santuario-musica">
+        🌲 Escuchar Música 1 Hora (4K)
+      </a>
+      <a class="nav-pill-creators" href="#crear-como-nosotros">
+        🎬 ¿Quieres crear vídeos como nosotros? Kit IA &amp; Herramientas ↓
+      </a>
+    </div>
 
+    <h2 id="santuario-musica" class="section-title">🌙 1. Santuario de Música de 1 Hora para Dormir y Calmar el Alma</h2>
     <div class="grid">
       <div class="card">
-        <h2>🌲 1. Tranquility — Cabaña Cálida en el Bosque bajo la Lluvia (1:00:01)</h2>
+        <h2>🌲 Tranquility — Cabaña Cálida en el Bosque bajo la Lluvia (1:00:01)</h2>
         <p>Para las noches en las que estás demasiado cansado para hablar. Deja el peso del día fuera de esta cabaña cubierta de musgo y descansa con lluvia suave y luz cálida.</p>
-        <a class="btn" href="https://www.youtube.com/watch?v=y2KWz5KWKtA">▶️ Escuchar 1 Hora en la Cabaña del Bosque (YouTube)</a>
+        <div class="btn-row">
+          <a class="btn-gold" href="https://www.youtube.com/watch?v=y2KWz5KWKtA">▶️ Escuchar 1 Hora en la Cabaña del Bosque</a>
+          <a class="btn" href="https://www.youtube.com/@EternalSolaceAmbient?sub_confirmation=1">✨ Suscribirse a @EternalSolaceAmbient</a>
+        </div>
       </div>
 
       <div class="card">
-        <h2>🏮 2. Sanctuary — Templo de Montaña y Cuencos Tibetanos (1:00:01)</h2>
-        <p>Para cuando tu mente sigue despierta en la cama y repite cada fragmento del día. Agua turquesa en calma, faroles cálidos y resonancia profunda para serenar el alma.</p>
-        <a class="btn" href="https://www.youtube.com/watch?v=LL6JDD9CV14">▶️ Escuchar 1 Hora en el Templo de Montaña (YouTube)</a>
+        <h2>🏮 Sanctuary — Templo de Montaña y Cuencos Tibetanos (1:00:01)</h2>
+        <p>Para cuando tu mente sigue despierta en la cama y repite cada fragmento del día. Agua turquesa en calma, faroles cálidos y resonancia profunda.</p>
+        <a class="btn" href="https://www.youtube.com/watch?v=LL6JDD9CV14">▶️ Escuchar 1 Hora en el Templo de Montaña</a>
       </div>
 
       <div class="card">
-        <h2>🌿 3. Calmness — Invernadero Nocturno bajo la Lluvia Suave (1:00:01)</h2>
+        <h2>🌿 Calmness — Invernadero Nocturno bajo la Lluvia Suave (1:00:01)</h2>
         <p>Un refugio de cristal en medio del bosque para un alma agotada, mientras la lluvia nocturna cae suavemente entre helechos iluminados.</p>
-        <a class="btn" href="https://www.youtube.com/watch?v=oGLo9jDblqw">▶️ Escuchar 1 Hora en el Invernadero del Bosque (YouTube)</a>
+        <a class="btn" href="https://www.youtube.com/watch?v=oGLo9jDblqw">▶️ Escuchar 1 Hora en el Invernadero del Bosque</a>
       </div>
     </div>
 
-    <h2 class="section-title">🔮 Autoconocimiento, Lectura Facial y Psicología en Español</h2>
+    <h2 id="crear-como-nosotros" class="section-title">🎬 2. ¿Quieres crear historias sin rostro con IA como nosotros?</h2>
+    <div class="grid">
+      <div class="card-creator">
+        <h2>🚀 Paso 1: Comunidad en Telegram + Plantilla Gratis (.PRPROJ + Guía PDF 4K)</h2>
+        <p>Únete a nuestros canales oficiales de Telegram donde compartimos paso a paso cómo producimos animación 3D sin rostro, guiones de alta retención y automatización de canales:</p>
+        <div class="btn-row">
+          <a class="btn-tg" href="https://t.me/automatizacionconia_bot?start=kit_es">🎁 1. Bot Oficial: Descargar Kit y Plantilla Gratis</a>
+          <a class="btn-tg" href="https://t.me/canalesautomatizados">📢 2. Telegram: Canales Sin Rostro</a>
+          <a class="btn-tg" href="https://t.me/automatizacionconia">⚙️ 3. Telegram: Automatización con IA</a>
+          <a class="btn" href="https://www.youtube.com/watch?v=7gyE-e8poXI">🎓 Ver Curso Completo (10 Min en YouTube)</a>
+        </div>
+      </div>
+
+      <div class="card-creator">
+        <h2>🛠 Paso 2: Las 4 Herramientas Oficiales de IA de Nuestro Estudio</h2>
+        <p>Estas son exactamente las herramientas con las que damos voz, subtítulos dinámicos, análisis de tendencias y automatización 24/7 a nuestros canales:</p>
+        <div class="tool-grid">
+          <div class="tool-box">
+            <div>
+              <strong>🎙 1. ElevenLabs IA (Voces Neuronales)</strong>
+              <span>Las voces hiperrealistas con respiración y calma que usamos en nuestras historias en español, inglés y alemán.</span>
+            </div>
+            <a class="btn-gold" href="https://try.elevenlabs.io/j7dozjfxwyuj" target="_blank" rel="noopener">Probar ElevenLabs IA →</a>
+          </div>
+
+          <div class="tool-box">
+            <div>
+              <strong>⚙️ 2. Make.com (Automatización 24/7)</strong>
+              <span>Conecta tus flujos de trabajo sin código para automatizar guiones, publicaciones y gestión de canales.</span>
+            </div>
+            <a class="btn-gold" href="https://www.make.com/en/register?pc=automatizacionia" target="_blank" rel="noopener">Crear Cuenta en Make.com →</a>
+          </div>
+
+          <div class="tool-box">
+            <div>
+              <strong>✨ 3. Submagic IA (Subtítulos Dinámicos)</strong>
+              <span>Generador automático de subtítulos limpios y cortes de retención para Shorts y Reels en 1 clic.</span>
+            </div>
+            <a class="btn-gold" href="https://submagic.co/?via=olha-9e99e5" target="_blank" rel="noopener">Probar Submagic IA →</a>
+          </div>
+
+          <div class="tool-box">
+            <div>
+              <strong>📈 4. vidIQ (Tendencias y SEO YouTube)</strong>
+              <span>La herramienta con la que detectamos temas virales, palabras clave y optimizamos cada vídeo.</span>
+            </div>
+            <a class="btn-gold" href="https://vidiq.com/automatizacionia" target="_blank" rel="noopener">Probar vidIQ en Español →</a>
+          </div>
+        </div>
+        <p class="disclosure">Nota de transparencia: Algunos enlaces a herramientas son enlaces de afiliado oficiales sin coste adicional para ti.</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">🔮 3. Autoconocimiento, Lectura Facial y Psicología en Español</h2>
     <div class="grid">
       <div class="card">
         <h2>✨ Espejo del Alma: Lectura Facial, Mano y Fecha de Nacimiento</h2>
@@ -154,21 +279,7 @@
           <a class="btn" href="/es/lectura-facial/">🪞 Escáner de Lectura Facial Online (Gratis)</a>
           <a class="btn-tg" href="https://t.me/fechadenacimiento">📅 Telegram: Fecha de Nacimiento</a>
           <a class="btn-tg" href="https://t.me/lecturademanos">✋ Telegram: Lectura de Manos</a>
-          <a class="btn-tg" href="https://t.me/psicologiadepareja">💛 Telegram: Psicología y Relaciones</a>
-        </div>
-      </div>
-    </div>
-
-    <h2 class="section-title">🎬 Detrás de Cámaras: Creación de Historias Sin Rostro con IA</h2>
-    <div class="grid">
-      <div class="card-studio">
-        <h2>🚀 Estudio y Arquitectura de Narrativa Visual Sin Rostro (@canalesautomatizadosia)</h2>
-        <p>¿Te apasiona cómo creamos nuestras historias animadas sin mostrar el rostro, el diseño sonoro 50/50 y los flujos de producción con Inteligencia Artificial? Accede a nuestro entrenamiento completo y a la comunidad de creadores en Telegram:</p>
-        <div class="btn-row">
-          <a class="btn" href="https://www.youtube.com/watch?v=7gyE-e8poXI">🎓 Ver Curso Completo (10 Min en YouTube)</a>
-          <a class="btn-tg" href="https://t.me/automatizacionconia_bot?start=kit_es">🎁 Bot Oficial: Kit y Plantilla Gratis</a>
-          <a class="btn-tg" href="https://t.me/canalesautomatizados">📢 Telegram: Canales Sin Rostro</a>
-          <a class="btn-tg" href="https://t.me/automatizacionconia">⚙️ Telegram: Automatización IA</a>
+          <a class="btn-tg" href="https://t.me/psicologiadepareja">💛 Telegram: Psicología de Pareja</a>
         </div>
       </div>
     </div>
