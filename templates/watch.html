@@ -40,6 +40,9 @@
 <style>
   .site-nav { flex-wrap: wrap; row-gap: 0.35rem; }
   h1 { overflow-wrap: break-word; hyphens: auto; }
+  .lang-bar { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0 0 1rem; font-size: 0.85rem; }
+  .lang-bar a { padding: 0.25rem 0.65rem; border-radius: 999px; border: 1px solid var(--line); text-decoration: none; color: var(--ink); background: var(--surface); }
+  .lang-bar a.active { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600; }
 </style>
 </head>
 <body>
@@ -47,18 +50,14 @@
   <div class="wrap">
     <a class="brand" href="/"><img src="/assets/img/emblem-64.png" alt="" width="32" height="32">Sora<span>+</span> Psyche</a>
     <nav class="site-nav">
-      <a href="/gesichtlesen/" style="color:var(--accent);font-weight:650;">👁 Gesichtlesen</a>
-      <a href="/handlesen/">Handlesen</a>
-      <a href="/sternenpsychologie/">Sternenpsychologie</a>
-      <a href="/shop.html">Shop</a>
-      <a href="{{YOUTUBE_CHANNEL_URL}}">YouTube</a>
-      <a href="https://www.instagram.com/soraplus.psyche/">Instagram</a>
+      {{NAV_HTML}}
     </nav>
   </div>
 </header>
 
 <main class="wrap">
 <article style="padding-top:1.5rem;">
+  {{LANG_SWITCHER_HTML}}
   <header style="margin-bottom:1rem;">
     <p class="kicker" style="margin:0 0 0.35rem;">{{KICKER}}</p>
     <h1 style="margin:0 0 0.5rem;">{{H1}}</h1>
@@ -69,7 +68,7 @@
     <iframe src="{{EMBED_URL}}" title="{{IFRAME_TITLE}}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
   </div>
 
-  <div class="top-funnel" aria-label="Schnelleinstieg zum Mitmachen" style="margin:0 0 1.75rem;">
+  <div class="top-funnel" aria-label="{{FUNNEL_HEADING}}" style="margin:0 0 1.75rem;">
     <p><strong>{{FUNNEL_HEADING}}</strong> {{FUNNEL_TEXT}}</p>
     <div class="top-funnel-btns">
       {{FUNNEL_BUTTONS}}
@@ -77,14 +76,15 @@
   </div>
 
   {{ARTICLE_BODY_HTML}}
+  <!-- PROSE_END -->
 
-  <h2>Kapitel &amp; Zeitmarken im Video</h2>
+  <h2>{{CHAPTERS_HEADING}}</h2>
   <p>{{CHAPTERS_INTRO}}</p>
   <ul class="chapters">
     {{CHAPTERS_LIST_HTML}}
   </ul>
 
-  <h2>Mehr aus der Serie</h2>
+  <h2>{{SERIES_HEADING}}</h2>
   <ul>
     {{SERIES_LINKS_HTML}}
   </ul>
@@ -96,7 +96,7 @@
 <footer class="site-foot">
   <div class="wrap">
     <p>{{FOOTER_DISCLAIMER}}</p>
-    <p><a href="/">Startseite</a> · <a href="/handlesen/">Handlesen</a> · <a href="/sternenpsychologie/">Sternenpsychologie</a> · <a href="/gesichtlesen/">Gesichtlesen</a> · <a href="{{YOUTUBE_CHANNEL_URL}}">YouTube</a> · <a href="https://www.instagram.com/soraplus.psyche/">Instagram</a> · <a href="/hilfe.html">Hilfe &amp; Kontakt</a> · <a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a></p>
+    <p>{{FOOTER_LINKS_HTML}}</p>
   </div>
 </footer>
 </body>
