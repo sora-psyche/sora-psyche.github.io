@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="{{LANG}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{PAGE_TITLE}}</title>
+<meta name="description" content="{{META_DESCRIPTION}}">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="{{CANONICAL_URL}}">
+{{HREFLANG_LINKS}}
+<meta property="og:type" content="video.other">
+<meta property="og:title" content="{{OG_TITLE}}">
+<meta property="og:description" content="{{META_DESCRIPTION}}">
+<meta property="og:url" content="{{CANONICAL_URL}}">
+<meta property="og:image" content="{{THUMBNAIL_URL}}">
+<meta property="og:image:width" content="{{THUMBNAIL_WIDTH}}">
+<meta property="og:image:height" content="{{THUMBNAIL_HEIGHT}}">
+<meta property="og:video" content="{{EMBED_URL}}">
+<meta property="og:video:secure_url" content="{{EMBED_URL}}">
+<meta property="og:video:type" content="text/html">
+<meta property="og:video:width" content="1280">
+<meta property="og:video:height" content="720">
+<meta property="og:site_name" content="{{SITE_NAME}}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{OG_TITLE}}">
+<meta name="twitter:description" content="{{META_DESCRIPTION}}">
+<meta name="twitter:image" content="{{THUMBNAIL_URL}}">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="alternate" type="application/rss+xml" title="Sora+ Psyche — RSS" href="https://sorainfo.de/feed.xml">
+<script type="application/ld+json">
+{{VIDEO_JSON_LD}}
+</script>
+<script type="application/ld+json">
+{{BREADCRUMB_JSON_LD}}
+</script>
+<style>
+  .site-nav { flex-wrap: wrap; row-gap: 0.35rem; }
+  h1 { overflow-wrap: break-word; hyphens: auto; }
+  .lang-bar { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0 0 1rem; font-size: 0.85rem; }
+  .lang-bar a { padding: 0.25rem 0.65rem; border-radius: 999px; border: 1px solid var(--line); text-decoration: none; color: var(--ink); background: var(--surface); }
+  .lang-bar a.active { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600; }
+</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/assets/img/emblem-64.png" alt="" width="32" height="32">Sora<span>+</span> Psyche</a>
+    <nav class="site-nav">
+      {{NAV_HTML}}
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+<article style="padding-top:1.5rem;">
+  {{LANG_SWITCHER_HTML}}
+  <header style="margin-bottom:1rem;">
+    <p class="kicker" style="margin:0 0 0.35rem;">{{KICKER}}</p>
+    <h1 style="margin:0 0 0.5rem;">{{H1}}</h1>
+    <p class="byline" style="margin:0;">{{BYLINE}}</p>
+  </header>
+
+  <div class="video-embed" style="margin:1rem 0 1.25rem;">
+    <iframe src="{{EMBED_URL}}" title="{{IFRAME_TITLE}}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+
+  <div class="top-funnel" aria-label="{{FUNNEL_HEADING}}" style="margin:0 0 1.75rem;">
+    <p><strong>{{FUNNEL_HEADING}}</strong> {{FUNNEL_TEXT}}</p>
+    <div class="top-funnel-btns">
+      {{FUNNEL_BUTTONS}}
+    </div>
+  </div>
+
+  {{ARTICLE_BODY_HTML}}
+  <!-- PROSE_END -->
+
+  <h2>{{CHAPTERS_HEADING}}</h2>
+  <p>{{CHAPTERS_INTRO}}</p>
+  <ul class="chapters">
+    {{CHAPTERS_LIST_HTML}}
+  </ul>
+
+  <h2>{{SERIES_HEADING}}</h2>
+  <ul>
+    {{SERIES_LINKS_HTML}}
+  </ul>
+
+  {{NOTES_AND_CTA_HTML}}
+</article>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>{{FOOTER_DISCLAIMER}}</p>
+    <p>{{FOOTER_LINKS_HTML}}</p>
+  </div>
+</footer>
+</body>
+</html>
