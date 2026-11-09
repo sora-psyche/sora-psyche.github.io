@@ -1292,6 +1292,148 @@ def clean_private_videos():
         open(p3, "w", encoding="utf-8").write(h)
 
 
+ES_EXTRA = [
+    {
+        "vid": "iVMSF8Mok7o", "slug": "horoscopo-primera-quincena-noviembre-2026.html",
+        "title": "Horóscopo 1ª quincena de noviembre 2026: 5 puntos de inflexión – lo que dice tu fecha de nacimiento",
+        "short_title": "Horóscopo 1ª quincena de noviembre 2026: 5 puntos de inflexión",
+        "date": "2026-11-02", "dur": 249, "is_short": False,
+        "desc": "La primera quincena de noviembre de 2026 tiene cinco puntos de inflexión, y en uno de ellos se toma una decisión que ya no se puede deshacer. Repasamos uno por uno qué significa cada fecha y a quién le afecta más, según la fecha de nacimiento.",
+        "clips": [
+            (0, 15, "Introducción"),
+            (15, 54, "Hasta el 12 de noviembre – bandera roja: Mercurio y Venus retrógrados"),
+            (54, 96, "4 de noviembre – el pasado vuelve (nacidos alrededor del 18 de octubre, 18 de agosto, 4/5 de noviembre)"),
+            (96, 142, "9–10 de noviembre – provocaciones y engaños (nacidos alrededor del 10 de noviembre y del 30 de octubre)"),
+            (142, 188, "13 de noviembre – reinicio kármico (nacidos alrededor del 17/18 de agosto)"),
+            (188, 227, "15 de noviembre – sin vuelta atrás"),
+            (227, 249, "Conclusión"),
+        ],
+        "body": """
+  <p class="lede">La primera quincena de noviembre de 2026 concentra cinco puntos de inflexión. En uno de ellos se toma una decisión que ya no se puede deshacer. En este video los repasamos uno por uno, según la fecha de nacimiento.</p>
+
+  <h2>Los cinco puntos de inflexión, en orden</h2>
+  <ul>
+    <li><strong>Hasta el 12 de noviembre:</strong> bandera roja, con Mercurio y Venus retrógrados.</li>
+    <li><strong>4 de noviembre:</strong> el pasado vuelve. Afecta sobre todo a los nacidos alrededor del 18 de octubre, el 18 de agosto y el 4/5 de noviembre.</li>
+    <li><strong>9–10 de noviembre:</strong> provocaciones y engaños. Afecta sobre todo a los nacidos alrededor del 10 de noviembre y del 30 de octubre.</li>
+    <li><strong>13 de noviembre:</strong> reinicio kármico. Afecta sobre todo a los nacidos alrededor del 17/18 de agosto.</li>
+    <li><strong>15 de noviembre:</strong> sin vuelta atrás.</li>
+  </ul>
+  <p>Cada tramo del video está marcado con su minuto exacto en la lista de capítulos de más abajo.</p>
+
+  <h2>Cómo usar este horóscopo</h2>
+  <p>Busca tu fecha de nacimiento entre las que menciona el video y presta atención al día señalado. En la tradición astrológica, un tránsito difícil es una invitación a observar y decidir con calma, no una sentencia.</p>
+""".strip(),
+    },
+    {
+        "vid": "4Z2kENhT3Yc", "slug": "horoscopo-noviembre-diciembre-2026-fechas-clave.html",
+        "title": "Horóscopo noviembre–diciembre 2026: fechas clave para el mundo",
+        "short_title": "Horóscopo noviembre–diciembre 2026: fechas clave para el mundo",
+        "date": "2026-11-04", "dur": 53, "is_short": True,
+        "desc": "Lo que las estrellas muestran al mundo hasta fin de año: 14 fechas clave de noviembre y diciembre de 2026. Rojo: tensión. Azul: giro. Amarillo: lo nuevo.",
+        "clips": [],
+        "body": """
+  <p class="lede">Lo que las estrellas muestran al mundo hasta fin de año: 14 fechas clave de noviembre y diciembre de 2026, en una sola línea de tiempo.</p>
+
+  <h2>Cómo leer los colores</h2>
+  <p><strong style="color:#e0453a">Rojo</strong> marca tensión. <strong style="color:#3f7fe0">Azul</strong> marca un giro. <strong style="color:#e0b23a">Amarillo</strong> marca lo nuevo.</p>
+
+  <h2>Las 14 fechas del video</h2>
+  <ul>
+    <li><strong>oct–nov</strong> (rojo): Roma, una grieta en el pilar.</li>
+    <li><strong>noviembre</strong> (azul): un líder mundial se retira.</li>
+    <li><strong>7–8 nov</strong> (rojo): tormenta sobre la Casa Blanca.</li>
+    <li><strong>8–12 nov</strong> (azul): el segundo da un paso al frente.</li>
+    <li><strong>11 nov</strong> (rojo): una provocación astuta contra Persia.</li>
+    <li><strong>15 nov</strong> (azul): petróleo y bolsas dan un giro.</li>
+    <li><strong>29 nov</strong> (amarillo): dinero nuevo, energía, conexión.</li>
+    <li><strong>30 nov</strong> (rojo): la gorra roja pierde el control.</li>
+    <li><strong>30 nov – 21 dic</strong> (azul): la vela entre girasoles se apaga.</li>
+    <li><strong>1 dic</strong> (azul): Tierra Santa, la balanza del poder.</li>
+    <li><strong>9 dic</strong> (azul): una estrella cae del círculo.</li>
+    <li><strong>10 dic</strong> (rojo): una grieta a través de América.</li>
+    <li><strong>25 dic</strong> (rojo): una jugada brusca en el tablero.</li>
+    <li><strong>fin de dic</strong> (rojo): la alianza habla de guerra.</li>
+  </ul>
+  <p>Son imágenes simbólicas del propio video, pensadas como lectura astrológica de tendencias. No son hechos confirmados ni predicciones seguras.</p>
+""".strip(),
+    },
+]
+
+
+def build_es_extra_pages(template: str) -> list:
+    cfg = LANG_CFG["ES"]
+    built = []
+    for e in ES_EXTRA:
+        vid = e["vid"]
+        thumb_url = ensure_thumbnail(vid)
+        canonical = f"https://sorainfo.de/{cfg['dir']}/{e['slug']}"
+        clips = [{"start": a, "end": b, "name": n} for a, b, n in e["clips"]]
+        video_ld = build_video_jsonld(
+            name=e["title"], description=e["desc"], thumbnail_url=thumb_url,
+            upload_date=e["date"], duration_iso=sec_to_iso8601(e["dur"]), video_id=vid,
+            canonical_url=canonical, clips=clips, in_language="es", is_short=e["is_short"],
+        )
+        breadcrumb_ld = {
+            "@context": "https://schema.org", "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Sora+ Psyche", "item": "https://sorainfo.de/"},
+                {"@type": "ListItem", "position": 2, "name": cfg["site_name"], "item": cfg["hub_url"]},
+                {"@type": "ListItem", "position": 3, "name": e["short_title"], "item": canonical},
+            ],
+        }
+        if clips:
+            chapters_html = "\n".join(
+                f'    <li><a href="https://www.youtube.com/watch?v={vid}&amp;t={c["start"]}s">{fmt_mmss(c["start"])} · {xml_escape(c["name"])}</a></li>'
+                for c in clips)
+            chapters_intro = "Todos los capítulos del video. Con un clic en la marca de tiempo saltas directamente a ese punto:"
+        else:
+            chapters_html = f'    <li><a href="https://www.youtube.com/watch?v={vid}">00:00 · Video completo ({fmt_mmss(e["dur"])})</a></li>'
+            chapters_intro = "Este video es breve (menos de un minuto) y no está dividido en capítulos:"
+        others = [o for o in ES_EXTRA if o["vid"] != vid]
+        s_links = [f'    <li><a href="{cfg["hub_rel"]}"><strong>Curso completo: 48 lecciones de Astrología y Quiromancia</strong></a></li>']
+        for o in others:
+            s_links.append(f'    <li><a href="/{cfg["dir"]}/{o["slug"]}">{xml_escape(o["short_title"])}</a></li>')
+        funnel_btns = (
+            f'      <a class="btn" style="padding:0.55rem 0.95rem;font-size:0.9rem;" href="{cfg["tg_channel_url"]}" target="_blank" rel="noopener">{cfg["tg_channel_label"]}</a>\n'
+            f'      <a class="btn-outline" href="{cfg["yt_url"]}" target="_blank" rel="noopener">▶️ YouTube ({cfg["yt_handle"]})</a>\n'
+            f'      <a class="btn-outline" href="{cfg["hub_rel"]}">📋 48 lecciones</a>'
+        )
+        html = template
+        reps = {
+            "{{LANG}}": "es", "{{PAGE_TITLE}}": xml_escape(e["title"]), "{{OG_TITLE}}": xml_escape(e["title"]),
+            "{{META_DESCRIPTION}}": xml_escape(e["desc"][:260]), "{{CANONICAL_URL}}": canonical,
+            "{{HREFLANG_LINKS}}": f'<link rel="alternate" hreflang="es" href="{canonical}">',
+            "{{THUMBNAIL_URL}}": thumb_url, "{{THUMBNAIL_WIDTH}}": "1280", "{{THUMBNAIL_HEIGHT}}": "720",
+            "{{EMBED_URL}}": f"https://www.youtube-nocookie.com/embed/{vid}", "{{SITE_NAME}}": cfg["site_name"],
+            "{{VIDEO_JSON_LD}}": json.dumps(video_ld, ensure_ascii=False, indent=2),
+            "{{BREADCRUMB_JSON_LD}}": json.dumps(breadcrumb_ld, ensure_ascii=False, indent=2),
+            "{{NAV_HTML}}": cfg["nav_html"], "{{LANG_SWITCHER_HTML}}": "",
+            "{{KICKER}}": "Horóscopo · Video", "{{H1}}": xml_escape(e["title"]),
+            "{{BYLINE}}": f"Astrología y Psicología · {e['date']} · {fmt_mmss(e['dur'])}",
+            "{{IFRAME_TITLE}}": xml_escape(e["title"]),
+            "{{FUNNEL_HEADING}}": "Sigue aprendiendo:",
+            "{{FUNNEL_TEXT}}": "Únete al canal gratuito de Telegram del curso o abre el curso completo con las 48 lecciones.",
+            "{{FUNNEL_BUTTONS}}": funnel_btns, "{{ARTICLE_BODY_HTML}}": e["body"],
+            "{{CHAPTERS_HEADING}}": "Capítulos y marcas de tiempo", "{{CHAPTERS_INTRO}}": chapters_intro,
+            "{{CHAPTERS_LIST_HTML}}": chapters_html, "{{SERIES_HEADING}}": "Más contenido",
+            "{{SERIES_LINKS_HTML}}": "\n".join(s_links), "{{NOTES_AND_CTA_HTML}}": cfg["notes_html"],
+            "{{FOOTER_DISCLAIMER}}": cfg["footer_disclaimer"], "{{FOOTER_LINKS_HTML}}": cfg["footer_links"],
+        }
+        for k, v in reps.items():
+            html = html.replace(k, v)
+        rel_page = f"{cfg['dir']}/{e['slug']}"
+        with open(os.path.join(REPO_DIR, rel_page), "w", encoding="utf-8") as fp:
+            fp.write(html)
+        built.append({
+            "page": rel_page, "loc": canonical, "video_id": vid, "title": e["title"], "description": e["desc"],
+            "thumbnail_loc": thumb_url, "player_loc": f"https://www.youtube-nocookie.com/embed/{vid}",
+            "content_loc": (f"https://www.youtube.com/shorts/{vid}" if e["is_short"] else f"https://www.youtube.com/watch?v={vid}"),
+            "duration": e["dur"], "publication_date": e["date"], "clips": clips, "mode": "new", "lang": "ES",
+        })
+    return built
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--max-lesson", type=int, default=2, help="Number of course lessons (1..48) to build watch pages for")
@@ -1311,7 +1453,8 @@ def main():
     p3 = build_sternen_pilot(inv, template)
     course_pages = build_course_watch_pages(course_src, template, max_lesson_idx=args.max_lesson)
 
-    all_entries = [p1, p2, p3] + course_pages
+    es_extra_pages = build_es_extra_pages(template)
+    all_entries = [p1, p2, p3] + course_pages + es_extra_pages
     update_all_5_language_hubs(course_src, max_lesson_idx=args.max_lesson)
     update_sitemaps(all_entries)
 

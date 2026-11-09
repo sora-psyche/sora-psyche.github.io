@@ -182,4 +182,32 @@
       <video:live>no</video:live>
     </video:video>
   </url>
+  <url>
+    <loc>https://sorainfo.de/es/horoscopo/horoscopo-primera-quincena-noviembre-2026.html</loc>
+    <video:video>
+      <video:thumbnail_loc>https://sorainfo.de/assets/video/iVMSF8Mok7o.jpg</video:thumbnail_loc>
+      <video:title>Horóscopo 1ª quincena de noviembre 2026: 5 puntos de inflexión – lo que dice tu fecha de nacimiento</video:title>
+      <video:description>La primera quincena de noviembre de 2026 tiene cinco puntos de inflexión, y en uno de ellos se toma una decisión que ya no se puede deshacer. Repasamos uno por uno qué significa cada fecha y a quién le afecta más, según la fecha de nacimiento.</video:description>
+      <video:content_loc>https://www.youtube.com/watch?v=iVMSF8Mok7o</video:content_loc>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/iVMSF8Mok7o</video:player_loc>
+      <video:duration>249</video:duration>
+      <video:publication_date>2026-11-02</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:live>no</video:live>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://sorainfo.de/es/horoscopo/horoscopo-noviembre-diciembre-2026-fechas-clave.html</loc>
+    <video:video>
+      <video:thumbnail_loc>https://sorainfo.de/assets/video/4Z2kENhT3Yc.jpg</video:thumbnail_loc>
+      <video:title>Horóscopo noviembre–diciembre 2026: fechas clave para el mundo</video:title>
+      <video:description>Lo que las estrellas muestran al mundo hasta fin de año: 14 fechas clave de noviembre y diciembre de 2026. Rojo: tensión. Azul: giro. Amarillo: lo nuevo.</video:description>
+      <video:content_loc>https://www.youtube.com/shorts/4Z2kENhT3Yc</video:content_loc>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/4Z2kENhT3Yc</video:player_loc>
+      <video:duration>53</video:duration>
+      <video:publication_date>2026-11-04</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:live>no</video:live>
+    </video:video>
+  </url>
 </urlset>
