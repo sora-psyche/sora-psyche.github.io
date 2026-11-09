@@ -210,4 +210,18 @@
       <video:live>no</video:live>
     </video:video>
   </url>
+  <url>
+    <loc>https://sorainfo.de/en/teleharness/what-is-teleharness-telegram-ai-assistant-mac.html</loc>
+    <video:video>
+      <video:thumbnail_loc>https://sorainfo.de/assets/video/b0661bvQ5ew.jpg</video:thumbnail_loc>
+      <video:title>What Is Teleharness? OS-Level Telegram AI Agent on Mac (303 Tools &amp; 28 Plugins Tested)</video:title>
+      <video:description>What is Teleharness? Independent technical breakdown of the unofficial November 2026 macOS Telegram AI assistant: 303 built-in tools across 16 groups, 28 Markdown (.md) plugins, isolated Linux VM sandbox, gated Mac MCPs, and real Mac speed benchmarks.</video:description>
+      <video:content_loc>https://www.youtube.com/watch?v=b0661bvQ5ew</video:content_loc>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/b0661bvQ5ew</video:player_loc>
+      <video:duration>364</video:duration>
+      <video:publication_date>2026-11-10</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:live>no</video:live>
+    </video:video>
+  </url>
 </urlset>
