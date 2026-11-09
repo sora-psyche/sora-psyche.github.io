@@ -20,3 +20,4 @@ User-agent: ClaudeBot
 Allow: /
 
 Sitemap: https://sorainfo.de/sitemap.xml
+Sitemap: https://sorainfo.de/video-sitemap.xml

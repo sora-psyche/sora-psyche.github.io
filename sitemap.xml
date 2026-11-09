@@ -492,4 +492,9 @@
       <video:family_friendly>yes</video:family_friendly>
     </video:video>
   </url>
+  <url>
+    <loc>https://sorainfo.de/es/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
+  </url>
 </urlset>
